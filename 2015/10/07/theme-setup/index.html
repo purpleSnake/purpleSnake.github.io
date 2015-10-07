@@ -12,18 +12,21 @@
 
     
     <meta name="description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。">
+数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
+$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Jacman 主题设置">
 <meta property="og:url" content="http://yoursite.com/2015/10/07/theme-setup/index.html">
 <meta property="og:site_name" content="Self-discipline">
 <meta property="og:description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。">
-<meta property="og:updated_time" content="2015-10-07T03:41:53.787Z">
+数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
+$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
+<meta property="og:updated_time" content="2015-10-07T04:12:10.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jacman 主题设置">
 <meta name="twitter:description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。">
+数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
+$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
 
     
     <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
@@ -102,6 +105,7 @@
 		
 		<p>主题设置在<a href="https://github.com/wuchong/jacman/wiki" target="_blank" rel="external">Jacman wiki</a>上有详细介绍，下面只摘取我常用的记录在下。</p>
 <h1 id="数学公式">数学公式</h1><p>主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。</p>
+<p>$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$<br>$$\widehat{y_i} = f_y(z_i)=b_4z_i^4+b_3z_i^3+b_2z_i^2+b_1z_i+b_0$$</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -420,6 +424,35 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->
