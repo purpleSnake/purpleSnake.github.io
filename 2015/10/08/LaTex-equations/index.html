@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="Self-discipline">
 <meta property="og:description" content="学习Jacman theme设置时，居然发现能支持LaTex公式。感觉很惊喜。 虽然在工作中很少用到Latex，但是对Latex公式却甚是熟悉。写文档时，我还是习惯用word，但word自带的公式编辑器却不甚美观。经别人推荐，使用了一个公式编辑插件Aurora,该插件使用的是Latex公式的语法，生成的公式很是美观。该插件的帮助文档写的不错，很多时候我都是打开帮助文档照着抄，哈哈。
 闲扯了一通。以">
-<meta property="og:updated_time" content="2015-10-09T03:24:09.593Z">
+<meta property="og:updated_time" content="2015-10-09T06:32:36.376Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LaTex equations">
 <meta name="twitter:description" content="学习Jacman theme设置时，居然发现能支持LaTex公式。感觉很惊喜。 虽然在工作中很少用到Latex，但是对Latex公式却甚是熟悉。写文档时，我还是习惯用word，但word自带的公式编辑器却不甚美观。经别人推荐，使用了一个公式编辑插件Aurora,该插件使用的是Latex公式的语法，生成的公式很是美观。该插件的帮助文档写的不错，很多时候我都是打开帮助文档照着抄，哈哈。
@@ -140,14 +140,27 @@ x/<span class="number">2</span>, &amp;\text{if <span class="variable">$n</span>\
 $$
 </code></pre><p>$$ f(x) =<br>\begin{cases}<br>x/2, &amp;\text{if $n\%2=0$} \\<br>3x+1, &amp;\text{if $n\%2=1$}<br>\end{cases}<br>$$</p>
 </li>
+<li><p>方程组，使用<code>\begin{array}{c}...\end{array}</code>和<code>\left{ \right.</code>实现。</p>
+<pre><code><span class="formula">$$
+<span class="command">\left</span><span class="command">\\</span><span class="special">{</span>
+<span class="command">\begin</span><span class="special">{</span>array<span class="special">}</span><span class="special">{</span>c<span class="special">}</span>
+a_1x+b_1y+c_1z=d_1 <span class="command">\\</span><span class="command">\\</span>
+a_2x+b_2y+c_2z=d_2 <span class="command">\\</span><span class="command">\\</span>
+a_3x+b_3y+c_3z=d_3
+<span class="command">\end</span><span class="special">{</span>array<span class="special">}</span>
+<span class="command">\right</span>.
+$$</span>
+</code></pre><p>$$\left\{<br>\begin{array}{c}<br>a_1x+b_1y+c_1z=d_1 \\<br>a_2x+b_2y+c_2z=d_2 \\<br>a_3x+b_3y+c_3z=d_3<br>\end{array}<br>\right.$$</p>
+</li>
 </ul>
 <h1 id="如何输入括号和分隔符">如何输入括号和分隔符</h1><p>(),[]和|表示符号本身，使用\{\}表示{}。当要显示大号的括号或者分隔符是，要用\left \right命令。</p>
 <pre><code>$$ f(x,y,z) = <span class="number">3</span>y^<span class="number">2</span>z\left( <span class="number">3</span>+\frac{<span class="number">7</span>x+<span class="number">5</span>}{<span class="number">1</span>+y^<span class="number">2</span>} \right) $$
 </code></pre><p>$$ f(x,y,z) = 3y^2z\left( 3+\frac{7x+5}{1+y^2} \right) $$<br>有时候要用\left.或者\right.进行匹配而不显示本身。</p>
-<pre><code><span class="variable">$$</span>\left.\right]_{x=<span class="number">0</span>}<span class="variable">$$</span>
-</code></pre><p>$$\left.\right]_{x=0}$$</p>
+<pre><code>$$\left. \frac{\<span class="keyword">rm</span>{<span class="keyword">d</span>}<span class="keyword">u</span>}{\<span class="keyword">rm</span>{<span class="keyword">d</span>}x} \right|_{x=0}$$
+</code></pre><p>$$\left. \frac{\rm{d}u}{\rm{d}x} \right|_{x=0}$$</p>
 <h1 id="常用表达式">常用表达式</h1><ul>
 <li>分数 <code>$\frac{1}{2}$</code>: $\frac{1}{2}$</li>
+<li>多级分数 <code>$\cfrac{1^2}{a_1+\cfrac{2^2}{a_2+\cdots}}$</code>: $\cfrac{1^2}{a_1+\cfrac{2^2}{a_2+\cdots}}$</li>
 <li>开方<code>$\sqrt{2}, \sqrt[3]{3}$</code>:$\sqrt{2}, \sqrt[3]{3}$</li>
 <li>省略号 <code>\ldots</code>:$\ldots$,<code>\cdots</code>:$\cdots$</li>
 <li>矢量 <code>\vec{a}</code>:$\vec{a}$ <code>\overrightarrow{xy}</code>:$\overrightarrow{xy}$</li>
