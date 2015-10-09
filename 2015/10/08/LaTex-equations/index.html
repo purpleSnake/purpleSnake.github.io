@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="Self-discipline">
 <meta property="og:description" content="学习Jacman theme设置时，居然发现能支持LaTex公式。感觉很惊喜。 虽然在工作中很少用到Latex，但是对Latex公式却甚是熟悉。写文档时，我还是习惯用word，但word自带的公式编辑器却不甚美观。经别人推荐，使用了一个公式编辑插件Aurora,该插件使用的是Latex公式的语法，生成的公式很是美观。该插件的帮助文档写的不错，很多时候我都是打开帮助文档照着抄，哈哈。
 闲扯了一通。以">
-<meta property="og:updated_time" content="2015-10-08T15:04:41.194Z">
+<meta property="og:updated_time" content="2015-10-09T03:24:09.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LaTex equations">
 <meta name="twitter:description" content="学习Jacman theme设置时，居然发现能支持LaTex公式。感觉很惊喜。 虽然在工作中很少用到Latex，但是对Latex公式却甚是熟悉。写文档时，我还是习惯用word，但word自带的公式编辑器却不甚美观。经别人推荐，使用了一个公式编辑插件Aurora,该插件使用的是Latex公式的语法，生成的公式很是美观。该插件的帮助文档写的不错，很多时候我都是打开帮助文档照着抄，哈哈。
@@ -96,7 +96,7 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#公式类型"><span class="toc-number">1.</span> <span class="toc-text">公式类型</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#公式类型"><span class="toc-number">1.</span> <span class="toc-text">公式类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方程式"><span class="toc-number">2.</span> <span class="toc-text">方程式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何输入括号和分隔符"><span class="toc-number">3.</span> <span class="toc-text">如何输入括号和分隔符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用表达式"><span class="toc-number">4.</span> <span class="toc-text">常用表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#矩阵"><span class="toc-number">5.</span> <span class="toc-text">矩阵</span></a></li></ol>
 		
 		</div>
 		
@@ -106,18 +106,339 @@
 <p>参考文档</p>
 <ol>
 <li><a href="http://blog.163.com/goldman2000@126/blog/static/167296895201221242646561/" target="_blank" rel="external">LaTex数学公式</a></li>
-<li></li>
+<li><a href="https://www.zybuluo.com/codeep/note/163962" target="_blank" rel="external">Markdown公式指导手册</a></li>
 </ol>
 <hr>
-<h1 id="公式类型">公式类型</h1><p>需要注意字符转义的问题。</p>
+<h1 id="公式类型">公式类型</h1><p><strong> 需要注意字符转义的问题，\,(,[等需要表示为<code>\\,\(,\[</code></strong></p>
 <ol>
-<li><p>行内公式，inline公式，公式前后加上$或者\(\)。比如：</p>
+<li><p>行内公式，inline公式，公式前后加上$或者<code>\( \)</code>。比如：</p>
 <pre><code><span class="variable">$f</span>(x)=<span class="number">3</span>x+<span class="number">7</span>$,\\\(f(x)=<span class="number">3</span>x+<span class="number">7</span>\\\)
 </code></pre><p> $f(x)=3x+7$,\(f(x)=3x+7\)</p>
 </li>
-<li>独立公式，单独占据一行的公式，使用<code>\[ \]</code>或者<code>$$ $$</code></li>
-<li>如果使用<code>\begin{equation}</code> 和 <code>\end{equation}</code>,则是带序号公式，equation后带有*号，表示无序号公式。</li>
+<li><p>独立公式，单独占据一行的公式，使用<code>\[ \]</code>或者<code>$$ $$</code></p>
+<pre><code>\\\[<span class="function"><span class="title">f</span><span class="params">(x)</span></span> = <span class="number">3</span>x+<span class="number">7</span>\\\]
+$$ <span class="function"><span class="title">f</span><span class="params">(x)</span></span> = <span class="number">3</span>x+<span class="number">7</span>$$
+</code></pre><p> \[f(x) = 3x+7\] ,$$ f(x) = 3x+7$$</p>
+</li>
+<li>如果使用<code>\begin{equation}</code> 和 <code>\end{equation}</code>,这是引用公式\eqref{eq:sample}<pre><code>\begin{equation}f(x) = <span class="number">3</span>x+<span class="number">7</span>\\\\f(y)=<span class="number">3</span>y+<span class="number">8</span> \end{equation}
+</code></pre> \begin{equation}<br> f(x) = 3x^2+7 \\<br> f(y)=3y_2+8<br> \label{eq:1}<br> \end{equation}</li>
 </ol>
+<h1 id="方程式">方程式</h1><ul>
+<li><p>方程式对齐，<code>\begin{align} \end{aglin}</code>.直接看例子：</p>
+<pre><code><span class="variable">$$</span>\<span class="keyword">begin</span>{align}
+x &amp;= <span class="number">1</span>+<span class="number">2</span> \\\\
+y &amp;= <span class="number">5</span>
+\<span class="keyword">end</span>{align}<span class="variable">$$</span>
+</code></pre><p>$$\begin{align}<br>x &amp;= 1+2 \\<br>y &amp;= 5<br>\end{align}$$</p>
+</li>
+<li><p>条件表达式，使用<code>\begin{cases}...\end{cases}</code>，直接看例子：</p>
+<pre><code>$$ f(x) = 
+\begin{cases}
+x/<span class="number">2</span>, &amp;\text{if <span class="variable">$n</span>\<span class="decorator">%2</span>=<span class="number">0</span>$} \\\\
+<span class="number">3</span>x+<span class="number">1</span>, &amp;\text{if <span class="variable">$n</span>\%=<span class="number">1</span>$}
+\<span class="keyword">end</span>{cases}
+$$
+</code></pre><p>$$ f(x) =<br>\begin{cases}<br>x/2, &amp;\text{if $n\%2=0$} \\<br>3x+1, &amp;\text{if $n\%2=1$}<br>\end{cases}<br>$$</p>
+</li>
+</ul>
+<h1 id="如何输入括号和分隔符">如何输入括号和分隔符</h1><p>(),[]和|表示符号本身，使用\{\}表示{}。当要显示大号的括号或者分隔符是，要用\left \right命令。</p>
+<pre><code>$$ f(x,y,z) = <span class="number">3</span>y^<span class="number">2</span>z\left( <span class="number">3</span>+\frac{<span class="number">7</span>x+<span class="number">5</span>}{<span class="number">1</span>+y^<span class="number">2</span>} \right) $$
+</code></pre><p>$$ f(x,y,z) = 3y^2z\left( 3+\frac{7x+5}{1+y^2} \right) $$<br>有时候要用\left.或者\right.进行匹配而不显示本身。</p>
+<pre><code><span class="variable">$$</span>\left.\right]_{x=<span class="number">0</span>}<span class="variable">$$</span>
+</code></pre><p>$$\left.\right]_{x=0}$$</p>
+<h1 id="常用表达式">常用表达式</h1><ul>
+<li>分数 <code>$\frac{1}{2}$</code>: $\frac{1}{2}$</li>
+<li>开方<code>$\sqrt{2}, \sqrt[3]{3}$</code>:$\sqrt{2}, \sqrt[3]{3}$</li>
+<li>省略号 <code>\ldots</code>:$\ldots$,<code>\cdots</code>:$\cdots$</li>
+<li>矢量 <code>\vec{a}</code>:$\vec{a}$ <code>\overrightarrow{xy}</code>:$\overrightarrow{xy}$</li>
+<li>积分 <code>\int_a^b{f(x)\,{\rm d}x}</code>:$\int_a^b{f(x)\,{\rm d}x}$</li>
+<li>极限 <code>\lim_{a \to b}{f(x)}</code>:$\lim_{a \to b}{f(x)}$</li>
+<li>累加 <code>\sum_{i=1}^{n}{f(i)}</code>:$\sum_{i=1}^{n}{f(i)}$</li>
+<li>累乘 <code>\prod_{i=1}^{n}{f(i)}</code>:$\prod_{i=1}^{n}{f(i)}$</li>
+<li>常用符号<br>1.关系符号</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\pm</td>
+<td>$\pm$</td>
+<td>\times</td>
+<td>$\times$</td>
+<td>\div</td>
+<td>$\div$</td>
+<td>\mid</td>
+<td>$\mid$</td>
+</tr>
+<tr>
+<td>\cdot</td>
+<td>$\cdot$</td>
+<td>\circ</td>
+<td>$\circ$</td>
+<td>\ast</td>
+<td>$\ast$</td>
+<td>\nmid</td>
+<td>$\nmid$</td>
+</tr>
+<tr>
+<td>\bigodot</td>
+<td>$\bigodot$</td>
+<td>\bigotimes</td>
+<td>$\bigotimes$</td>
+<td>\bigoplus</td>
+<td>$\bigoplus$</td>
+<td>\leq</td>
+<td>$\leq$</td>
+</tr>
+<tr>
+<td>\geq</td>
+<td>$\geq$</td>
+<td>\neq</td>
+<td>$\neq$</td>
+<td>\approx</td>
+<td>$\approx$</td>
+<td>\equiv</td>
+<td>$\equiv$</td>
+</tr>
+<tr>
+<td>\sum</td>
+<td>$\sum$</td>
+<td>\prod</td>
+<td>$\prod$</td>
+<td>\coprod</td>
+<td>$\coprod$</td>
+<td>\backslash</td>
+<td>$\backslash$</td>
+</tr>
+</tbody>
+</table>
+<p>2.集合运算符</p>
+<table>
+<thead>
+<tr>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\emptyset</td>
+<td>$\emptyset$</td>
+<td>\in</td>
+<td>$\in$</td>
+<td>\notin</td>
+<td>$\notin$</td>
+</tr>
+<tr>
+<td>\subset</td>
+<td>$\subset$</td>
+<td>\supset</td>
+<td>$\supset$</td>
+<td>\subseteq</td>
+<td>$\subseteq$</td>
+</tr>
+<tr>
+<td>\supseteq</td>
+<td>$\subseteq$</td>
+<td>\bigcap</td>
+<td>$\bigcap$</td>
+<td>\bigcup</td>
+<td>$\bigcup$</td>
+</tr>
+<tr>
+<td>\bigvee</td>
+<td>$\bigvee$</td>
+<td>\bigwedge</td>
+<td>$\bigwedge$</td>
+<td>\biguplus</td>
+<td>$\biguplus$</td>
+</tr>
+</tbody>
+</table>
+<p>3.对数</p>
+<table>
+<thead>
+<tr>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\log</td>
+<td>$\log$</td>
+<td>\lg</td>
+<td>$\lg$</td>
+<td>\ln</td>
+<td>$\ln$</td>
+</tr>
+</tbody>
+</table>
+<p>4.微积分运算符</p>
+<table>
+<thead>
+<tr>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\int</td>
+<td>$\int$</td>
+<td>\iint</td>
+<td>$\iint$</td>
+<td>\iiint</td>
+<td>$\iiint$</td>
+</tr>
+<tr>
+<td>\iiiint</td>
+<td>$\iiiint$</td>
+<td>\oint</td>
+<td>$\oint$</td>
+<td>\prime</td>
+<td>$\prime$</td>
+</tr>
+<tr>
+<td>\lim</td>
+<td>$\lim$</td>
+<td>\infty</td>
+<td>$\infty$</td>
+<td>\nabla</td>
+<td>$\nabla$</td>
+</tr>
+</tbody>
+</table>
+<p>5.带帽符号</p>
+<table>
+<thead>
+<tr>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>显示</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\hat{xy}</td>
+<td>$\hat{xy}$</td>
+<td>\widehat{xyz}</td>
+<td>$\widehat{xyz}$</td>
+<td>\tilde{xy}</td>
+<td>$\tilde{xy}$</td>
+</tr>
+<tr>
+<td>\widetilde{xy}</td>
+<td>$\widetilde{xy}$</td>
+<td>\check{x}</td>
+<td>$\check{x}$</td>
+<td>\breve{x}</td>
+<td>$\breve{x}$</td>
+</tr>
+<tr>
+<td>\grave{x}</td>
+<td>$\grave{x}$</td>
+<td>\acute{y}</td>
+<td>$\acute{y}$</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>字体<br>若要对公式的某一部分字符进行字体转换，可以用 {\字体 {需转换的部分字符}} 命令，其中 \字体 部分可以参照下表选择合适的字体。一般情况下，公式默认为意大利体 italic 。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>输入</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>显示</strong></th>
+<th><strong>输入</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>显示</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\rm</td>
+<td>罗马体</td>
+<td>${\rm {Sample}}$</td>
+<td>\cal</td>
+<td>花体</td>
+<td>${\cal {Sample}}$</td>
+</tr>
+<tr>
+<td>\it</td>
+<td>意大利体</td>
+<td>${\it {Sample}}$</td>
+<td>\Bbb</td>
+<td>黑板粗体</td>
+<td>${\Bbb {Sample}}$</td>
+</tr>
+<tr>
+<td>\bf</td>
+<td>粗体</td>
+<td>${\bf {Sample}}$</td>
+<td>\mit</td>
+<td>数学斜体</td>
+<td>${\mit {Sample}}$</td>
+</tr>
+<tr>
+<td>\sf</td>
+<td>等线体</td>
+<td>${\sf {Sample}}$</td>
+<td>\scr</td>
+<td>手写体</td>
+<td>${\scr {Sample}}$</td>
+</tr>
+<tr>
+<td>\tt</td>
+<td>打字机体</td>
+<td>${\tt {Sample}}$</td>
+<td>\frak</td>
+<td>旧德式字体</td>
+<td>${\frak {Sample}}$</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>注释 \text</li>
+<li>字符间空格，四种宽度的空格：\,,\;,\quad,\qquad. \text{n个空格}也能达到同样效果</li>
+</ul>
+<h1 id="矩阵">矩阵</h1><p>在开头使用begin{matrix}，在结尾使用end{matrix}，在中间插入矩阵元素，每个元素之间插入 &amp; ，并在每行结尾处使用 \\ 。 使用矩阵时必须声明 \$ 或 \$\$ 符号。</p>
+<pre><code>$ \begin{matrix} <span class="number">1</span> &amp; <span class="number">2</span> \\ <span class="number">3</span> &amp; <span class="number">4</span> \\ \end{matrix} $
+$ \begin{pmatrix} <span class="number">1</span> &amp; <span class="number">2</span> \\ <span class="number">3</span> &amp; <span class="number">4</span> \\ \end{pmatrix} $
+$ \begin{bmatrix} <span class="number">1</span> &amp; <span class="number">2</span> \\ <span class="number">3</span> &amp; <span class="number">4</span> \\ \end{bmatrix} $
+$ \begin{Bmatrix} <span class="number">1</span> &amp; <span class="number">2</span> \\ <span class="number">3</span> &amp; <span class="number">4</span> \\ \end{Bmatrix} $
+$ \begin{vmatrix} <span class="number">1</span> &amp; <span class="number">2</span> \\ <span class="number">3</span> &amp; <span class="number">4</span> \\ \end{vmatrix} $
+$ \begin{Vmatrix} <span class="number">1</span> &amp; <span class="number">2</span> \\ <span class="number">3</span> &amp; <span class="number">4</span> \\ \end{Vmatrix} $
+</code></pre><p>$ \begin{matrix} 1 &amp; 2 \\ 3 &amp; 4 \\ \end{matrix} $;$ \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ \end{pmatrix} $;$ \begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ \end{bmatrix} $;$ \begin{Bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ \end{Bmatrix} $;$ \begin{vmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ \end{vmatrix} $;$ \begin{Vmatrix} 1 &amp; 2 \\ 3 &amp; 4 \\ \end{Vmatrix} $</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -167,7 +488,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#公式类型"><span class="toc-number">1.</span> <span class="toc-text">公式类型</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#公式类型"><span class="toc-number">1.</span> <span class="toc-text">公式类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#方程式"><span class="toc-number">2.</span> <span class="toc-text">方程式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#如何输入括号和分隔符"><span class="toc-number">3.</span> <span class="toc-text">如何输入括号和分隔符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常用表达式"><span class="toc-number">4.</span> <span class="toc-text">常用表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#矩阵"><span class="toc-number">5.</span> <span class="toc-text">矩阵</span></a></li></ol>
  
   </div>
 
