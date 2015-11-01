@@ -14,10 +14,10 @@
     <meta name="description" content="一些废话准备学习机器学习，但还没下定决心开始系统的学习。看了别人的笔记，先找感兴趣的随便看看，自己写代码实现下。首先看到的是决策树，就拿它开张吧。看了一遍笔记，又参考了一些其他的文章，感觉决策树的理论还是很直观。首先，决策树是分类器，通过训练建立；其次，决策树是条件分类，跟if else类似，这使得决策树模型可读性好，且分类效率高；然后，决策树的分支节点是属性条件，比如某属性是否大于20，叶子节点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="决策树、随机森林">
-<meta property="og:url" content="http://yoursite.com/2015/10/20/desicion-tree-ML/index.html">
+<meta property="og:url" content="http://yoursite.com/2015/10/20/decision-tree-ML/index.html">
 <meta property="og:site_name" content="Self-discipline">
 <meta property="og:description" content="一些废话准备学习机器学习，但还没下定决心开始系统的学习。看了别人的笔记，先找感兴趣的随便看看，自己写代码实现下。首先看到的是决策树，就拿它开张吧。看了一遍笔记，又参考了一些其他的文章，感觉决策树的理论还是很直观。首先，决策树是分类器，通过训练建立；其次，决策树是条件分类，跟if else类似，这使得决策树模型可读性好，且分类效率高；然后，决策树的分支节点是属性条件，比如某属性是否大于20，叶子节点">
-<meta property="og:updated_time" content="2015-10-29T14:09:31.597Z">
+<meta property="og:updated_time" content="2015-10-29T14:42:00.816Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="决策树、随机森林">
 <meta name="twitter:description" content="一些废话准备学习机器学习，但还没下定决心开始系统的学习。看了别人的笔记，先找感兴趣的随便看看，自己写代码实现下。首先看到的是决策树，就拿它开张吧。看了一遍笔记，又参考了一些其他的文章，感觉决策树的理论还是很直观。首先，决策树是分类器，通过训练建立；其次，决策树是条件分类，跟if else类似，这使得决策树模型可读性好，且分类效率高；然后，决策树的分支节点是属性条件，比如某属性是否大于20，叶子节点">
@@ -77,7 +77,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/20/desicion-tree-ML/" title="决策树、随机森林" itemprop="url">决策树、随机森林</a>
+      <a href="/2015/10/20/decision-tree-ML/" title="决策树、随机森林" itemprop="url">决策树、随机森林</a>
   </h1>
   <p class="article-author">By
        
@@ -107,14 +107,14 @@
 </ol>
 <p>第二步中“最好的分割点”，也即该分割使得两个子节点的纯度较高。<br>纯度，在决策树中有举足轻重的作用。那么，什么是纯度呢？</p>
 <h2 id="纯度量化">纯度量化</h2><p>纯度，即数据属于一类的程度，例如样本A有10个数据，其中8个属于一类,$P(1)=8/10=0.8$，剩余2个属于另一类,$P(2)=2/10=0.2$；样本B同样有10个数据，其中5个属于一类，5个属于另一类，则A的纯度大于B的纯度，A数据属于一类的程度大于B的。通常使用不纯度，即1减去纯度，或者纯度取负。</p>
-<p>不纯度的三种表示方式：</p>
+<p>不纯度的三种表示方式：样本数据包含n类</p>
 <ul>
 <li>Gini不纯度<br>$$Gini = 1 - \sum_{i=1}^nP(i)^2$$</li>
 <li>熵(Entropy)<br>$$Entropy = -\sum_{i=1}^nP(i)*\log_2^{P(i)}$$</li>
 <li>错误率<br>$$Error = 1 - \max{\left\{p(i)|\text{i in [1,n]}\right\}}$$</li>
 </ul>
 <p>上面的三个公式均是值越大，表示越“不纯”，越小表示越“纯”。三个公式基本等价，实践证明三个公式对最终的分类准确率影响不大，一般使用熵公式。</p>
-<p>纯度差，即信息增益公式(Information Gain)，如下：<br>$$\Delta = I(parent)-\sum_{j=1}^K\frac{N(v_j)}{N}*I(v_j)$$</p>
+<p>纯度差，即信息增益公式(Information Gain)，如下：N表示分N个子节点，一般N=2<br>$$\Delta = I(parent)-\sum_{j=1}^K\frac{N(v_j)}{N}*I(v_j)$$</p>
 <h2 id="停止条件">停止条件</h2><p>决策树构建过程是迭代过程，需要一个停止条件。一种直观的方式是当每个叶子节点只有一个分类时，即纯度为1时，结束算法。但这样往往会使得树的节点过多，导致过拟合问题。另一种可行的方法是当前节点中的数据条数低于一个阈值，那么久停止分割，将max(P(i))对应的分类作为当前叶节点的分类。</p>
 <h2 id="过度拟合">过度拟合</h2><p>利用上面算法生成的决策树往往是过度拟合的，也就是该决策树对训练数据具有很低的错误率，但对测试数据却有非常高的错误率。过拟合的原因有以下几点：</p>
 <ul>
@@ -155,7 +155,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/20/desicion-tree-ML/" data-title="决策树、随机森林 | Self-discipline" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2015/10/20/decision-tree-ML/" data-title="决策树、随机森林 | Self-discipline" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
