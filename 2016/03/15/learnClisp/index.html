@@ -4,23 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>learnClisp | Self-discipline</title>
+    <title>Lisp自学笔记 | Self-discipline</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Benjamin">
     
 
     
-    <meta name="description">
+    <meta name="description" content="前言Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。想法还是要有的，万一实现了呢。
+学习资料：ANSI Common Lisp 中文翻译版
+第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。反正就是很牛逼。 学">
 <meta property="og:type" content="article">
-<meta property="og:title" content="learnClisp">
+<meta property="og:title" content="Lisp自学笔记">
 <meta property="og:url" content="http://yoursite.com/2016/03/15/learnClisp/index.html">
 <meta property="og:site_name" content="Self-discipline">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-03-15T14:15:47.239Z">
+<meta property="og:description" content="前言Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。想法还是要有的，万一实现了呢。
+学习资料：ANSI Common Lisp 中文翻译版
+第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。反正就是很牛逼。 学">
+<meta property="og:updated_time" content="2016-03-17T12:12:49.983Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="learnClisp">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Lisp自学笔记">
+<meta name="twitter:description" content="前言Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。想法还是要有的，万一实现了呢。
+学习资料：ANSI Common Lisp 中文翻译版
+第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。反正就是很牛逼。 学">
 
     
     <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
@@ -77,7 +83,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/15/learnClisp/" title="learnClisp" itemprop="url">learnClisp</a>
+      <a href="/2016/03/15/learnClisp/" title="Lisp自学笔记" itemprop="url">Lisp自学笔记</a>
   </h1>
   <p class="article-author">By
        
@@ -93,11 +99,148 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章_简介"><span class="toc-number">2.</span> <span class="toc-text">第一章 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章_欢迎来到Lisp"><span class="toc-number">3.</span> <span class="toc-text">第二章 欢迎来到Lisp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1_form"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 form</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2_evaluation"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3_data"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4_List_Operation"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 List Operation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5_Truth"><span class="toc-number">3.5.</span> <span class="toc-text">2.5 Truth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6_Functions"><span class="toc-number">3.6.</span> <span class="toc-text">2.6 Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7_Recursion"><span class="toc-number">3.7.</span> <span class="toc-text">2.7 Recursion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8_Reading_Lisp"><span class="toc-number">3.8.</span> <span class="toc-text">2.8 Reading Lisp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9_Input_and_Output"><span class="toc-number">3.9.</span> <span class="toc-text">2.9 Input and Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10_Variables"><span class="toc-number">3.10.</span> <span class="toc-text">2.10 Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11_Assignment"><span class="toc-number">3.11.</span> <span class="toc-text">2.11 Assignment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12_Functional_Programming"><span class="toc-number">3.12.</span> <span class="toc-text">2.12 Functional Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13_Iteration"><span class="toc-number">3.13.</span> <span class="toc-text">2.13 Iteration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14_Functions_as_Objects"><span class="toc-number">3.14.</span> <span class="toc-text">2.14 Functions as Objects</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15_Types"><span class="toc-number">3.15.</span> <span class="toc-text">2.15 Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16_Looking_Forward"><span class="toc-number">3.16.</span> <span class="toc-text">2.16 Looking Forward</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		  
+		<h1 id="前言">前言</h1><p>Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。<br>我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。<br>想法还是要有的，万一实现了呢。</p>
+<p>学习资料：<a href="http://acl.readthedocs.org/en/latest/" target="_blank" rel="external">ANSI Common Lisp 中文翻译版</a></p>
+<h1 id="第一章_简介">第一章 简介</h1><p>Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。<br>反正就是很牛逼。 学了你不吃亏，学了你不上当。<br>就这样。爱学不学。牛逼的名词现在讲了也不懂，还是不讲了。</p>
+<h1 id="第二章_欢迎来到Lisp">第二章 欢迎来到Lisp</h1><h2 id="2-1_form">2.1 form</h2><p>Lisp是一门交互语言。这意味着有个交互窗口，类似CMD窗口，输入命令，得到结果。<br>Lisp尝试执行所有，比如 尝试执行<code>+</code></p>
+<pre><code>&gt; (+ <span class="number">2</span> <span class="number">3</span>)
+<span class="number">5</span>
+</code></pre><p>Lisp中一切皆是函数。</p>
+<h2 id="2-2_evaluation">2.2 evaluation</h2><p>Lisp尝试执行一切。<br>避免被执行，可以使用<code>quote</code>或者单引号<code>&#39;</code></p>
+<pre><code>&gt; <span class="quoted">(<span class="keyword">quote</span> (+ <span class="number">3</span> <span class="number">5</span>))</span>
+<span class="list">(<span class="keyword">+</span> <span class="number">3</span> <span class="number">5</span>)</span>
+</code></pre><h2 id="2-3_data">2.3 data</h2><p>Lisp 提供了所有在其他语言找得到，以及找不到的数据类型。<br>字符串，使用双引号包括的字符串，比如：<code>&quot;ora et labora&quot;</code>。整数和字符串一样，都是对自身求值的。<br>有两个通常在别的语言找不到的Lisp数据类型是<em>符号</em>(symbol)与<em>列表</em>(lists)。<br><em>符号</em>是英语的单词(word)。无论怎么输入，都会被转换为大写。<em>符号</em>通常不对自身求值，所以想引用符号，必须使用<code>&#39;</code>引用它</p>
+<pre><code><span class="blockquote">&gt; 'Benjamin</span>
+BENJAMIN
+</code></pre><p><em>列表</em>是被括号包含的零个或多个元素。元素可以是任何类型，包括列表本身。使用列表必须要引用，不然Lisp会自动求值。</p>
+<pre><code>&gt; <span class="quoted">'(my <span class="number">3</span> <span class="string">"Sons"</span>)</span>
+<span class="list">(<span class="keyword">MY</span> <span class="number">3</span> <span class="string">"Sons"</span>)</span>
+</code></pre><p>可以调用list创建列表。由于list是函数，它的实参会被求值。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">list</span> <span class="quoted">'my</span> <span class="list">(<span class="keyword">+</span> <span class="number">2</span> <span class="number">1</span>)</span> <span class="string">"Sons"</span>)</span>
+<span class="list">(<span class="keyword">MY</span> <span class="number">3</span> <span class="string">"Sons"</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">list</span> <span class="quoted">'(+ <span class="number">2</span> <span class="number">1</span>)</span> <span class="list">(<span class="keyword">+</span> <span class="number">2</span> <span class="number">1</span>)</span>)</span>
+<span class="list">(<span class="list">(<span class="keyword">+</span> <span class="number">2</span> <span class="number">1</span>)</span> <span class="number">3</span>)</span>
+</code></pre><p>这是Lisp最牛逼的地方：Lisp的程序是用列表来表示的。这意味着Lisp程序可以写出Lisp代码。Lisp程序员可以（并且经常）写出能为自己写程序的程序。<em>(这也是我最想了解的地方)</em></p>
+<p><strong>空列表</strong>：<code>nil</code>或者<code>()</code></p>
+<h2 id="2-4_List_Operation">2.4 List Operation</h2><p><strong>cons</strong>构造列表，连接两个实参，构成一个列表。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="quoted">'(b c d)</span>)</span>
+<span class="list">(<span class="keyword">A</span> B C D)</span>
+</code></pre><p><strong>car,cdr</strong>取列表元素。<strong>car</strong>取列表第一个元素，<strong>cdr</strong>取列表第一个元素之后所有元素。<br><strong>third</strong>取列表第三个元素。<br><em>不用尝试，不能用four取第四个元素。因为，我尝试了。</em></p>
+<h2 id="2-5_Truth">2.5 Truth</h2><p><code>t</code>:真；<code>nil</code>：假。<br>函数返回将会被解释为逻辑<em>真</em>或者逻辑<em>假</em>时，则称该函数为<em>谓词</em>(predicate)。 CLisp中谓词通常以<code>p</code>结尾。<br><strong>listp</strong>:是否为list</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">listp</span> <span class="quoted">'(a b c)</span>)</span>
+T
+</code></pre><p><strong>null</strong>: 判断是否为空表<br><strong>not</strong>: 逻辑取反<br><strong>if</strong>: 条件式，接收三个参数：test表达式，then表达式，else表达式</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">listp</span> <span class="quoted">'(a b c)</span>)</span>
+    <span class="list">(<span class="keyword">+</span> <span class="number">1</span> <span class="number">2</span>)</span>
+    <span class="list">(<span class="keyword">+</span> <span class="number">5</span> <span class="number">6</span>)</span>)</span>
+<span class="number">3</span>
+</code></pre><p>与quote相同，if是特殊的操作符，不能用函数来实现，因为实参在参数调用时永远会被求值。而if，只有最后两个参数中的一个被求值。</p>
+<p><strong>and，or</strong>：逻辑操作符。与条件式类似，接收任意数量的实参，只对能影响返回值的几个实参求值。<code>and</code>求值直到碰到实参为假，<code>or</code>求值直到碰到实参为真<br>这两个操作符成为<strong>宏</strong>，宏与特殊操作符一样，可以绕过一般的求值规则。第十章将介绍如何编写宏。</p>
+<h2 id="2-6_Functions">2.6 Functions</h2><p>使用<code>defun</code>定义函数，通常接收三个以上的实参：一个名称，一组与列表表示的实参，以及一个或多个组成函数体的表达式。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-third <span class="list">(<span class="keyword">x</span>)</span>
+    <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">cdr</span> x)</span>)</span>)</span>)</span>
+OUR-THIRD
+&gt; <span class="list">(<span class="keyword">our-third</span> <span class="quoted">'(a b c d)</span>)</span>
+C
+</code></pre><p><code>defun</code>是宏，创建一个函数并给函数命名。</p>
+<p>Lisp 不对程序、过程、函数进行区分。函数做了所有的事情。并且Lisp尝试将执行所有的东西。<br>这就是为什么引用列表和符号需要加<code>&#39;</code></p>
+<h2 id="2-7_Recursion">2.7 Recursion</h2><p>递归。没什么好讲的，跟其他编程语言的一样。下面是个例子。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-member <span class="list">(<span class="keyword">obj</span> lst)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span> lst)</span>
+        <span class="literal">nil</span>
+        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">eql</span> <span class="list">(<span class="keyword">car</span> lst)</span> obj)</span>
+            lst
+            <span class="list">(<span class="keyword">our-member</span> obj <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>)</span>
+OUR-MEMBER
+&gt; <span class="list">(<span class="keyword">our-member</span> <span class="quoted">'b</span> <span class="quoted">'(a b c)</span>)</span>
+<span class="list">(<span class="keyword">B</span> C)</span>
+&gt; <span class="list">(<span class="keyword">our-member</span> <span class="quoted">'z</span> <span class="quoted">'(a b c)</span>)</span>
+NIL
+</code></pre><p>这一堆括号，真心难看啊。</p>
+<h2 id="2-8_Reading_Lisp">2.8 Reading Lisp</h2><p>上面刚说括号难看，这就给出方法了—<strong>靠缩进，不要看括号</strong><br>一个好的编辑器会自动匹配括号，如果不能匹配，换编辑器吧。<br>就喜欢这种暴力的方法。</p>
+<h2 id="2-9_Input_and_Output">2.9 Input and Output</h2><p><strong>format</strong> 输出函数，接收两个或两个以上实参。第一个实参决定要打印到哪里，第二个参数是字符串模板，剩余参数是插入到字符串目标。<br>下面是一个典型的粒子：</p>
+<pre><code>&gt; (format t <span class="string">"~A plus ~A equals ~A ~%"</span> <span class="number">2</span> <span class="number">3</span> (+ <span class="number">2</span> <span class="number">3</span>))
+<span class="number">2</span> plus <span class="number">3</span> equals <span class="number">5.</span>
+NIL
+</code></pre><p><strong>read</strong> 输入函数，没有参数时，会读取缺省位置，通常是顶层。<br>需要注意的是，<code>read</code>是一个完成的Lisp解释器。不仅可以读入字符，它解析它所读到的东西，并返回产生出来的Lisp对象。</p>
+<pre><code>&gt; <span class="comment">(defun askem (string)</span>
+    <span class="comment">(format t "~A" stirng)</span>
+    <span class="comment">(read)</span>)
+&gt; <span class="comment">(askem "How old are you?")</span>
+How old are you? <span class="number">29</span>
+
+<span class="number">29</span>
+</code></pre><p>上面的函数体由两个列表组成，函数体可以包含任意数量的表达式，当函数被调用时，会依次求值，并返回最后一个的值。</p>
+<h2 id="2-10_Variables">2.10 Variables</h2><p><strong>let</strong> 定义局部变量，只能在<code>let</code>内部使用</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">1</span>)</span> <span class="list">(<span class="keyword">y</span> <span class="number">2</span>)</span>)</span> <span class="list">(<span class="keyword">+</span> x y)</span>)</span>
+<span class="number">3</span>
+</code></pre><p>一个更有选择性的<code>askem</code>函数：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> ask-number <span class="list">()</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"Please enter a number:"</span>)</span>
+    <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">val</span> <span class="list">(<span class="keyword">read</span>)</span>)</span>)</span>
+        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">numberp</span> val)</span>
+            val
+            <span class="list">(<span class="keyword">ask-number</span>)</span>)</span>)</span>)</span>
+</code></pre><p><strong>defparameter</strong> 定义全局变量。全局变量一般形式是<code>*name*</code>，即“星-命-星”结构</p>
+<pre><code>&gt; (defparamter <span class="keyword">*</span>glob<span class="keyword">*</span> 99)
+<span class="keyword">*</span>GLOB<span class="keyword">*</span>
+</code></pre><p>也可以用<strong>defconstant</strong>定义一个全局常量：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defconstant</span> limit <span class="list">(<span class="keyword">+</span> <span class="variable">*glob*</span> <span class="number">1</span>)</span>)</span>
+</code></pre><p>判断是否为全局变量或者常量，使用<code>boundp</code>函数</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">boundp</span> <span class="quoted">'*glob*</span>)</span>
+</code></pre><h2 id="2-11_Assignment">2.11 Assignment</h2><p><strong>setf</strong> 赋值操作符。可以用来给全局或者局部变量赋值。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> <span class="variable">*glob*</span> <span class="number">98</span>)</span>
+<span class="number">98</span>
+&gt; <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">n</span> <span class="number">10</span>)</span>)</span> <span class="list">(<span class="keyword">setf</span> n <span class="number">2</span>)</span> n)</span>
+<span class="number">2</span>
+</code></pre><p>如果<code>setf</code>的第一个实参是符号(symbol)，且符号不是某个局部变量的名字，则<code>setf</code>将这个符号设置为全局变量。即通过赋值，可以隐式的创建全局变量。<br><code>setf</code>的第一个实参还可以是变量或者表达式，这种情况下，第二个实参将被插入到第一个实参所引用的位置。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> <span class="list">(<span class="keyword">car</span> <span class="quoted">'(a b c)</span>)</span> <span class="quoted">'n</span>)</span>
+N
+</code></pre><p>还可以传入偶数个实参，依次赋值。</p>
+<h2 id="2-12_Functional_Programming">2.12 Functional Programming</h2><p>函数式编程是撰写利用返回值而工作的程序。它是Lisp的主流范式。<em>不大明白，不就是函数么？</em><br>函数式编程是为了返回值，而不是修改。例如，<code>remove</code>接收一个对象和一个列表，返回不包含这个对象的新列表，原列表并未被修改。</p>
+<p>如果移除一个元素，Lisp里经常这么做：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> x <span class="list">(<span class="keyword">remove</span> <span class="quoted">'a</span> x)</span>)</span>
+</code></pre><p>但不建议这么做。<br>函数式编程本质上意味着避免使用如<code>setf</code>的函数。<br>函数式编程最重要的一个优点是：允许交互测试(interactive testing)。</p>
+<h2 id="2-13_Iteration">2.13 Iteration</h2><p>递归。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> show-squares <span class="list">(<span class="keyword">start</span> end)</span>
+    <span class="list">(<span class="keyword">do</span> <span class="list">(<span class="list">(<span class="keyword">i</span> start <span class="list">(<span class="keyword">+</span> i <span class="number">1</span>)</span>)</span>)</span> <span class="list">(<span class="list">(<span class="keyword">&gt;</span> i end)</span> <span class="quoted">'done</span>)</span>
+        <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A ~A ~%"</span> i <span class="list">(<span class="keyword">*</span> i i)</span>)</span>)</span>)</span>
+</code></pre><p><strong>do宏</strong> 是Clisp中最基本的迭代操作符。<br>上式的递归版是：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> show-squares <span class="list">(<span class="keyword">i</span> end)</span>
+        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&gt;</span> i end)</span> <span class="quoted">'done</span> 
+            <span class="list">(<span class="keyword">progn</span> <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A ~A ~%"</span> i <span class="list">(<span class="keyword">*</span> i i)</span>)</span>
+                <span class="list">(<span class="keyword">show-squares</span> <span class="list">(<span class="keyword">+</span> i <span class="number">1</span>)</span> end)</span>)</span>)</span>)</span>
+</code></pre><p><strong>progn</strong>，接收任意数量的表达式，依次求值，并返回藏族一个表达式的值。<br><strong>dolist</strong> 遍历列表</p>
+<h2 id="2-14_Functions_as_Objects">2.14 Functions as Objects</h2><p><strong>function</strong> 特殊操作符，把一个函数的名字传递给<code>function</code>，它会返回相关联的对象。</p>
+<pre><code>&gt; (<span class="function"><span class="keyword">function</span></span> +)
+#&lt;Complied-<span class="function"><span class="keyword">Function</span></span> + 7BA4E&gt;
+</code></pre><p><em>有点像C里面的取地址符<code>&amp;</code>，获取指向函数的指针</em><br>如同<code>&#39;</code>作为<code>quote</code>的缩写，可以用<code>#&#39;</code>作为<code>function</code>的缩写，这个缩写称之为升引号。<br><strong>apply</strong> 接收一个函数和实参列表，并返回把传入函数应用在实参列表的结果。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">apply</span> <span class="quoted">#'+</span> <span class="quoted">'(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span>
+<span class="number">6</span>
+</code></pre><p><strong>funcall</strong> 做同样的事情，但不需要将实参包装成列表</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">funcall</span> <span class="quoted">#'+</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>
+<span class="number">6</span>
+</code></pre><p><strong>lambda</strong> 两种方式：</p>
+<pre><code><span class="list">(<span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword"><span class="built_in">+</span></span> x <span class="number">100</span>)</span>)</span>
+</code></pre><p>或者</p>
+<pre><code><span class="list">(<span class="keyword"><span class="built_in">lambda</span></span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword"><span class="built_in">+</span></span> x <span class="number">100</span>)</span>)</span>
+</code></pre><p><em>实验表明，最好还是加上<code>lambda</code>，不然会出错</em></p>
+<h2 id="2-15_Types">2.15 Types</h2><p>Lisp里只有数值才有类型，变量没有类型，变量可以存放任何类型的对象。<br>数值类型，依普遍性的增序排列依次是：<code>fixnum,integer,rational,real,number,atom,t</code>，类型<code>t</code>是所有类型的基类。<br><strong>typep</strong> 接收一个对象和一个类型，然后判断对象是否属于该类型。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">typep</span> <span class="number">27</span> <span class="quoted">'integer</span>)</span>
+T
+</code></pre><h2 id="2-16_Looking_Forward">2.16 Looking Forward</h2><p>本章讨论Lisp的语法，可以看到具有以下特点：</p>
+<ul>
+<li>语法单一。</li>
+<li>语法基于列表，列表是一种Lisp对象</li>
+<li>函数也是Lisp对象，函数也能用列表表示</li>
+<li>Lisp本身就是Lisp程序，自定义的函数与内置的Lisp函数没有任何区别。</li>
+</ul>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -114,7 +257,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/03/15/learnClisp/" data-title="learnClisp | Self-discipline" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/03/15/learnClisp/" data-title="Lisp自学笔记 | Self-discipline" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -146,7 +289,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一章_简介"><span class="toc-number">2.</span> <span class="toc-text">第一章 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第二章_欢迎来到Lisp"><span class="toc-number">3.</span> <span class="toc-text">第二章 欢迎来到Lisp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1_form"><span class="toc-number">3.1.</span> <span class="toc-text">2.1 form</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2_evaluation"><span class="toc-number">3.2.</span> <span class="toc-text">2.2 evaluation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3_data"><span class="toc-number">3.3.</span> <span class="toc-text">2.3 data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4_List_Operation"><span class="toc-number">3.4.</span> <span class="toc-text">2.4 List Operation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5_Truth"><span class="toc-number">3.5.</span> <span class="toc-text">2.5 Truth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6_Functions"><span class="toc-number">3.6.</span> <span class="toc-text">2.6 Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7_Recursion"><span class="toc-number">3.7.</span> <span class="toc-text">2.7 Recursion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8_Reading_Lisp"><span class="toc-number">3.8.</span> <span class="toc-text">2.8 Reading Lisp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-9_Input_and_Output"><span class="toc-number">3.9.</span> <span class="toc-text">2.9 Input and Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-10_Variables"><span class="toc-number">3.10.</span> <span class="toc-text">2.10 Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-11_Assignment"><span class="toc-number">3.11.</span> <span class="toc-text">2.11 Assignment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-12_Functional_Programming"><span class="toc-number">3.12.</span> <span class="toc-text">2.12 Functional Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-13_Iteration"><span class="toc-number">3.13.</span> <span class="toc-text">2.13 Iteration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-14_Functions_as_Objects"><span class="toc-number">3.14.</span> <span class="toc-text">2.14 Functions as Objects</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-15_Types"><span class="toc-number">3.15.</span> <span class="toc-text">2.15 Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-16_Looking_Forward"><span class="toc-number">3.16.</span> <span class="toc-text">2.16 Looking Forward</span></a></li></ol></li></ol>
  
   </div>
 
