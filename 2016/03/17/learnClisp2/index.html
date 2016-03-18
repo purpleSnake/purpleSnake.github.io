@@ -1,0 +1,573 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Lisp自学笔记&lt;2&gt; | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
+第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常以为这开发Lisp语言本身。
+3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lisp自学笔记<2>">
+<meta property="og:url" content="http://yoursite.com/2016/03/17/learnClisp2/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
+第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常以为这开发Lisp语言本身。
+3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
+<meta property="og:updated_time" content="2016-03-18T13:53:44.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lisp自学笔记<2>">
+<meta name="twitter:description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
+第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常以为这开发Lisp语言本身。
+3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/17/learnClisp2/" title="Lisp自学笔记&lt;2&gt;" itemprop="url">Lisp自学笔记&lt;2&gt;</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-17T12:28:11.000Z" itemprop="datePublished"> 发表于 2016-03-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章_Lists"><span class="toc-number">1.</span> <span class="toc-text">第三章 Lists</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1_构造(conses)"><span class="toc-number">1.1.</span> <span class="toc-text">3.1 构造(conses)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2_Equality"><span class="toc-number">1.2.</span> <span class="toc-text">3.2 Equality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3_Why_Lisp_Has_No_Pointers"><span class="toc-number">1.3.</span> <span class="toc-text">3.3 Why Lisp Has No Pointers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4_Building_Lists"><span class="toc-number">1.4.</span> <span class="toc-text">3.4 Building Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4_Example:_Compression"><span class="toc-number">1.5.</span> <span class="toc-text">3.4 Example: Compression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6_Access"><span class="toc-number">1.6.</span> <span class="toc-text">3.6 Access</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7_Mapping_Functions"><span class="toc-number">1.7.</span> <span class="toc-text">3.7 Mapping Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8_Trees"><span class="toc-number">1.8.</span> <span class="toc-text">3.8 Trees</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-9_Understanding_Recursion"><span class="toc-number">1.9.</span> <span class="toc-text">3.9 Understanding Recursion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-10_Sets"><span class="toc-number">1.10.</span> <span class="toc-text">3.10 Sets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-11_Sequences"><span class="toc-number">1.11.</span> <span class="toc-text">3.11 Sequences</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-12_Stacks"><span class="toc-number">1.12.</span> <span class="toc-text">3.12 Stacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-13_Dotted_Lists"><span class="toc-number">1.13.</span> <span class="toc-text">3.13 Dotted Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-14_Assoc-lists"><span class="toc-number">1.14.</span> <span class="toc-text">3.14 Assoc-lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-15_Example:shortest_path"><span class="toc-number">1.15.</span> <span class="toc-text">3.15 Example:shortest path</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-16_Garbage"><span class="toc-number">1.16.</span> <span class="toc-text">3.16 Garbage</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p><strong>something written ahead</strong><br>以为能用两天就能撸完Lisp呢，看来我太小瞧它了。<br>因为，我发现每一章都好长好长。<br>好吧，慢慢来。心急吃不了Lisp。</p>
+<h1 id="第三章_Lists">第三章 Lists</h1><p>列表是Lisp中基本数据结构之一。 <em>灰常灰常的重要。</em><br>Lisp程序开发通常以为这开发Lisp语言本身。</p>
+<h2 id="3-1_构造(conses)">3.1 构造(conses)</h2><p><em>我不认识这单词，衰</em><br>Lisp中的表，类似于C语言里的单链表。<br>基本操作有<strong>car，cdr，cons</strong>。<strong>car</strong>指向列表的第一个元素，<strong>cdr</strong>指向列表的第二个元素，代表第一个元素之后的所有元素。<strong>cons</strong>则包括<strong>car</strong>和<strong>cdr</strong>。<br>只有一个元素的表，<strong>cdr</strong>操作返回<code>nil</code>.<br>列表可以包含任何对象，包括列表。<em>(意思是：列表就是void类型指针。笑^_^)</em></p>
+<p><strong>consp</strong> 检测一个对象是否为<code>cons</code>对象。所以，可以这样定义<code>listp</code></p>
+<pre><code>&gt; （defun our-listp (x)
+        （<span class="literal">or</span> (<span class="literal">null</span> x) (consp x))）
+</code></pre><p>注意，<code>nil</code>既是原子，也是列表<br>因为所有不是<code>cons</code>对象的东西，就是一个原子<code>atom</code>,判断式<code>atom</code>对象。所以，可以这样定义</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-atom <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">not</span> <span class="list">(<span class="keyword">consp</span> x)</span>)</span>)</span>
+</code></pre><h2 id="3-2_Equality">3.2 Equality</h2><p>相等分为两类：内存地址相同(<code>eql</code>)和值相同(<code>equal</code>)。<br><code>eql</code>只有在两个参数是相同对象时，即具有相同的地址，才返回真。<br><code>equal</code>两个对象的元素相同时，返回真。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">eql</span> <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="literal">nil</span>)</span> <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="literal">nil</span>)</span>)</span>
+NIL
+&gt; <span class="list">(<span class="keyword">equal</span> <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="literal">nil</span>)</span> <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="literal">nil</span>)</span>)</span>
+T
+&gt; <span class="list">(<span class="keyword">setf</span> x <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="literal">nil</span>)</span>)</span>
+<span class="list">(<span class="keyword">A</span>)</span>
+&gt; <span class="list">(<span class="keyword">setf</span> y x)</span>
+<span class="list">(<span class="keyword">A</span>)</span>
+&gt; <span class="list">(<span class="keyword">eql</span> x y)</span>
+T 
+</code></pre><h2 id="3-3_Why_Lisp_Has_No_Pointers">3.3 Why Lisp Has No Pointers</h2><p>Beacuse everything is pointer implicitly and you should not pay attention to it.</p>
+<h2 id="3-4_Building_Lists">3.4 Building Lists</h2><p><strong>copy-list</strong> 复制列表。 可以按照如下定义：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-copy-list <span class="list">(<span class="keyword">lst</span>)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">atom</span> lst)</span>
+        lst
+        <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">car</span> lst)</span> <span class="list">(<span class="keyword">our-copy-list</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>)</span>
+</code></pre><p><strong>append</strong> 将任意数据的实参串接</p>
+<h2 id="3-4_Example:_Compression">3.4 Example: Compression</h2><p>游码编码(run-length encoding)</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> n-elts <span class="list">(<span class="keyword">elt</span> n)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&gt;</span> n <span class="number">1</span>)</span>
+        <span class="list">(<span class="keyword">list</span> n elt)</span>
+        elt)</span>)</span>
+&gt; <span class="list">(<span class="keyword">defun</span> compr <span class="list">(<span class="keyword">elt</span> n lst)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span> lst)</span>
+        <span class="list">(<span class="keyword">list</span> <span class="list">(<span class="keyword">n-elts</span> elt n)</span>)</span>
+        <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">next</span> <span class="list">(<span class="keyword">car</span> lst)</span>)</span>)</span>
+            <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">eql</span> next elt)</span>
+                <span class="list">(<span class="keyword">compr</span> elt <span class="list">(<span class="keyword">+n</span> <span class="number">1</span>)</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>
+                <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">n-elts</span> elt n)</span> <span class="list">(<span class="keyword">compr</span> next <span class="number">1</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>)</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">defun</span> compress <span class="list">(<span class="keyword">x</span>)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">consp</span> x)</span>
+        <span class="list">(<span class="keyword">compr</span> <span class="list">(<span class="keyword">car</span> x)</span> <span class="number">1</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>
+        x)</span>)</span>
+&gt; <span class="list">(<span class="keyword">compress</span> <span class="quoted">'(<span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span>)</span>)</span>
+<span class="list">(<span class="list">(<span class="number">3</span> <span class="number">1</span>)</span> <span class="number">0</span> <span class="number">1</span> <span class="list">(<span class="number">4</span> <span class="number">0</span>)</span> <span class="number">1</span>)</span>
+</code></pre><p>知道原理，编程还是很easy的。<br>作者装逼说：这种写法不是一个有经验的LIsp程序员的写法。它的效率很差，它没有尽可能的压缩，而且它只对原子组成的列表有效。在几个章节内，我们会学到解决这个问题的技巧。</p>
+<h2 id="3-6_Access">3.6 Access</h2><p>取列表指定元素的函数，使用<code>car</code>和<code>cdr</code>定义。<em>真不敢想象，一堆car，cdr堆一起的感觉</em><br><strong>nth</strong> 获取指定位置的元素。<br><strong>nthcdr</strong> 获取第n个cdr</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">nth</span> <span class="number">1</span> <span class="quoted">'(a b c d)</span>)</span>
+b
+&gt; <span class="list">(<span class="keyword">nthcdr</span> <span class="number">2</span> <span class="quoted">'(a b c d)</span>)</span>
+<span class="list">(<span class="keyword">c</span> d)</span>
+</code></pre><p><strong>zerop</strong> 参数为0时，返回真<br><strong>last</strong> 返回最后一个Cons对象，注意：不是最后一个元素。要获取最后一个元素需要取last的car<br>Clisp定义了函数<code>first</code>到<code>tenth</code>可以取得相应的元素。此外，还定义了像<code>caddr</code>这样的函数，它是<code>cdr</code>的<code>cdr</code>的<code>car</code>的缩写。所有这样形式的函数<code>cxr</code>，最多四个a或者d，在Clisp里都被定义好了。<em>但这函数不好读啊。</em></p>
+<h2 id="3-7_Mapping_Functions">3.7 Mapping Functions</h2><p>Clisp提供数个函数，使用函数实参依次对列表实参中的元素求值。<br><strong>mapcar</strong> 接受一个函数以及一个或者多个列表，并把函数应用于每个列表的元素。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">mapcar</span> #<span class="quoted">'(lambda (x) (+ x <span class="number">10</span>))</span> <span class="quoted">'(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span>
+<span class="list">(<span class="number">11</span> <span class="number">12</span> <span class="number">13</span>)</span>
+&gt; <span class="list">(<span class="keyword">mapcar</span> <span class="quoted">#'list</span> <span class="quoted">'(a b c)</span> <span class="quoted">'( <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span>
+<span class="list">(<span class="list">(<span class="keyword">A</span> <span class="number">1</span>)</span> <span class="list">(<span class="keyword">B</span> <span class="number">2</span>)</span> <span class="list">(<span class="keyword">C</span> <span class="number">3</span>)</span>)</span>
+</code></pre><p><strong>maplist</strong> 将列表渐进的下一个cdr传入函数</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">maplist</span> #<span class="quoted">'(lambda (x) x)</span> <span class="quoted">'(a b c)</span>)</span>
+<span class="list">(<span class="list">(<span class="keyword">A</span> B C)</span> <span class="list">(<span class="keyword">B</span> C)</span> <span class="list">(<span class="keyword">C</span>)</span>)</span>
+</code></pre><p><strong>mapc,mapcan</strong> 将在之后讨论。</p>
+<h2 id="3-8_Trees">3.8 Trees</h2><p>Cons对象可以想象成二叉树，<code>car</code>代表左子树 <code>cdr</code>代表右子树。<br>CLisp内置了几个操作树的函数。<br><strong>copy-tree</strong> 接收一个树，并返回一个副本。它可以这么定义</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-copy-tree <span class="list">(<span class="keyword">tr</span>)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">atom</span> tr)</span>
+        tr
+        <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">our-copy-tree</span> <span class="list">(<span class="keyword">car</span> tr)</span>)</span>
+            <span class="list">(<span class="keyword">our-copy-tree</span> （cdr tr)</span>)</span>)</span>)</span>
+</code></pre><p>与之前的<code>copy-list</code>对比，<code>copy-tree</code>复制每一个cons对象的<code>car</code>和<code>cdr</code>，而<code>copy-list</code>只赋值<code>cdr</code></p>
+<p>假设有这样一个列表：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">integerp</span> x)</span> <span class="list">(<span class="keyword">zerop</span> <span class="list">(<span class="keyword">mod</span> x <span class="number">2</span>)</span>)</span>)</span>
+</code></pre><p>而我们想把每一个x换成y。此时调用<code>substitute</code>是不行的，它只能替换序列(sequence)中的元素</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">substitute</span> <span class="number">2</span> <span class="number">3</span> <span class="quoted">'(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span>
+<span class="list">(<span class="number">1</span> <span class="number">2</span> <span class="number">2</span> <span class="number">4</span>)</span>
+</code></pre><p>这里我们需要<code>subst</code>，它替换树之中的元素。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">subst</span> <span class="quoted">'y</span> <span class="quoted">'x</span> <span class="quoted">'(and (integerp x) (zerop (mod x <span class="number">2</span>)))</span>)</span>
+<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">integerp</span> y)</span> <span class="list">(<span class="keyword">zerop</span> <span class="list">(<span class="keyword">mod</span> y <span class="number">2</span>)</span>)</span>)</span>
+</code></pre><p>如果我们定义一个<code>subst</code>的版本，它看起来和<code>copy-tree</code>类似：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-subst <span class="list">(<span class="keyword">new</span> old tree)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">eql</span> tree old)</span>
+        new
+        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">atom</span> tree)</span>
+            tree
+            <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">our-subst</span> new old <span class="list">(<span class="keyword">car</span> tree)</span>)</span>
+                <span class="list">(<span class="keyword">our-subst</span> new old <span class="list">(<span class="keyword">cdr</span> tree)</span>)</span>)</span>)</span>)</span>)</span>
+</code></pre><h2 id="3-9_Understanding_Recursion">3.9 Understanding Recursion</h2><p>不需要理解递归的调用过程，只需要理解递归的基本过程是正确的就足够了。</p>
+<h2 id="3-10_Sets">3.10 Sets</h2><p>列表是表示小集合的好方法。列表中的每个元素代表一个集合的成员。<br><em>(如何区分列表、集合、序列？)</em></p>
+<pre><code>&gt; <span class="list">(<span class="keyword">member</span> <span class="quoted">'b</span> <span class="quoted">'(a b c)</span>)</span>
+<span class="list">(<span class="keyword">B</span> C)</span>
+</code></pre><p>一般来说，<code>member</code>使用<code>eql</code>来比较对象。<br>不过你可以使用一种叫做<strong>关键字参数</strong>的东西来重写缺省的比较方法。<strong>关键字参数</strong>前面用冒号表示<br><code>member</code>的一个关键词参数为<code>:test</code>参数。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">member</span> <span class="quoted">'(a)</span> <span class="quoted">'((a) (z))</span> <span class="keyword">:test</span> <span class="quoted">#'equal</span>)</span>
+<span class="list">(<span class="list">(<span class="keyword">A</span>)</span> <span class="list">(<span class="keyword">Z</span>)</span>)</span>
+</code></pre><p><strong>member-if</strong> 接收一个判断式和集合，返回满足判断式的元素</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">member-if</span> <span class="quoted">#'oddp</span> <span class="quoted">'(<span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span>
+<span class="list">(<span class="number">3</span> <span class="number">4</span>)</span>
+</code></pre><p>一个限制性的版本<code>member-if</code>是这样写的：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-member-if <span class="list">(<span class="keyword">fn</span> lst)</span>
+    <span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">consp</span> lst)</span>
+        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">funcall</span> fn <span class="list">(<span class="keyword">car</span> lst)</span>)</span>
+            lst
+            <span class="list">(<span class="keyword">our-member-if</span> fn <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>)</span>
+</code></pre><p><strong>adjoin</strong> 像是条件式的<code>cons</code>，它接收一个对象和一个列表，如果对象还不是列表的成员，才构造对象至列表。<br>集合论中的<strong>并集(union)，交集(intersection)，补集(set-difference)</strong></p>
+<pre><code>&gt; (intersection <span class="string">'(a b c) '</span>(<span class="tag">b</span> <span class="tag">b</span> c))
+(<span class="tag">b</span> c)
+</code></pre><h2 id="3-11_Sequences">3.11 Sequences</h2><p>另一种考虑列表的方式是想象成一系列有特定顺序的对象。Clisp中<em>序列(sequences)</em>包括了列表和向量(vectors)。<br><strong>length</strong> 返回序列中元素的数目。<br><strong>subseq</strong> 接收两个必须的参数：一个序列，一个起始元素位置，第三个可选参数结束位置</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">subseq</span> <span class="quoted">'(a b c d)</span> <span class="number">1</span> <span class="number">3</span>)</span>
+<span class="list">(<span class="keyword">B</span> C)</span>
+</code></pre><p><strong>reverse</strong> 倒序该序列<br><strong>sort</strong> 排序该序列，接收一个序列和一个比较参数的函数</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">sort</span> <span class="quoted">'(<span class="number">0</span> <span class="number">2</span> <span class="number">3</span> <span class="number">1</span> <span class="number">8</span>)</span> <span class="quoted">#'&gt;</span>)</span>
+<span class="list">(<span class="number">8</span> <span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span>)</span>
+</code></pre><p>sort是破坏性的，允许修改传入的序列。如果不想原序列被修改，传入一个副本。<br><strong>every,some</strong> 接收一个判断式以及一个或者多个序列。every是对每一个，some是对一部分。</p>
+<h2 id="3-12_Stacks">3.12 Stacks</h2><p>用Cons对象来表示列表，可以用来实现堆栈。Clisp提供了两个宏来实现堆栈操作。<br><strong>push，pop</strong><br>这两个函数都是由<code>setf</code>定义的。<br><strong>pushnew</strong> 是push的变种，只入栈栈内没有的元素。</p>
+<h2 id="3-13_Dotted_Lists">3.13 Dotted Lists</h2><p>点状列表，通常不是用来表示列表，而是一个有两个部分的数据结构。<br><em>(不知道用途，先放这)</em></p>
+<h2 id="3-14_Assoc-lists">3.14 Assoc-lists</h2><p>关联列表<br>用Cons对象表示映射(mapping)也是很自然的。一个由cons对象组成的列表称之为<em>关联列表</em>。这样的列表可以表示一个翻译的集合，举例来说：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> trans <span class="quoted">'((+ . <span class="string">"add"</span>) (- . <span class="string">"subtract"</span>))</span>)</span>
+<span class="list">(<span class="list">(<span class="keyword">+</span> . <span class="string">"add"</span>)</span> <span class="list">(<span class="keyword">-</span> . <span class="string">"subtract"</span>)</span>)</span>
+</code></pre><p>Clisp内置了一个函数，<code>assoc</code>用来取出在关联列表中，与给定的键值有关联的cons对。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">assoc</span> <span class="quoted">'+</span> trans)</span>
+<span class="list">(<span class="keyword">+</span> . <span class="string">"add"</span>)</span>
+</code></pre><p><code>assoc</code> 受限版：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-assoc <span class="list">(<span class="keyword">key</span> alist)</span>
+    <span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">consp</span> alist)</span>
+        <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">pair</span> <span class="list">(<span class="keyword">car</span> list)</span>)</span>)</span>
+            <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">eql</span> key <span class="list">(<span class="keyword">car</span> pair)</span>)</span>
+                pair
+                <span class="list">(<span class="keyword">our-assoc</span> key <span class="list">(<span class="keyword">cdr</span> alist)</span>)</span>)</span>)</span>)</span>)</span>
+</code></pre><p><em>(一切就是列表，就看怎么解释。队列、栈、关联列表、点状列表，只是列表的呈现方式不同。–个人认为)</em></p>
+<h2 id="3-15_Example:shortest_path">3.15 Example:shortest path</h2><h2 id="3-16_Garbage">3.16 Garbage</h2><p>讨论了垃圾的产生、回收，以及如何避免产生垃圾。<br>但一般情况，无需关心。GC帮你做好了一切。<br>So, do not care it.</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/03/17/learnClisp2/" data-title="Lisp自学笔记&lt;2&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/15/learnClisp/"  title="Lisp自学笔记&lt;1&gt;">
+ <strong>下一篇：</strong><br/> 
+ <span>Lisp自学笔记&lt;1&gt;
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第三章_Lists"><span class="toc-number">1.</span> <span class="toc-text">第三章 Lists</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1_构造(conses)"><span class="toc-number">1.1.</span> <span class="toc-text">3.1 构造(conses)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2_Equality"><span class="toc-number">1.2.</span> <span class="toc-text">3.2 Equality</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3_Why_Lisp_Has_No_Pointers"><span class="toc-number">1.3.</span> <span class="toc-text">3.3 Why Lisp Has No Pointers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4_Building_Lists"><span class="toc-number">1.4.</span> <span class="toc-text">3.4 Building Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4_Example:_Compression"><span class="toc-number">1.5.</span> <span class="toc-text">3.4 Example: Compression</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-6_Access"><span class="toc-number">1.6.</span> <span class="toc-text">3.6 Access</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-7_Mapping_Functions"><span class="toc-number">1.7.</span> <span class="toc-text">3.7 Mapping Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-8_Trees"><span class="toc-number">1.8.</span> <span class="toc-text">3.8 Trees</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-9_Understanding_Recursion"><span class="toc-number">1.9.</span> <span class="toc-text">3.9 Understanding Recursion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-10_Sets"><span class="toc-number">1.10.</span> <span class="toc-text">3.10 Sets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-11_Sequences"><span class="toc-number">1.11.</span> <span class="toc-text">3.11 Sequences</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-12_Stacks"><span class="toc-number">1.12.</span> <span class="toc-text">3.12 Stacks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-13_Dotted_Lists"><span class="toc-number">1.13.</span> <span class="toc-text">3.13 Dotted Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-14_Assoc-lists"><span class="toc-number">1.14.</span> <span class="toc-text">3.14 Assoc-lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-15_Example:shortest_path"><span class="toc-number">1.15.</span> <span class="toc-text">3.15 Example:shortest path</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-16_Garbage"><span class="toc-number">1.16.</span> <span class="toc-text">3.16 Garbage</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
