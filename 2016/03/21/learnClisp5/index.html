@@ -1,0 +1,515 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Lisp自学笔记&lt;5&gt; | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="第六章 函数理解函数是理解Lisp的关键之一。概念上来说，函数是Lisp的核心所在。
+6.1 Global Functionsfboundp 谓词，检测一个符号是否为函数。symbol-function 返回与符号对应的函数。可以通过symbol-function给一个函数配置名称：
+&amp;gt; (setf (symbol-function &apos;add2) #&apos;(lambda (x) (+ x 2))">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lisp自学笔记<5>">
+<meta property="og:url" content="http://yoursite.com/2016/03/21/learnClisp5/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="第六章 函数理解函数是理解Lisp的关键之一。概念上来说，函数是Lisp的核心所在。
+6.1 Global Functionsfboundp 谓词，检测一个符号是否为函数。symbol-function 返回与符号对应的函数。可以通过symbol-function给一个函数配置名称：
+&amp;gt; (setf (symbol-function &apos;add2) #&apos;(lambda (x) (+ x 2))">
+<meta property="og:updated_time" content="2016-03-21T13:15:54.014Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lisp自学笔记<5>">
+<meta name="twitter:description" content="第六章 函数理解函数是理解Lisp的关键之一。概念上来说，函数是Lisp的核心所在。
+6.1 Global Functionsfboundp 谓词，检测一个符号是否为函数。symbol-function 返回与符号对应的函数。可以通过symbol-function给一个函数配置名称：
+&amp;gt; (setf (symbol-function &apos;add2) #&apos;(lambda (x) (+ x 2))">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/21/learnClisp5/" title="Lisp自学笔记&lt;5&gt;" itemprop="url">Lisp自学笔记&lt;5&gt;</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-21T07:28:42.000Z" itemprop="datePublished"> 发表于 2016-03-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第六章_函数"><span class="toc-number">1.</span> <span class="toc-text">第六章 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1_Global_Functions"><span class="toc-number">1.1.</span> <span class="toc-text">6.1 Global Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2_Local_function"><span class="toc-number">1.2.</span> <span class="toc-text">6.2 Local function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3_Parameter_Lists"><span class="toc-number">1.3.</span> <span class="toc-text">6.3 Parameter Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4_Example:Utilities"><span class="toc-number">1.4.</span> <span class="toc-text">6.4 Example:Utilities</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5_Closures"><span class="toc-number">1.5.</span> <span class="toc-text">6.5 Closures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-6_Example:Function_Builders"><span class="toc-number">1.6.</span> <span class="toc-text">6.6 Example:Function Builders</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-7_Dynamic_Scope"><span class="toc-number">1.7.</span> <span class="toc-text">6.7 Dynamic Scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-8_Compilation"><span class="toc-number">1.8.</span> <span class="toc-text">6.8 Compilation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-9_Using_Recursion"><span class="toc-number">1.9.</span> <span class="toc-text">6.9 Using Recursion</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="第六章_函数">第六章 函数</h1><p>理解函数是理解Lisp的关键之一。概念上来说，函数是Lisp的核心所在。</p>
+<h2 id="6-1_Global_Functions">6.1 Global Functions</h2><p><code>fboundp</code> 谓词，检测一个符号是否为函数。<br><code>symbol-function</code> 返回与符号对应的函数。<br>可以通过<code>symbol-function</code>给一个函数配置名称：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> <span class="list">(<span class="keyword">symbol-function</span> <span class="quoted">'add2</span>)</span> #<span class="quoted">'(lambda (x) (+ x <span class="number">2</span>))</span>)</span>
+</code></pre><p><em>(有一点无法理解：如果add2未定义，单独调用(symbol-function ‘add2))时，会返回错误。但是在setf中调用就没有问题。按照我的理解，函数调用在不同的环境中应该有相同的响应。但这里响应并不相同。)</em></p>
+<p>这么定义的函数和<code>defun</code>定义的函数一样。 严格的说，没有<code>defun</code>也能写程序。</p>
+<p><strong>注意</strong>这里的<code>(setf (fun var1) var2)</code>形式。并不是首先求值<code>(fun var)</code>。而是一种语法糖的东西。</p>
+<pre><code><span class="list">(<span class="keyword">defun</span> fun <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">x</span>)</span>)</span>
+
+<span class="list">(<span class="keyword">defun</span> <span class="list">(<span class="keyword">setf</span> fun)</span> <span class="list">(<span class="keyword"><span class="built_in">var</span></span> x)</span>
+    <span class="list">(<span class="keyword">x</span>)</span>
+    <span class="list">(<span class="keyword"><span class="built_in">var</span></span>)</span>)</span>
+</code></pre><p>存在以上形式的定义，那么在调用<code>(setf (fun x) var)</code>时，实际上是上述第二种形式的调用，即<code>((setf fun) var x)</code>。因此上面斜体的疑问也就不存在了。 这里，<code>fun</code>和<code>(setf fun)</code>并不需要全部定义<em>(因为二者的主体并没有关系)</em>。但通常是成对的。</p>
+<p><strong>文档字符串</strong> 函数定义中，第一个表达式为字符串，则该字符串为函数文档。可以通过调用<code>documentation</code>获得。</p>
+<h2 id="6-2_Local_function">6.2 Local function</h2><p>局部函数和局部变量一样，只在某些上下文内可以访问。局部函数使用<code>labels</code>定义。类似<code>let</code>。它的第一个实参是一个新局部函数的定义列表，定义列表的形式如下：<br>    (name paras . body)</p>
+<p><code>labels</code>表达式剩余部分内，调用name即可。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">labels</span> <span class="list">(<span class="list">(<span class="keyword">add10</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">+</span> x <span class="number">10</span>)</span>)</span>
+            <span class="list">(<span class="keyword">consa</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> x)</span>)</span>)</span>
+    <span class="list">(<span class="keyword">consa</span> <span class="list">(<span class="keyword">add10</span> <span class="number">3</span>)</span>)</span>)</span>
+<span class="list">(<span class="keyword">A</span> . <span class="number">13</span>)</span>
+</code></pre><p>局部函数，可以被其他任何再次定义的函数引用，包括自己。即可以定义递归的局部函数。<br><code>do</code>表达式可以被理解为递归的局部函数。</p>
+<h2 id="6-3_Parameter_Lists">6.3 Parameter Lists</h2><p><strong>&amp;rest</strong> 可变参数列表，接收任意多的参数。<br><strong>&amp;optional</strong> 选择性参数，之后的参数为可省略参数，并可设置初值。<br><strong>&amp;key</strong> 关键字参数，之后的参数都为关键字参数。可以通过<code>:para</code>赋值，无需关注顺序。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-funcal <span class="list">(<span class="keyword">fn</span> <span class="keyword">&amp;rest</span> args)</span>
+    <span class="list">(<span class="keyword">apply</span> fn args)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defun</span> philosoph <span class="list">(<span class="keyword">thing</span> <span class="keyword">&amp;optional</span> property)</span>
+    <span class="list">(<span class="keyword">list</span> thing <span class="quoted">'is</span> porperty)</span>)</span>
+&gt; <span class="list">(<span class="keyword">philosoph</span> <span class="quoted">'death</span>)</span>
+<span class="list">(<span class="keyword">DEATH</span> IS NIL)</span>
+
+&gt; <span class="list">(<span class="keyword">defun</span> philosoph <span class="list">(<span class="keyword">thing</span> <span class="keyword">&amp;optional</span> <span class="list">(<span class="keyword">property</span> <span class="quoted">'fun</span>)</span>)</span>
+    <span class="list">(<span class="keyword">list</span> thing <span class="quoted">'is</span> porperty)</span>)</span>
+&gt; <span class="list">(<span class="keyword">philosoph</span> <span class="quoted">'death</span>)</span>
+<span class="list">(<span class="keyword">DEATH</span> IS FUN)</span>
+
+&gt; <span class="list">(<span class="keyword">defun</span> keylist <span class="list">(<span class="keyword">a</span> <span class="keyword">&amp;key</span> x y z)</span>
+    <span class="list">(<span class="keyword">list</span> a x y z)</span>)</span>
+&gt; <span class="list">(<span class="keyword">keylist</span> <span class="number">1</span> <span class="keyword">:y</span> <span class="number">2</span>)</span>
+<span class="list">(<span class="number">1</span> NIL <span class="number">2</span> NIL)</span>
+</code></pre><h2 id="6-4_Example:Utilities">6.4 Example:Utilities</h2><p>实用函数。<br>Lisp函数很牛逼。over。<br>宏比函数还牛逼。</p>
+<h2 id="6-5_Closures">6.5 Closures</h2><p>闭包：根据参数返回相应的函数，该函数带有上下文信息。<br>一个有意思的闭包：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">count</span> <span class="number">0</span>)</span>)</span>
+    <span class="list">(<span class="keyword">defun</span> reset <span class="list">()</span> <span class="list">(<span class="keyword">setf</span> count <span class="number">0</span>)</span>)</span>
+    <span class="list">(<span class="keyword">defun</span> stamp <span class="list">()</span> <span class="list">(<span class="keyword">setf</span> count <span class="list">(<span class="keyword">+</span> count <span class="number">1</span>)</span>)</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">list</span> <span class="list">(<span class="keyword">stamp</span>)</span> <span class="list">(<span class="keyword">stamp</span>)</span> <span class="list">(<span class="keyword">reset</span>)</span> <span class="list">(<span class="keyword">stamp</span>)</span>)</span>
+<span class="list">(<span class="number">1</span> <span class="number">2</span> <span class="number">0</span> <span class="number">1</span>)</span>
+</code></pre><h2 id="6-6_Example:Function_Builders">6.6 Example:Function Builders</h2><p>使用闭包构造各种各样的牛逼的函数。</p>
+<h2 id="6-7_Dynamic_Scope">6.7 Dynamic Scope</h2><p>动态作用域。<br>2.11节介绍个局部变量和全局变量的差别。实际的差别是词法作用域(lexical scope)的词法变量(lexical variable)，与动态作用域(dynamic scope)的特别变量(special variable)的区别。 局部变量总是词法变量，全局变量总是特别变量。<br><em>(个人理解：词法：就是上下文相关；特殊变量：就是牛逼变量，全局可用。 全局变量不是好习惯，个人不推荐。)</em><br>当全局变量被局部变量覆盖时，可以使用<code>(declare (special var))</code>来获得全局变量。</p>
+<h2 id="6-8_Compilation">6.8 Compilation</h2><p>Lisp函数可以独立被编译或者逐文件编译。<br><code>compiled-function-p</code> 检测一个函数是否被编译过。<br>在命令窗口输入一个函数：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> foo <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">+</span> x <span class="number">1</span>)</span>)</span>
+</code></pre><p>许多编译器会创建一个<em>直译的函数</em>(interpreted function)，该函数的<code>compiled-function-p</code>为假。<br>若将该函数传递给<code>compile</code>:</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">compile</span> foo)</span>
+</code></pre><p>则，这个函数会被编译，编译函数会取代直译函数。二者的行为一样，只不过对<code>compiled-function-p</code>来说不一样。<br>但，有一种函数不能传递给<code>compile</code>:闭包函数，这种明确使用上下文变量的函数。<br><code>compile-file</code>:编译一个文件。</p>
+<h2 id="6-9_Using_Recursion">6.9 Using Recursion</h2><p>递归在Lisp中扮演一个重要的角色。原因有三：</p>
+<ol>
+<li>函数式程序设计。递归有副作用的可能性较低。</li>
+<li>递归数据结。 <em>解释没看明白，大概就是<code>car cdr</code>之类的吧</em></li>
+<li>优雅性。 递归算法的确挺优雅的。</li>
+</ol>
+<p>递归的方法是：</p>
+<ol>
+<li>将问题分割，变成有限个小问题。</li>
+<li>解决小问题。</li>
+</ol>
+<p>关心效率，需要考虑两个方面：</p>
+<ol>
+<li>尾递归。一个好的编译器，使用循环或者尾递归的速度，应该是没有或者区别很小的。然而，如果你需要将函数变成尾递归的形式时，或许直接用迭代效果更好。</li>
+<li>最显而易见的递归算法，不一定是最有效的。<em>(意思是，递归虽然很牛逼，但不是什么问题都是递归最好。偶尔用用迭代也是不错的选择。)</em></li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/03/21/learnClisp5/" data-title="Lisp自学笔记&lt;5&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/21/learnClisp4/"  title="Lisp自学笔记&lt;4&gt;">
+ <strong>下一篇：</strong><br/> 
+ <span>Lisp自学笔记&lt;4&gt;
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第六章_函数"><span class="toc-number">1.</span> <span class="toc-text">第六章 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1_Global_Functions"><span class="toc-number">1.1.</span> <span class="toc-text">6.1 Global Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2_Local_function"><span class="toc-number">1.2.</span> <span class="toc-text">6.2 Local function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3_Parameter_Lists"><span class="toc-number">1.3.</span> <span class="toc-text">6.3 Parameter Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4_Example:Utilities"><span class="toc-number">1.4.</span> <span class="toc-text">6.4 Example:Utilities</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-5_Closures"><span class="toc-number">1.5.</span> <span class="toc-text">6.5 Closures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-6_Example:Function_Builders"><span class="toc-number">1.6.</span> <span class="toc-text">6.6 Example:Function Builders</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-7_Dynamic_Scope"><span class="toc-number">1.7.</span> <span class="toc-text">6.7 Dynamic Scope</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-8_Compilation"><span class="toc-number">1.8.</span> <span class="toc-text">6.8 Compilation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-9_Using_Recursion"><span class="toc-number">1.9.</span> <span class="toc-text">6.9 Using Recursion</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
