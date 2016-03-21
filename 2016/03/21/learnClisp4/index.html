@@ -1,0 +1,534 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Lisp自学笔记&lt;4&gt; | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="Go on
+第五章 控制流2.2节介绍过Lisp求值规则，即尝试对一切求值。本章的操作符都有一个特点：违反求值规则。这些操作符让你决定在何时求值。如果普通函数调用时Lisp的树叶的话，那么这些操作符就是连接树叶的树枝。(貌似要学到什么牛逼的东西呢)
+5.1 BlocksClisp有三个构造区块的基本操作符：progn,block,tagbody。progn 主体中的表达式依次求值，返回最后一个表达">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lisp自学笔记<4>">
+<meta property="og:url" content="http://yoursite.com/2016/03/21/learnClisp4/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="Go on
+第五章 控制流2.2节介绍过Lisp求值规则，即尝试对一切求值。本章的操作符都有一个特点：违反求值规则。这些操作符让你决定在何时求值。如果普通函数调用时Lisp的树叶的话，那么这些操作符就是连接树叶的树枝。(貌似要学到什么牛逼的东西呢)
+5.1 BlocksClisp有三个构造区块的基本操作符：progn,block,tagbody。progn 主体中的表达式依次求值，返回最后一个表达">
+<meta property="og:updated_time" content="2016-03-21T07:27:27.073Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lisp自学笔记<4>">
+<meta name="twitter:description" content="Go on
+第五章 控制流2.2节介绍过Lisp求值规则，即尝试对一切求值。本章的操作符都有一个特点：违反求值规则。这些操作符让你决定在何时求值。如果普通函数调用时Lisp的树叶的话，那么这些操作符就是连接树叶的树枝。(貌似要学到什么牛逼的东西呢)
+5.1 BlocksClisp有三个构造区块的基本操作符：progn,block,tagbody。progn 主体中的表达式依次求值，返回最后一个表达">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/21/learnClisp4/" title="Lisp自学笔记&lt;4&gt;" itemprop="url">Lisp自学笔记&lt;4&gt;</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-21T01:36:22.000Z" itemprop="datePublished"> 发表于 2016-03-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第五章_控制流"><span class="toc-number">1.</span> <span class="toc-text">第五章 控制流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1_Blocks"><span class="toc-number">1.1.</span> <span class="toc-text">5.1 Blocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2_Context"><span class="toc-number">1.2.</span> <span class="toc-text">5.2 Context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3_Conditionals"><span class="toc-number">1.3.</span> <span class="toc-text">5.3 Conditionals</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4_Iteration"><span class="toc-number">1.4.</span> <span class="toc-text">5.4 Iteration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5_Multiple_Values"><span class="toc-number">1.5.</span> <span class="toc-text">5.5 Multiple Values</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6_Aborts"><span class="toc-number">1.6.</span> <span class="toc-text">5.6 Aborts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-7_Example:Date_Arithmetic"><span class="toc-number">1.7.</span> <span class="toc-text">5.7 Example:Date Arithmetic</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p><strong>Go on</strong></p>
+<h1 id="第五章_控制流">第五章 控制流</h1><p>2.2节介绍过Lisp求值规则，即尝试对一切求值。本章的操作符都有一个特点：违反求值规则。这些操作符让你决定在何时求值。如果普通函数调用时Lisp的树叶的话，那么这些操作符就是连接树叶的树枝。<br><em>(貌似要学到什么牛逼的东西呢)</em></p>
+<h2 id="5-1_Blocks">5.1 Blocks</h2><p>Clisp有三个构造区块的基本操作符：<code>progn,block,tagbody</code>。<br><strong>progn</strong> 主体中的表达式依次求值，返回最后一个表达式的值。<br>由于只有返回最后一个表达式的值，意味着<code>progn</code>（或任何区块）涵盖了副作用。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">progn</span> 
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"a"</span>)</span>
+    <span class="list">(<span class="keyword">+</span> <span class="number">11</span> <span class="number">12</span>)</span>)</span>
+</code></pre><p><strong>block</strong> 像是带有名字及紧急出口的<code>progn</code>.第一个实参为区块的名称。在主体中的任何地方可以停止求值，并通过<code>return-from</code>来立即返回数值。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">block</span> head
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"here wo go."</span>)</span>
+    <span class="list">(<span class="keyword">return-from</span> head <span class="quoted">'idea</span>)</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"not run here."</span>)</span>)</span>
+</code></pre><p>区块名称为<code>nil</code>时，可以使用<strong>宏return</strong>来返回。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">block</span> <span class="literal">nil</span>
+    <span class="list">(<span class="keyword">return</span> <span class="number">27</span>)</span>)</span>
+</code></pre><p>许多接收一个表示主体的Clisp操作符，皆隐含在一个叫做<code>nil</code>的区块里，可以由<code>return</code>返回。例如：<code>do</code>构造的迭代函数。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">dolist</span> <span class="list">(<span class="keyword">x</span> <span class="quoted">'(a b c d e)</span>)</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A "</span> x)</span>
+    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">eql</span> x <span class="quoted">'c</span>)</span>
+        <span class="list">(<span class="keyword">return</span> <span class="quoted">'done</span>)</span>)</span>)</span>
+</code></pre><p>使用<code>defun</code>定义的函数主体，都隐含在一个与函数同名的区块，所以你可以：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> foo <span class="list">()</span>
+    <span class="list">(<span class="keyword">return-from</span> foo <span class="number">27</span>)</span>)</span>
+</code></pre><p>在<code>tagbody</code>中的原子(atom)被解读为标签，可以把标签传递给<code>go</code>,就会控制权转移到标签之后的表达式。<br><em>（与goto类似，同样不推荐使用）</em></p>
+<pre><code>&gt; <span class="list">(<span class="keyword">tagbody</span> 
+    <span class="list">(<span class="keyword">setf</span> x <span class="number">0</span>)</span>
+    top
+        <span class="list">(<span class="keyword">setf</span> x <span class="list">(<span class="keyword">+</span> x <span class="number">1</span>)</span>)</span>
+        <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A "</span> x)</span>
+        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&lt;</span> x <span class="number">10</span>)</span> <span class="list">(<span class="keyword">go</span> top)</span>)</span>)</span>
+</code></pre><h2 id="5-2_Context">5.2 Context</h2><p>语境：跟命名空间，或者作用域有点像。<br>操作符<code>Let</code></p>
+<pre><code>&gt; <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">8</span>)</span> <span class="list">(<span class="keyword">y</span> <span class="number">2</span>)</span>)</span>
+     <span class="list">(<span class="keyword">+</span> x y)</span>)</span>
+</code></pre><p><em>上层变量依然可用</em></p>
+<h2 id="5-3_Conditionals">5.3 Conditionals</h2><p>最简单的条件式是<code>if</code>.<br>第二简单的条件式是<code>when</code>. 当测试表达式为真时，对下面的代码主体求求值。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">when</span> <span class="list">(<span class="keyword">oddp</span> that)</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"aha"</span>)</span>
+    <span class="list">(<span class="keyword">+</span> that <span class="number">1</span>)</span>)</span>
+</code></pre><p>等同于</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">oddp</span> that)</span>
+    <span class="list">(<span class="keyword">progn</span> 
+        <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"aha"</span>)</span>
+        <span class="list">(<span class="keyword">+</span> that <span class="number">1</span>)</span>)</span>)</span>
+</code></pre><p><code>unless</code> 与<code>when</code>相反，只有测试表达式为假时，才对代码主体求值。</p>
+<p><code>cond</code> 接收多个条件判断，条件判断之后跟随与之相关的代码。执行时依次进行判断，直到遇到判断位置，与之关联的表达式被求值，并返回。 如果没有为真的，则返回<code>nil</code>.<br><strong>返回<code>nil</code>，是一种很差的编程风格，不推荐使用</strong></p>
+<p><code>case</code>表达式，直接看例子，跟C类似。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defun</span> month-days <span class="list">(<span class="keyword">mon</span>)</span>
+    <span class="list">(<span class="keyword">case</span> mon
+        <span class="list">(<span class="list">(<span class="keyword">jan</span> mar may jul aug oct dec)</span> <span class="number">31</span>)</span>
+        <span class="list">(<span class="list">(<span class="keyword">apr</span> jun sept nov)</span> <span class="number">30</span>)</span>
+        <span class="list">(<span class="keyword">feb</span> <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">leap-year</span>)</span> <span class="number">29</span> <span class="number">28</span>)</span>)</span>
+        <span class="list">(<span class="keyword">otherwise</span> <span class="string">"unknown month"</span>)</span>)</span>)</span>
+</code></pre><h2 id="5-4_Iteration">5.4 Iteration</h2><p>最基本的迭代操作时<code>do</code>. <code>do</code>主体内可以使用<code>return,return-from,go</code>.<br><code>do</code>的形式如下：</p>
+<pre><code><span class="list">(<span class="keyword"><span class="built_in">do</span></span> <span class="list">(<span class="list">(<span class="keyword">var1</span> ini1 update1)</span>
+        <span class="list">(<span class="keyword">var2</span> ini2 update2)</span>)</span>
+    <span class="list">(<span class="list">(<span class="keyword">stop</span> condition)</span>)</span>
+    <span class="list">(<span class="keyword"><span class="built_in">exp</span></span>)</span>)</span>
+</code></pre><p>如果在<code>var2</code>中引用<code>var1</code>的值，会获得上一次的<code>var1</code>的值。<br>如果想获得当前的<code>var1</code>的值，使用<code>do*</code>.</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">do*</span> <span class="list">(<span class="list">(<span class="keyword">x</span> <span class="number">1</span> <span class="list">(<span class="keyword">+</span> x <span class="number">1</span>)</span>)</span>
+        <span class="list">(<span class="keyword">y</span> x x)</span>)</span>
+    <span class="list">(<span class="list">(<span class="keyword">&gt;</span> x <span class="number">5</span>)</span>)</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"(~A ~A) "</span> x y)</span>)</span>
+<span class="list">(<span class="number">1</span> <span class="number">1</span>)</span> <span class="list">(<span class="number">2</span> <span class="number">2</span>)</span> <span class="list">(<span class="number">3</span> <span class="number">3</span>)</span> <span class="list">(<span class="number">4</span> <span class="number">4</span>)</span> <span class="list">(<span class="number">5</span> <span class="number">5</span>)</span>
+<span class="literal">nil</span>
+</code></pre><p><strong>dolist</strong> </p>
+<pre><code>&gt; <span class="list">(<span class="keyword">dolist</span> <span class="list">(<span class="keyword">x</span> <span class="quoted">'(a b c d)</span> <span class="quoted">'done</span>)</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A "</span> x)</span>)</span>
+A B C D
+DONE
+</code></pre><p><strong>dotimes</strong> 从0开始到给定的整数</p>
+<pre><code>&gt; (dotimes (x <span class="number">5</span> x)
+    (format t <span class="string">"~A "</span> x))
+<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> 
+<span class="number">5</span>
+</code></pre><p><strong>mapc</strong> 和<code>mapcar</code>类似，但不会<code>cons</code>一个新的列表作为返回值。</p>
+<h2 id="5-5_Multiple_Values">5.5 Multiple Values</h2><p>通常函数只有一个返回值，想有多个返回值的话，需要将返回值打包到一起。<br>Lisp能直接返回多值。这里面有个关键函数：<code>values</code>.能一个不少的返回作为数值所传入的实参。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">values</span> <span class="quoted">'a</span> <span class="literal">nil</span> <span class="list">(<span class="keyword">+</span> <span class="number">2</span> <span class="number">4</span>)</span>)</span>
+A
+NIL
+<span class="number">6</span>
+</code></pre><p>然而，如果只有一个变量接收返回值的话，其余返回值会被丢弃。<br>要接收多值，使用<code>multiple-value-bind</code>:</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">multiple-value-bind</span> <span class="list">(<span class="keyword">x</span> y z)</span> <span class="list">(<span class="keyword">values</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span> <span class="list">(<span class="keyword">list</span> x y z)</span>)</span>
+<span class="list">(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>
+</code></pre><p>同样，如果变量大于返回值，多余返回值会被丢弃；如果变量小于返回值，多余的变量赋值为<code>nil</code>。<br><code>multiple-value-call</code> 将多值作为实参传递给函数</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">multiple-value-call</span> <span class="quoted">#'+</span> <span class="list">(<span class="keyword">values</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span>
+<span class="number">6</span>
+</code></pre><h2 id="5-6_Aborts">5.6 Aborts</h2><p><code>return</code> 在任何时候离开一个<code>block</code>。<br>另外一种终止方式是：<code>catch &#39;tag</code> 与之对应的是<code>throw &#39;tag</code>.<br><code>throw</code>之后的表达式不被求值，并导致<code>catch</code>表达式直接返回。<br>如果要执行<code>throw</code>之后的表达式，需要使用<code>wnwind-protect</code>。<code>unwind-protect</code>接收任何数量的实参，并返回第一个实参的值。<br>如果<code>throw</code>的标签无法被<code>catch</code>匹配，那么会抛出一个错误。</p>
+<p><code>error</code> 函数引发中断，同时控制权被转移到Lisp错误处理器。通常会调用一个中断循环(break loop)。</p>
+<h2 id="5-7_Example:Date_Arithmetic">5.7 Example:Date Arithmetic</h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/03/21/learnClisp4/" data-title="Lisp自学笔记&lt;4&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/18/learnClisp3/"  title="Lisp自学笔记&lt;3&gt;">
+ <strong>下一篇：</strong><br/> 
+ <span>Lisp自学笔记&lt;3&gt;
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第五章_控制流"><span class="toc-number">1.</span> <span class="toc-text">第五章 控制流</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1_Blocks"><span class="toc-number">1.1.</span> <span class="toc-text">5.1 Blocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2_Context"><span class="toc-number">1.2.</span> <span class="toc-text">5.2 Context</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3_Conditionals"><span class="toc-number">1.3.</span> <span class="toc-text">5.3 Conditionals</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4_Iteration"><span class="toc-number">1.4.</span> <span class="toc-text">5.4 Iteration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-5_Multiple_Values"><span class="toc-number">1.5.</span> <span class="toc-text">5.5 Multiple Values</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-6_Aborts"><span class="toc-number">1.6.</span> <span class="toc-text">5.6 Aborts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-7_Example:Date_Arithmetic"><span class="toc-number">1.7.</span> <span class="toc-text">5.7 Example:Date Arithmetic</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
