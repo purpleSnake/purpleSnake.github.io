@@ -4,29 +4,29 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Jacman 主题设置 | Self-discipline</title>
+    <title>Lisp自学笔记&lt;6&gt; | Self-discipline</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Benjamin">
     
 
     
-    <meta name="description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
-$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
+    <meta name="description" content="来，我们看看这牛逼的Lisp有怎么牛逼的IO
+第七章 输入和输出read 包含一个完整的解析器(parser)。format 输出，它自己几乎就是一门语言。Clisp有两种流(streams):字符流和二进制流。本章介绍字符流。
+7.1 Streams理解为连接文件、字符串、网络等到read,format的通路，字符在其中流动。make-pathname 路径名包含留个部分：host,device">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jacman 主题设置">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/theme-setup/index.html">
+<meta property="og:title" content="Lisp自学笔记<6>">
+<meta property="og:url" content="http://yoursite.com/2016/03/21/learnClisp6/index.html">
 <meta property="og:site_name" content="Self-discipline">
-<meta property="og:description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
-$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
-<meta property="og:updated_time" content="2015-10-07T04:12:10.642Z">
+<meta property="og:description" content="来，我们看看这牛逼的Lisp有怎么牛逼的IO
+第七章 输入和输出read 包含一个完整的解析器(parser)。format 输出，它自己几乎就是一门语言。Clisp有两种流(streams):字符流和二进制流。本章介绍字符流。
+7.1 Streams理解为连接文件、字符串、网络等到read,format的通路，字符在其中流动。make-pathname 路径名包含留个部分：host,device">
+<meta property="og:updated_time" content="2016-03-22T01:31:24.254Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jacman 主题设置">
-<meta name="twitter:description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
-$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
+<meta name="twitter:title" content="Lisp自学笔记<6>">
+<meta name="twitter:description" content="来，我们看看这牛逼的Lisp有怎么牛逼的IO
+第七章 输入和输出read 包含一个完整的解析器(parser)。format 输出，它自己几乎就是一门语言。Clisp有两种流(streams):字符流和二进制流。本章介绍字符流。
+7.1 Streams理解为连接文件、字符串、网络等到read,format的通路，字符在其中流动。make-pathname 路径名包含留个部分：host,device">
 
     
     <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
@@ -83,14 +83,14 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/theme-setup/" title="Jacman 主题设置" itemprop="url">Jacman 主题设置</a>
+      <a href="/2016/03/21/learnClisp6/" title="Lisp自学笔记&lt;6&gt;" itemprop="url">Lisp自学笔记&lt;6&gt;</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T02:58:59.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2016-03-21T13:20:55.000Z" itemprop="datePublished"> 发表于 2016-03-21</time>
     
   </p>
 </header>
@@ -99,13 +99,51 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数学公式"><span class="toc-number">1.</span> <span class="toc-text">数学公式</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第七章_输入和输出"><span class="toc-number">1.</span> <span class="toc-text">第七章 输入和输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1_Streams"><span class="toc-number">1.1.</span> <span class="toc-text">7.1 Streams</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2_Input"><span class="toc-number">1.2.</span> <span class="toc-text">7.2 Input</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3_Output"><span class="toc-number">1.3.</span> <span class="toc-text">7.3 Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4_Example:String_Substitution"><span class="toc-number">1.4.</span> <span class="toc-text">7.4 Example:String Substitution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5_Macro_Characters"><span class="toc-number">1.5.</span> <span class="toc-text">7.5 Macro Characters</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<p>主题设置在<a href="https://github.com/wuchong/jacman/wiki" target="_blank" rel="external">Jacman wiki</a>上有详细介绍，下面只摘取我常用的记录在下。</p>
-<h1 id="数学公式">数学公式</h1><p>主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。</p>
-<p>$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$<br>$$\widehat{y_i} = f_y(z_i)=b_4z_i^4+b_3z_i^3+b_2z_i^2+b_1z_i+b_0$$</p>
+		<p><strong>来，我们看看这牛逼的Lisp有怎么牛逼的IO</strong></p>
+<h1 id="第七章_输入和输出">第七章 输入和输出</h1><p><strong>read</strong> 包含一个完整的解析器(parser)。<br><strong>format</strong> 输出，它自己几乎就是一门语言。<br>Clisp有两种流(streams):字符流和二进制流。本章介绍字符流。</p>
+<h2 id="7-1_Streams">7.1 Streams</h2><p>理解为连接文件、字符串、网络等到<code>read,format</code>的通路，字符在其中流动。<br><code>make-pathname</code> 路径名包含留个部分：host,device,directory,name,type,version。通过以上关键字指明路径。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> path <span class="list">(<span class="keyword">make-pathname</span> <span class="keyword">:name</span> <span class="string">"myfile"</span>)</span>)</span>
+</code></pre><p><code>open</code> 打开一个文件，接收一个路径名以及大量的关键字参数。<code>:direction</code>:方向关键字，对应三个值：<code>:input,:output,:io</code>。<code>if-exists</code> 文件存在关键字，通常对应的值是<code>supersede</code>(取代)。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> str <span class="list">(<span class="keyword">open</span> path <span class="keyword">:dircetion</span> <span class="keyword">:output</span>
+                        <span class="keyword">:if-exists</span> <span class="keyword">:supersede</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">format</span> str <span class="string">"something~A"</span>)</span>
+&gt; <span class="list">(<span class="keyword">close</span> str)</span>
+</code></pre><p><code>read-line</code> 读取一行<br><code>with-open-file</code> 一个很牛逼的宏，可以让我们抛弃open和close。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">with-open-file</span> <span class="list">(<span class="keyword">str</span> path <span class="keyword">:dircetion</span> <span class="keyword">:output</span>
+                        <span class="keyword">:if-exists</span> <span class="keyword">:supersede</span>)</span>
+    <span class="list">(<span class="keyword">format</span> str <span class="string">"something~A"</span>)</span>)</span>
+</code></pre><h2 id="7-2_Input">7.2 Input</h2><p><code>read-line</code> 读取字符<br><code>read</code> 比较牛逼，能自动解析读到的东西。比如读取一个Lisp对象。<br><code>read-from-string</code> 从一个字符串读取第一个字符。<br>所有的输入函数由基本函数<code>read-char</code>所定义，它读取一个字符。CLisp也定义了一个函数<code>peek-char</code>，跟<code>read-char</code>类似，但不会将字符从流中移除。</p>
+<h2 id="7-3_Output">7.3 Output</h2><p>三个简单的输出函数：<br><strong>prin1</strong> 输出的字符串左右有双引号。<br><strong>princ</strong> 输出的字符串左右没有双引号。<br><strong>terpri</strong> </p>
+<p><strong>format</strong> 最牛逼。有大量的格式化指令可用。最常用的为<code>~A ~%</code> 占位符和换行符。<code>~S</code>同样也是占位符，但相当于<code>prin1</code>，输出的字符串带双引号。<br><code>~F</code>用来打印<em>右对齐</em>浮点数。接收五个参数：</p>
+<ol>
+<li>要打印出字符的总数。缺省是数字的长度。</li>
+<li>小数之后要印几位数。缺省是全部。</li>
+<li>小数点右移几位。缺省没有。</li>
+<li>若数字太长，无法满足第一参数时，所要打印的字符。如果没有，会尽可能使用它所需要的空间。</li>
+<li>数字开始之前左边的字符。缺省是空白。<blockquote>
+<p>(format nil “~10,2,0,’*,’ F” 26.21875)<br> “    26.22”</p>
+</blockquote>
+</li>
+</ol>
+<p>更常见的写法是：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">format</span> <span class="literal">nil</span> <span class="string">"~,2F"</span> <span class="number">26.21875</span>)</span>
+<span class="string">"26.22"</span>
+</code></pre><h2 id="7-4_Example:String_Substitution">7.4 Example:String Substitution</h2><h2 id="7-5_Macro_Characters">7.5 Macro Characters</h2><p><strong>宏字符</strong> 获得<code>read</code>特殊待遇的字符。根据不同的宏字符，将后面的字符串转化为相应的Lisp对象。<br>一个宏字符或者宏字符组合也称为<code>read-macro</code>(读取宏)。许多读取宏都是缩写，比如读取<code>&#39;a</code>时，将被展开成<code>quote a</code>。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">read-from-string</span> <span class="string">"'a"</span>)</span>)</span>
+QUOTE
+</code></pre><p><strong>派发读取宏</strong> 宏字符组合，第一个字符为派发字符，根据第二字符决定是派发到何种类型。所有预定义的派发字符为<code>#</code>,派发读取宏有：</p>
+<ul>
+<li><code>#&#39;</code>     函数</li>
+<li><code>#()</code>    向量</li>
+<li><code>#nA()</code> 数组</li>
+<li><code>#\</code>    字符</li>
+<li><code>#S(n )</code> 结构体</li>
+</ul>
+<p><em>(还是不太明白，读取宏的用途。大概就是<code>read</code>遇到相关的宏字符时，调用相关的函数处理之后的字符，生成相应的Lisp对象，而不仅仅是读入字符串)</em></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +151,7 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
 </div>
 
 
@@ -123,7 +161,7 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/theme-setup/" data-title="Jacman 主题设置 | Self-discipline" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/03/21/learnClisp6/" data-title="Lisp自学笔记&lt;6&gt; | Self-discipline" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,19 +174,11 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/08/LaTex-equations/" title="LaTex equations">
-  <strong>上一篇：</strong><br/>
-  <span>
-  LaTex equations</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/05/blogup/"  title="Markdown 语法简介">
+<a href="/2016/03/21/learnClisp5/"  title="Lisp自学笔记&lt;5&gt;">
  <strong>下一篇：</strong><br/> 
- <span>Markdown 语法简介
+ <span>Lisp自学笔记&lt;5&gt;
 </span>
 </a>
 </div>
@@ -163,7 +193,7 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数学公式"><span class="toc-number">1.</span> <span class="toc-text">数学公式</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第七章_输入和输出"><span class="toc-number">1.</span> <span class="toc-text">第七章 输入和输出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1_Streams"><span class="toc-number">1.1.</span> <span class="toc-text">7.1 Streams</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2_Input"><span class="toc-number">1.2.</span> <span class="toc-text">7.2 Input</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3_Output"><span class="toc-number">1.3.</span> <span class="toc-text">7.3 Output</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4_Example:String_Substitution"><span class="toc-number">1.4.</span> <span class="toc-text">7.4 Example:String Substitution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5_Macro_Characters"><span class="toc-number">1.5.</span> <span class="toc-text">7.5 Macro Characters</span></a></li></ol></li></ol>
  
   </div>
 
@@ -446,35 +476,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
 
 <!-- MathJax End -->
