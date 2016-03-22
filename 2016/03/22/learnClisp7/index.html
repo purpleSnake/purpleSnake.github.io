@@ -29,7 +29,7 @@ Lisp不区分大小写
 &quot;ABC&quot;
 Lisp不区分大小写
 名称可以使用任意字符。但当字符包括空白，或者其他可能被读取器解析的符号，需要使用特殊的">
-<meta property="og:updated_time" content="2016-03-22T06:08:00.059Z">
+<meta property="og:updated_time" content="2016-03-22T07:24:46.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<7 符号和数字>">
 <meta name="twitter:description" content="应该叫手抄笔记，^.^，接着抄。内容好像不太多
@@ -133,7 +133,7 @@ RED
 <span class="list">(<span class="keyword">COLOR</span> RED)</span>
 </code></pre><p><em>(这个好牛逼，每个符号都是一个类。然并卵，)</em>在Clisp中，属性列表用的不多，它们大部分被哈希表取代了.</p>
 <h2 id="8-3_Symbols_are_big">8.3 Symbols are big</h2><p>符号是个对象，可以包括名称、主包(home package)、与符号关联的变量的值、与符号关联的函数的值、以及属性列表。<br>当两个变量设置成相同的符号时，与两个变量设置成相同的列表一样，两个变量的指针都指向同样的对象。</p>
-<h2 id="8-4_Creating_symbols">8.4 Creating symbols</h2><p><strong>包</strong> 函数和变量用符号作名称，并通过符号被访问。包是符号的集合，通过限制符号的访问实现模块化(modularity)。<br>大部分符号都是包内的，但也有不局限于此的：自由符号(gensyms)。将在第10章讨论宏的时候，分析<code>gensyms</code>的作用。</p>
+<h2 id="8-4_Creating_symbols">8.4 Creating symbols</h2><p><strong>包</strong> 函数和变量用符号作名称，并通过符号被访问。包是符号的集合，通过限制符号的访问实现模块化(modularity)。<br>大部分符号都是包内的，但也有不局限于此的：自由符号(gensyms)。将在第10章讨论宏的时候，分析<code>gensym</code>的作用。</p>
 <h2 id="8-5_multiple_package">8.5 multiple package</h2><p>包 类似 命名空间。<br>引用包内符号的例子：<code>math:fft</code> math包内的fft。<br><strong>包定义</strong>：</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defpackage</span> <span class="string">"MY-APPLICATION"</span>
                 <span class="list">(<span class="keyword">:use</span> <span class="string">"COMMON-LISP"</span> <span class="string">"MY-UTILITIES"</span>)</span>
@@ -190,6 +190,14 @@ RED
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/03/22/learnClisp8/" title="Lisp自学笔记&lt;8 宏&gt;">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Lisp自学笔记&lt;8 宏&gt;</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/03/21/learnClisp6/"  title="Lisp自学笔记&lt;6 输入和输出&gt;">
@@ -226,7 +234,7 @@ RED
 		<ul>
 		
 		  
-			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>7</sup></a></li>
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>8</sup></a></li>
 		  
 		
 		  
