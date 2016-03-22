@@ -1,0 +1,533 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Lisp自学笔记&lt;7 符号和数字&gt; | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="应该叫手抄笔记，^.^，接着抄。内容好像不太多
+第八章 符号我们去思考之前一直在用的符号背后的细节。
+8.1 Symbol Names第二章说过，符号是变量的名称，符号本身以对象的形式存在。symbol-name 获取符号的名称。
+&amp;gt; (symbol-name &apos;abc)
+&quot;ABC&quot;
+Lisp不区分大小写
+名称可以使用任意字符。但当字符包括空白，或者其他可能被读取器解析的符号，需要使用特殊的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lisp自学笔记<7 符号和数字>">
+<meta property="og:url" content="http://yoursite.com/2016/03/22/learnClisp7/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="应该叫手抄笔记，^.^，接着抄。内容好像不太多
+第八章 符号我们去思考之前一直在用的符号背后的细节。
+8.1 Symbol Names第二章说过，符号是变量的名称，符号本身以对象的形式存在。symbol-name 获取符号的名称。
+&amp;gt; (symbol-name &apos;abc)
+&quot;ABC&quot;
+Lisp不区分大小写
+名称可以使用任意字符。但当字符包括空白，或者其他可能被读取器解析的符号，需要使用特殊的">
+<meta property="og:updated_time" content="2016-03-22T06:08:00.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lisp自学笔记<7 符号和数字>">
+<meta name="twitter:description" content="应该叫手抄笔记，^.^，接着抄。内容好像不太多
+第八章 符号我们去思考之前一直在用的符号背后的细节。
+8.1 Symbol Names第二章说过，符号是变量的名称，符号本身以对象的形式存在。symbol-name 获取符号的名称。
+&amp;gt; (symbol-name &apos;abc)
+&quot;ABC&quot;
+Lisp不区分大小写
+名称可以使用任意字符。但当字符包括空白，或者其他可能被读取器解析的符号，需要使用特殊的">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/22/learnClisp7/" title="Lisp自学笔记&lt;7 符号和数字&gt;" itemprop="url">Lisp自学笔记&lt;7 符号和数字&gt;</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-22T01:32:53.000Z" itemprop="datePublished"> 发表于 2016-03-22</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第八章_符号"><span class="toc-number">1.</span> <span class="toc-text">第八章 符号</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1_Symbol_Names"><span class="toc-number">1.1.</span> <span class="toc-text">8.1 Symbol Names</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2_Property_Lists"><span class="toc-number">1.2.</span> <span class="toc-text">8.2 Property Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3_Symbols_are_big"><span class="toc-number">1.3.</span> <span class="toc-text">8.3 Symbols are big</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4_Creating_symbols"><span class="toc-number">1.4.</span> <span class="toc-text">8.4 Creating symbols</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-5_multiple_package"><span class="toc-number">1.5.</span> <span class="toc-text">8.5 multiple package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6_Keywords"><span class="toc-number">1.6.</span> <span class="toc-text">8.6 Keywords</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-7_symbols_and_Variables"><span class="toc-number">1.7.</span> <span class="toc-text">8.7 symbols and Variables</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第九章_数字"><span class="toc-number">2.</span> <span class="toc-text">第九章 数字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1_Types"><span class="toc-number">2.1.</span> <span class="toc-text">9.1 Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2_conversion_and_extraction"><span class="toc-number">2.2.</span> <span class="toc-text">9.2 conversion and extraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3_Comparsion"><span class="toc-number">2.3.</span> <span class="toc-text">9.3 Comparsion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4_Arithematic"><span class="toc-number">2.4.</span> <span class="toc-text">9.4 Arithematic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5_Exponentiation"><span class="toc-number">2.5.</span> <span class="toc-text">9.5 Exponentiation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6_Trigometric_Functions"><span class="toc-number">2.6.</span> <span class="toc-text">9.6 Trigometric Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-7_Representations"><span class="toc-number">2.7.</span> <span class="toc-text">9.7 Representations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-8_example:ray-tracking"><span class="toc-number">2.8.</span> <span class="toc-text">9.8 example:ray-tracking</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p><strong>应该叫手抄笔记，^.^，接着抄。<br>内容好像不太多</strong></p>
+<h1 id="第八章_符号">第八章 符号</h1><p>我们去思考之前一直在用的符号背后的细节。</p>
+<h2 id="8-1_Symbol_Names">8.1 Symbol Names</h2><p>第二章说过，符号是变量的名称，符号本身以对象的形式存在。<br><code>symbol-name</code> 获取符号的名称。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">symbol-name</span> <span class="quoted">'abc</span>)</span>
+<span class="string">"ABC"</span>
+</code></pre><p><strong>Lisp不区分大小写</strong></p>
+<p>名称可以使用任意字符。但当字符包括空白，或者其他可能被读取器解析的符号，需要使用特殊的语法来防止被解析。这个特殊的语法就是两个垂直杠<code>| |</code>，可以在其中放入任何字符。如果要包括<code>|</code>自身，需要使用反斜杠<code>\|</code>转义。<br><em>(尽量不要使用这些特殊的字符，能免去不必要的麻烦)</em></p>
+<h2 id="8-2_Property_Lists">8.2 Property Lists</h2><p>每个Clisp中的符号都有一个属性列表(property list or plist)。函数<code>get</code>接收任何符号及任何类型的键值，并返回与键值对应的数值。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">get</span> <span class="quoted">'alizarin</span> <span class="quoted">'color</span>)</span>
+NIL
+&gt; <span class="list">(<span class="keyword">setf</span> <span class="list">(<span class="keyword">get</span> <span class="quoted">'alizarin</span> <span class="quoted">'color</span>)</span> <span class="quoted">'red</span>)</span>
+RED
+&gt; <span class="list">(<span class="keyword">get</span> <span class="quoted">'alizarin</span> <span class="quoted">'color</span>)</span>
+RED
+&gt; <span class="list">(<span class="keyword">symbol-plist</span> <span class="quoted">'alizarin</span>)</span>
+<span class="list">(<span class="keyword">COLOR</span> RED)</span>
+</code></pre><p><em>(这个好牛逼，每个符号都是一个类。然并卵，)</em>在Clisp中，属性列表用的不多，它们大部分被哈希表取代了.</p>
+<h2 id="8-3_Symbols_are_big">8.3 Symbols are big</h2><p>符号是个对象，可以包括名称、主包(home package)、与符号关联的变量的值、与符号关联的函数的值、以及属性列表。<br>当两个变量设置成相同的符号时，与两个变量设置成相同的列表一样，两个变量的指针都指向同样的对象。</p>
+<h2 id="8-4_Creating_symbols">8.4 Creating symbols</h2><p><strong>包</strong> 函数和变量用符号作名称，并通过符号被访问。包是符号的集合，通过限制符号的访问实现模块化(modularity)。<br>大部分符号都是包内的，但也有不局限于此的：自由符号(gensyms)。将在第10章讨论宏的时候，分析<code>gensyms</code>的作用。</p>
+<h2 id="8-5_multiple_package">8.5 multiple package</h2><p>包 类似 命名空间。<br>引用包内符号的例子：<code>math:fft</code> math包内的fft。<br><strong>包定义</strong>：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defpackage</span> <span class="string">"MY-APPLICATION"</span>
+                <span class="list">(<span class="keyword">:use</span> <span class="string">"COMMON-LISP"</span> <span class="string">"MY-UTILITIES"</span>)</span>
+                <span class="list">(<span class="keyword">:nicknames</span> <span class="string">"APP"</span>)</span>
+                <span class="list">(<span class="keyword">:export</span> <span class="string">"WIN"</span> <span class="string">"LOSE"</span> <span class="string">"DRAW"</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">in-package</span> my-application)</span>
+</code></pre><p><code>:use</code> 引用其他包，不需要使用包修饰符<br><code>:nicknames</code> 本包名称的昵称。可以使用<code>app:win</code>来引用该包的内容<br><code>:export</code> 导出的符号</p>
+<p><code>in-package</code> 之后的内容包含在该包内，直到使用<code>in-package</code>引入别的包。</p>
+<h2 id="8-6_Keywords">8.6 Keywords</h2><p>关键字属于一个keyword包，可以在任何地方引用它，使用<code>:x</code>而不是<code>keyword:x</code>。<br><em>(按这个意思理解，就是所有的包 都 引用了 keyword包， 而所有的关键字都包含在keyword包中。)</em></p>
+<h2 id="8-7_symbols_and_Variables">8.7 symbols and Variables</h2><p>Lisp有一件让你困惑的事情，符号和变量在两个不同的层面上关联。<br>当符号是<em>特别变量</em>(即，全局变量)时，变量的值在符号的value栏，可以使用<code>symbol-value</code>获得该值。符号和变量之间有直接联系。<br>当符号是<em>词法变量</em>(即，局部变量)时，符号只是占位符，编译器会将其转为一个寄存器或者内存的引用地址。在最后编译出来的代码中，我们无法追踪这个符号。符号和词法变量之间没有联系：一旦有值，符号就消失了。<br><em>(可以理解，符号也只是一个内存地址，局部变量为了提高效率跳过符号，直接使用地址。)</em></p>
+<h1 id="第九章_数字">第九章 数字</h1><p>处理数字是Lisp的强项之一。</p>
+<h2 id="9-1_Types">9.1 Types</h2><p>Lisp提供四种不同类型的数字：整数、浮点数、比值和复数。 复数<code>a+bi</code>写成<code>#c(a b)</code>。<br>谓词<code>integerp,floatp,ratiop,complexp</code>，针对相应的数字返回真。</p>
+<p>类型规则：</p>
+<ol>
+<li>如果函数接收浮点型，那么返回也是浮点型。</li>
+<li>可约分的比值会被换成最简分数，并进行类型转换。</li>
+<li>若计算过程中复数虚部为0，则复数被转化为实数。<blockquote>
+<p>(list (ratiop 2/2) (complexp #c(1 0)))<br> (nil nil)</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="9-2_conversion_and_extraction">9.2 conversion and extraction</h2><p><strong>trunctate</strong> 返回任何实数的整数部分，第二个返回值为小数部分(<code>rem</code>同样)。<br><strong>float</strong> 将任何数转化为实数<br><strong>floor</strong> 返回小于等于参数的最大整数， 第二个返回值为小数部分(<code>mod</code>同样)。<br><strong>ceiling</strong> 返回大于等于参数的最小整数， 第二个返回值为小数部分。<br><strong>round</strong> 四舍五入，第二个返回值为小数部分。<br><strong>signum</strong> 返回-1 0 1<br><strong>abs</strong> 返回绝对值<br><strong>random</strong> 接收一个整数或浮点数n，返回0到n之间的随机数，类型与n相同。</p>
+<p><strong>numerator</strong> 返回分子<br><strong>denominator</strong> 返回分母<br><strong>realpart、imgpart</strong> 返回实部和虚部</p>
+<h2 id="9-3_Comparsion">9.3 Comparsion</h2><h2 id="9-4_Arithematic">9.4 Arithematic</h2><p><strong>incf,decf</strong> 递增或递减 <code>(incf x n)</code>，n可以缺省，默认为1</p>
+<h2 id="9-5_Exponentiation">9.5 Exponentiation</h2><p>指数。<br>$x^n$  <code>(expt x n)</code><br>$\log_n x$ <code>(log x n)</code><br>$e^x$ <code>(exp x)</code><br>$\sqrt{x}$ <code>(sqrt x)</code></p>
+<h2 id="9-6_Trigometric_Functions">9.6 Trigometric Functions</h2><p>$\pi$ <code>pi</code><br><code>sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh</code></p>
+<h2 id="9-7_Representations">9.7 Representations</h2><h2 id="9-8_example:ray-tracking">9.8 example:ray-tracking</h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/03/22/learnClisp7/" data-title="Lisp自学笔记&lt;7 符号和数字&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/21/learnClisp6/"  title="Lisp自学笔记&lt;6 输入和输出&gt;">
+ <strong>下一篇：</strong><br/> 
+ <span>Lisp自学笔记&lt;6 输入和输出&gt;
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第八章_符号"><span class="toc-number">1.</span> <span class="toc-text">第八章 符号</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1_Symbol_Names"><span class="toc-number">1.1.</span> <span class="toc-text">8.1 Symbol Names</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2_Property_Lists"><span class="toc-number">1.2.</span> <span class="toc-text">8.2 Property Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3_Symbols_are_big"><span class="toc-number">1.3.</span> <span class="toc-text">8.3 Symbols are big</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-4_Creating_symbols"><span class="toc-number">1.4.</span> <span class="toc-text">8.4 Creating symbols</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-5_multiple_package"><span class="toc-number">1.5.</span> <span class="toc-text">8.5 multiple package</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-6_Keywords"><span class="toc-number">1.6.</span> <span class="toc-text">8.6 Keywords</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-7_symbols_and_Variables"><span class="toc-number">1.7.</span> <span class="toc-text">8.7 symbols and Variables</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第九章_数字"><span class="toc-number">2.</span> <span class="toc-text">第九章 数字</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1_Types"><span class="toc-number">2.1.</span> <span class="toc-text">9.1 Types</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2_conversion_and_extraction"><span class="toc-number">2.2.</span> <span class="toc-text">9.2 conversion and extraction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3_Comparsion"><span class="toc-number">2.3.</span> <span class="toc-text">9.3 Comparsion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4_Arithematic"><span class="toc-number">2.4.</span> <span class="toc-text">9.4 Arithematic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-5_Exponentiation"><span class="toc-number">2.5.</span> <span class="toc-text">9.5 Exponentiation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-6_Trigometric_Functions"><span class="toc-number">2.6.</span> <span class="toc-text">9.6 Trigometric Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-7_Representations"><span class="toc-number">2.7.</span> <span class="toc-text">9.7 Representations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-8_example:ray-tracking"><span class="toc-number">2.8.</span> <span class="toc-text">9.8 example:ray-tracking</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
