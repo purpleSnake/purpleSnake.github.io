@@ -25,7 +25,7 @@ part和whole就是共享列表tailp 检测第一个列表是否为第二个列�
 &amp;gt; (setf whole (cons &apos;a part))
 part和whole就是共享列表tailp 检测第一个列表是否为第二个列表的一部分。
 12.2 Modification修改。共享列表会导致，修改其中一个导致另一个也被修改。尽">
-<meta property="og:updated_time" content="2016-03-23T11:54:30.388Z">
+<meta property="og:updated_time" content="2016-03-23T14:33:04.551Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<10 结构、速度及其他>">
 <meta name="twitter:description" content="第十二章 结构12.1 Shared Structure共享列表，其实就是两个列表具有共有部分。
@@ -138,7 +138,7 @@ part和whole就是共享列表tailp 检测第一个列表是否为第二个列�
 <pre><code>&gt; <span class="list">(<span class="keyword">declaim</span> <span class="list">(<span class="keyword">inline</span> single?)</span>)</span>
 &gt; <span class="list">(<span class="keyword">defun</span> single? <span class="list">(<span class="keyword">lst</span>)</span> <span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">consp</span> lst)</span> <span class="list">(<span class="keyword">null</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>
 </code></pre><h2 id="13-3_Type_Declarations">13.3 Type Declarations</h2><p>Lisp是显式类型语言，跟C语言之类的强类型语言不一样。<br>可以通过指定类型声明提供运行速度。<br>类型声明的对运行速度十分重要–<strong>特别是对数组和数来说</strong>。</p>
-<p>声明全部变量类型：</p>
+<p>声明全局变量类型：</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">declaim</span> <span class="list">(<span class="keyword">type</span> fixnum <span class="variable">*count*</span>)</span>)</span>
 </code></pre><p>声明局部变量类型：放在代码体之前。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">declare</span> <span class="list">(<span class="keyword">fixnum</span> a x y)</span>)</span>
@@ -179,6 +179,14 @@ part和whole就是共享列表tailp 检测第一个列表是否为第二个列�
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/03/23/learnClisp-end/" title="Lisp自学笔记&lt;11 总结&gt;">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Lisp自学笔记&lt;11 总结&gt;</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/03/23/learnClisp9/"  title="Lisp自学笔记&lt;9 对象系统&gt;">
@@ -215,7 +223,7 @@ part和whole就是共享列表tailp 检测第一个列表是否为第二个列�
 		<ul>
 		
 		  
-			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>10</sup></a></li>
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>11</sup></a></li>
 		  
 		
 		  

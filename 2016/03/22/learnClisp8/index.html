@@ -27,7 +27,7 @@
 &amp;gt; (eval &apos;(+ 1 2 3))
 6
 调用eval是跨越代码和列表的一种方法，但不是一个好方法：效率低下、无法引用词法语境。函数coerce和comp">
-<meta property="og:updated_time" content="2016-03-23T01:17:24.694Z">
+<meta property="og:updated_time" content="2016-03-23T14:26:57.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<8 宏>">
 <meta name="twitter:description" content="终于来到了令人激动的宏
@@ -143,7 +143,7 @@ T
 &gt;<span class="quoted">`(lst is ,@lst)</span>
 <span class="list">(<span class="keyword">LST</span> IS A B C)</span>
 </code></pre><h2 id="10-4_Example:Quicksort">10.4 Example:Quicksort</h2><p><code>while,when,incf,decf,rotatef</code>,这些居然都是<strong>宏</strong>。</p>
-<h2 id="10-5_Macro_Design">10.5 Macro Design</h2><p>撰写宏是一种独特的程序设计，它有着独一无二的目标与问题。能够改变编译器锁看到的东西，就像能够重写它一样。所以当你开始撰写宏时，需要像语言设计者一样思考。<br>宏展开时会遇到：<strong>变量捕获</strong>和<strong>多重求值</strong>问题。<br><strong>变量捕获</strong>：即宏展开的代码中存在与环境中相同的变量。<br><strong>多重求值</strong>：将表达式视为常量引起的错误。展开后，每次遇到表达式，都会重新求值。<br>这两个问题的解决办法是使用<em>自由变量</em>gensym。<br><em>(这里仍然没有说明白什么是gensym，我觉得使用宏名作为前缀，就能防止大部分的重名情况。而多重求值：就是定义一个变量在最开始完成对宏参数的求值，之后该变量成为常数。因此不会出现多重求值的情况。)</em></p>
+<h2 id="10-5_Macro_Design">10.5 Macro Design</h2><p>撰写宏是一种独特的程序设计，它有着独一无二的目标与问题。能够改变编译器所看到的东西，就像能够重写它一样。所以当你开始撰写宏时，需要像语言设计者一样思考。<br>宏展开时会遇到：<strong>变量捕获</strong>和<strong>多重求值</strong>问题。<br><strong>变量捕获</strong>：即宏展开的代码中存在与环境中相同的变量。<br><strong>多重求值</strong>：将表达式视为常量引起的错误。展开后，每次遇到表达式，都会重新求值。<br>这两个问题的解决办法是使用<em>自由变量</em>gensym。<br><em>(这里仍然没有说明白什么是gensym，我觉得使用宏名作为前缀，就能防止大部分的重名情况。而多重求值：就是定义一个变量在最开始完成对宏参数的求值，之后该变量成为常数。因此不会出现多重求值的情况。)</em></p>
 <h2 id="10-6_Generalized_Reference">10.6 Generalized Reference</h2><p><em>(写的什么玩意儿，没看明白。 尽量少用不易读的句法)</em><br><strong>需要考虑宏展开在<code>setf</code>表达式中的特殊情况</strong><br><strong>define-modify-macro</strong> 如果一个宏需要改变第一参数的值，那么需要使用该函数定义宏。</p>
 <pre><code>&gt; (define-modify-<span class="function"><span class="keyword">macro</span> <span class="title">our</span></span>-incf (&amp;optional (y <span class="number">1</span>) +))
 </code></pre><p>接收三个参数：宏名，额外参数(隐含第一个参数)，以及产生第一个参数新值的函数名。<br>另一版将元素追加到表尾的宏：</p>
@@ -238,7 +238,7 @@ T
 		<ul>
 		
 		  
-			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>10</sup></a></li>
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>11</sup></a></li>
 		  
 		
 		  

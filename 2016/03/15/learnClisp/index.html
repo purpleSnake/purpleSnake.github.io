@@ -13,20 +13,20 @@
     
     <meta name="description" content="前言Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。想法还是要有的，万一实现了呢。
 学习资料：ANSI Common Lisp 中文翻译版
-第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。反正就是很牛逼。 学">
+第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新并且更强大的程序思考方法。反正就是很牛逼。 学了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Lisp自学笔记<1 Lisp简介>">
 <meta property="og:url" content="http://yoursite.com/2016/03/15/learnClisp/index.html">
 <meta property="og:site_name" content="Self-discipline">
 <meta property="og:description" content="前言Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。想法还是要有的，万一实现了呢。
 学习资料：ANSI Common Lisp 中文翻译版
-第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。反正就是很牛逼。 学">
-<meta property="og:updated_time" content="2016-03-22T06:05:07.067Z">
+第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新并且更强大的程序思考方法。反正就是很牛逼。 学了">
+<meta property="og:updated_time" content="2016-03-23T13:22:55.181Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<1 Lisp简介>">
 <meta name="twitter:description" content="前言Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。想法还是要有的，万一实现了呢。
 学习资料：ANSI Common Lisp 中文翻译版
-第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。反正就是很牛逼。 学">
+第一章 简介Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新并且更强大的程序思考方法。反正就是很牛逼。 学了">
 
     
     <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
@@ -105,12 +105,11 @@
 		
 		<p><strong>前言</strong><br>Lsip是一种备受推崇的语言，如“独孤九剑”一样，学会了就能豁然开朗，给你一个全新的世界。<br>我本着“这么牛逼的东西，一定要去看看”的想法，来学习一下。万一顿悟点啥呢，万一能仗剑天涯了呢。<br>想法还是要有的，万一实现了呢。</p>
 <p>学习资料：<a href="http://acl.readthedocs.org/en/latest/" target="_blank" rel="external">ANSI Common Lisp 中文翻译版</a></p>
-<h1 id="第一章_简介">第一章 简介</h1><p>Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新的并且更强大的程序思考方法。<br>反正就是很牛逼。 学了你不吃亏，学了你不上当。<br>就这样。爱学不学。牛逼的名词现在讲了也不懂，还是不讲了。</p>
+<h1 id="第一章_简介">第一章 简介</h1><p>Lisp很牛逼。学习Lisp不仅教你学会一种新的语言，它教你崭新并且更强大的程序思考方法。<br>反正就是很牛逼。 学了你不吃亏，学了你不上当。<br>就这样。爱学不学。牛逼的名词现在讲了也不懂，还是不讲了。</p>
 <h1 id="第二章_欢迎来到Lisp">第二章 欢迎来到Lisp</h1><h2 id="2-1_form">2.1 form</h2><p>Lisp是一门交互语言。这意味着有个交互窗口，类似CMD窗口，输入命令，得到结果。<br>Lisp尝试执行所有，比如 尝试执行<code>+</code></p>
 <pre><code>&gt; (+ <span class="number">2</span> <span class="number">3</span>)
 <span class="number">5</span>
-</code></pre><p>Lisp中一切皆是函数。</p>
-<h2 id="2-2_evaluation">2.2 evaluation</h2><p>Lisp尝试执行一切。<br>避免被执行，可以使用<code>quote</code>或者单引号<code>&#39;</code></p>
+</code></pre><h2 id="2-2_evaluation">2.2 evaluation</h2><p>Lisp尝试执行一切。<br>避免被执行，可以使用<code>quote</code>或者单引号<code>&#39;</code></p>
 <pre><code>&gt; <span class="quoted">(<span class="keyword">quote</span> (+ <span class="number">3</span> <span class="number">5</span>))</span>
 <span class="list">(<span class="keyword">+</span> <span class="number">3</span> <span class="number">5</span>)</span>
 </code></pre><h2 id="2-3_data">2.3 data</h2><p>Lisp 提供了所有在其他语言找得到，以及找不到的数据类型。<br>字符串，使用双引号包括的字符串，比如：<code>&quot;ora et labora&quot;</code>。整数和字符串一样，都是对自身求值的。<br>有两个通常在别的语言找不到的Lisp数据类型是<em>符号</em>(symbol)与<em>列表</em>(lists)。<br><em>符号</em>是英语的单词(word)。无论怎么输入，都会被转换为大写。<em>符号</em>通常不对自身求值，所以想引用符号，必须使用<code>&#39;</code>引用它</p>
@@ -140,7 +139,7 @@ T
     <span class="list">(<span class="keyword">+</span> <span class="number">5</span> <span class="number">6</span>)</span>)</span>
 <span class="number">3</span>
 </code></pre><p>与quote相同，if是特殊的操作符，不能用函数来实现，因为实参在参数调用时永远会被求值。而if，只有最后两个参数中的一个被求值。</p>
-<p><strong>and，or</strong>：逻辑操作符。与条件式类似，接收任意数量的实参，只对能影响返回值的几个实参求值。<code>and</code>求值直到碰到实参为假，<code>or</code>求值直到碰到实参为真<br>这两个操作符成为<strong>宏</strong>，宏与特殊操作符一样，可以绕过一般的求值规则。第十章将介绍如何编写宏。</p>
+<p><strong>and，or</strong>：逻辑操作符。与条件式类似，接收任意数量的实参，只对能影响返回值的几个实参求值。<code>and</code>求值直到碰到实参为假，<code>or</code>求值直到碰到实参为真<br>这两个操作符称为<strong>宏</strong>，宏与特殊操作符一样，可以绕过一般的求值规则。第十章将介绍如何编写宏。</p>
 <h2 id="2-6_Functions">2.6 Functions</h2><p>使用<code>defun</code>定义函数，通常接收三个以上的实参：一个名称，一组与列表表示的实参，以及一个或多个组成函数体的表达式。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-third <span class="list">(<span class="keyword">x</span>)</span>
     <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">cdr</span> x)</span>)</span>)</span>)</span>
@@ -173,7 +172,6 @@ NIL
     <span class="comment">(read)</span>)
 &gt; <span class="comment">(askem "How old are you?")</span>
 How old are you? <span class="number">29</span>
-
 <span class="number">29</span>
 </code></pre><p>上面的函数体由两个列表组成，函数体可以包含任意数量的表达式，当函数被调用时，会依次求值，并返回最后一个的值。</p>
 <h2 id="2-10_Variables">2.10 Variables</h2><p><strong>let</strong> 定义局部变量，只能在<code>let</code>内部使用</p>
@@ -215,7 +213,7 @@ N
         <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&gt;</span> i end)</span> <span class="quoted">'done</span> 
             <span class="list">(<span class="keyword">progn</span> <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A ~A ~%"</span> i <span class="list">(<span class="keyword">*</span> i i)</span>)</span>
                 <span class="list">(<span class="keyword">show-squares</span> <span class="list">(<span class="keyword">+</span> i <span class="number">1</span>)</span> end)</span>)</span>)</span>)</span>
-</code></pre><p><strong>progn</strong>，接收任意数量的表达式，依次求值，并返回藏族一个表达式的值。<br><strong>dolist</strong> 遍历列表</p>
+</code></pre><p><strong>progn</strong>，接收任意数量的表达式，依次求值，并返回最后一个表达式的值。<br><strong>dolist</strong> 遍历列表</p>
 <h2 id="2-14_Functions_as_Objects">2.14 Functions as Objects</h2><p><strong>function</strong> 特殊操作符，把一个函数的名字传递给<code>function</code>，它会返回相关联的对象。</p>
 <pre><code>&gt; (<span class="function"><span class="keyword">function</span></span> +)
 #&lt;Complied-<span class="function"><span class="keyword">Function</span></span> + 7BA4E&gt;
@@ -271,10 +269,10 @@ T
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2016/03/17/learnClisp2/" title="Lisp自学笔记&lt;2 表&gt;">
+ <a href="/2016/03/17/learnClisp2/" title="Lisp自学笔记&lt;2 列表&gt;">
   <strong>上一篇：</strong><br/>
   <span>
-  Lisp自学笔记&lt;2 表&gt;</span>
+  Lisp自学笔记&lt;2 列表&gt;</span>
 </a>
 </div>
 
@@ -314,7 +312,7 @@ T
 		<ul>
 		
 		  
-			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>10</sup></a></li>
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>11</sup></a></li>
 		  
 		
 		  

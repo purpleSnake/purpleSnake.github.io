@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Lisp自学笔记&lt;2 表&gt; | Self-discipline</title>
+    <title>Lisp自学笔记&lt;2 列表&gt; | Self-discipline</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Benjamin">
@@ -12,20 +12,20 @@
 
     
     <meta name="description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
-第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常以为这开发Lisp语言本身。
+第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常意味着开发Lisp语言本身。
 3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Lisp自学笔记<2 表>">
+<meta property="og:title" content="Lisp自学笔记<2 列表>">
 <meta property="og:url" content="http://yoursite.com/2016/03/17/learnClisp2/index.html">
 <meta property="og:site_name" content="Self-discipline">
 <meta property="og:description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
-第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常以为这开发Lisp语言本身。
+第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常意味着开发Lisp语言本身。
 3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
-<meta property="og:updated_time" content="2016-03-22T06:05:31.982Z">
+<meta property="og:updated_time" content="2016-03-23T14:01:24.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Lisp自学笔记<2 表>">
+<meta name="twitter:title" content="Lisp自学笔记<2 列表>">
 <meta name="twitter:description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
-第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常以为这开发Lisp语言本身。
+第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常意味着开发Lisp语言本身。
 3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
 
     
@@ -83,7 +83,7 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/17/learnClisp2/" title="Lisp自学笔记&lt;2 表&gt;" itemprop="url">Lisp自学笔记&lt;2 表&gt;</a>
+      <a href="/2016/03/17/learnClisp2/" title="Lisp自学笔记&lt;2 列表&gt;" itemprop="url">Lisp自学笔记&lt;2 列表&gt;</a>
   </h1>
   <p class="article-author">By
        
@@ -104,8 +104,8 @@
 		</div>
 		
 		<p><strong>something written ahead</strong><br>以为能用两天就能撸完Lisp呢，看来我太小瞧它了。<br>因为，我发现每一章都好长好长。<br>好吧，慢慢来。心急吃不了Lisp。</p>
-<h1 id="第三章_Lists">第三章 Lists</h1><p>列表是Lisp中基本数据结构之一。 <em>灰常灰常的重要。</em><br>Lisp程序开发通常以为这开发Lisp语言本身。</p>
-<h2 id="3-1_构造(conses)">3.1 构造(conses)</h2><p><em>我不认识这单词，衰</em><br>Lisp中的表，类似于C语言里的单链表。<br>基本操作有<strong>car，cdr，cons</strong>。<strong>car</strong>指向列表的第一个元素，<strong>cdr</strong>指向列表的第二个元素，代表第一个元素之后的所有元素。<strong>cons</strong>则包括<strong>car</strong>和<strong>cdr</strong>。<br>只有一个元素的表，<strong>cdr</strong>操作返回<code>nil</code>.<br>列表可以包含任何对象，包括列表。<em>(意思是：列表就是void类型指针。笑^_^)</em></p>
+<h1 id="第三章_Lists">第三章 Lists</h1><p>列表是Lisp中基本数据结构之一。 <em>灰常灰常的重要。</em><br>Lisp程序开发通常意味着开发Lisp语言本身。</p>
+<h2 id="3-1_构造(conses)">3.1 构造(conses)</h2><p><em>我不认识这单词，衰</em><br>Lisp中的表，类似于C语言里的单链表。<br>基本操作有<strong>car，cdr，cons</strong>。<strong>car</strong>指向列表的第一个元素，<strong>cdr</strong>指向列表的第二个元素，代表第一个元素之后的所有元素。<strong>cons</strong>则包括<strong>car</strong>和<strong>cdr</strong>。<br>只有一个元素的表，<strong>cdr</strong>操作返回<code>nil</code>.<br>列表可以包含任何对象，意包括列表。<em>(思是：列表元素是void类型指针。笑^_^)</em></p>
 <p><strong>consp</strong> 检测一个对象是否为<code>cons</code>对象。所以，可以这样定义<code>listp</code></p>
 <pre><code>&gt; （defun our-listp (x)
         （<span class="literal">or</span> (<span class="literal">null</span> x) (consp x))）
@@ -213,8 +213,12 @@ b
 <span class="list">(<span class="number">8</span> <span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span>)</span>
 </code></pre><p>sort是破坏性的，允许修改传入的序列。如果不想原序列被修改，传入一个副本。<br><strong>every,some</strong> 接收一个判断式以及一个或者多个序列。every是对每一个，some是对一部分。</p>
 <h2 id="3-12_Stacks">3.12 Stacks</h2><p>用Cons对象来表示列表，可以用来实现堆栈。Clisp提供了两个宏来实现堆栈操作。<br><strong>push，pop</strong><br>这两个函数都是由<code>setf</code>定义的。<br><strong>pushnew</strong> 是push的变种，只入栈栈内没有的元素。</p>
-<h2 id="3-13_Dotted_Lists">3.13 Dotted Lists</h2><p>点状列表，通常不是用来表示列表，而是一个有两个部分的数据结构。<br><em>(不知道用途，先放这)</em></p>
-<h2 id="3-14_Assoc-lists">3.14 Assoc-lists</h2><p>关联列表<br>用Cons对象表示映射(mapping)也是很自然的。一个由cons对象组成的列表称之为<em>关联列表</em>。这样的列表可以表示一个翻译的集合，举例来说：</p>
+<h2 id="3-13_Dotted_Lists">3.13 Dotted Lists</h2><p>点状列表，通常不是用来表示列表，而是一个有两个部分的数据结构。<br><em>(不知道用途，先放这)</em><br>使用<code>cons</code>构造常规列表时，必须在<code>nil</code>的基础上构造。不然，将会构造出点状列表。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="quoted">'b</span>)</span>
+<span class="list">(<span class="keyword">a</span> . b)</span>
+&gt; <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span>  <span class="literal">nil</span>)</span>
+<span class="list">(<span class="keyword">a</span>)</span>
+</code></pre><h2 id="3-14_Assoc-lists">3.14 Assoc-lists</h2><p>关联列表<br>用Cons对象表示映射(mapping)也是很自然的。一个由cons对象组成的列表称之为<em>关联列表</em>。这样的列表可以表示一个翻译的集合，举例来说：</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">setf</span> trans <span class="quoted">'((+ . <span class="string">"add"</span>) (- . <span class="string">"subtract"</span>))</span>)</span>
 <span class="list">(<span class="list">(<span class="keyword">+</span> . <span class="string">"add"</span>)</span> <span class="list">(<span class="keyword">-</span> . <span class="string">"subtract"</span>)</span>)</span>
 </code></pre><p>Clisp内置了一个函数，<code>assoc</code>用来取出在关联列表中，与给定的键值有关联的cons对。</p>
@@ -246,7 +250,7 @@ b
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2016/03/17/learnClisp2/" data-title="Lisp自学笔记&lt;2 表&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/03/17/learnClisp2/" data-title="Lisp自学笔记&lt;2 列表&gt; | Self-discipline" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -303,7 +307,7 @@ b
 		<ul>
 		
 		  
-			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>10</sup></a></li>
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>11</sup></a></li>
 		  
 		
 		  

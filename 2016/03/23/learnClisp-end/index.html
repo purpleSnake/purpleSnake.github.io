@@ -4,29 +4,38 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Jacman 主题设置 | Self-discipline</title>
+    <title>Lisp自学笔记&lt;11 总结&gt; | Self-discipline</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Benjamin">
     
 
     
-    <meta name="description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
-$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
+    <meta name="description" content="把整个教程在看一遍，尝试总结点东西
+
+Clisp程序的基本结构是列表，任何东西都放在()之内。
+Clisp尝试对一切求值，使用quote或者其缩写&amp;#39;防止被求值。
+序列包括列表和向量。列表包括树、队列、栈、集合；向量包括一维向量和字符串。数组包括多维数组和一维向量。默认，列表和数组都是链表结构。通过指定:element-type可以将数组转化为紧凑的连续存储结构。
+善用递归。但不要只用递归。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jacman 主题设置">
-<meta property="og:url" content="http://yoursite.com/2015/10/07/theme-setup/index.html">
+<meta property="og:title" content="Lisp自学笔记<11 总结>">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/learnClisp-end/index.html">
 <meta property="og:site_name" content="Self-discipline">
-<meta property="og:description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
-$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
-<meta property="og:updated_time" content="2015-10-07T04:12:10.642Z">
+<meta property="og:description" content="把整个教程在看一遍，尝试总结点东西
+
+Clisp程序的基本结构是列表，任何东西都放在()之内。
+Clisp尝试对一切求值，使用quote或者其缩写&amp;#39;防止被求值。
+序列包括列表和向量。列表包括树、队列、栈、集合；向量包括一维向量和字符串。数组包括多维数组和一维向量。默认，列表和数组都是链表结构。通过指定:element-type可以将数组转化为紧凑的连续存储结构。
+善用递归。但不要只用递归。">
+<meta property="og:updated_time" content="2016-03-23T14:36:09.279Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jacman 主题设置">
-<meta name="twitter:description" content="主题设置在Jacman wiki上有详细介绍，下面只摘取我常用的记录在下。
-数学公式主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。
-$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i} = f_y">
+<meta name="twitter:title" content="Lisp自学笔记<11 总结>">
+<meta name="twitter:description" content="把整个教程在看一遍，尝试总结点东西
+
+Clisp程序的基本结构是列表，任何东西都放在()之内。
+Clisp尝试对一切求值，使用quote或者其缩写&amp;#39;防止被求值。
+序列包括列表和向量。列表包括树、队列、栈、集合；向量包括一维向量和字符串。数组包括多维数组和一维向量。默认，列表和数组都是链表结构。通过指定:element-type可以将数组转化为紧凑的连续存储结构。
+善用递归。但不要只用递归。">
 
     
     <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
@@ -83,14 +92,14 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/10/07/theme-setup/" title="Jacman 主题设置" itemprop="url">Jacman 主题设置</a>
+      <a href="/2016/03/23/learnClisp-end/" title="Lisp自学笔记&lt;11 总结&gt;" itemprop="url">Lisp自学笔记&lt;11 总结&gt;</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
 		
   <p class="article-time">
-    <time datetime="2015-10-07T02:58:59.000Z" itemprop="datePublished"> 发表于 2015-10-07</time>
+    <time datetime="2016-03-23T13:01:26.000Z" itemprop="datePublished"> 发表于 2016-03-23</time>
     
   </p>
 </header>
@@ -99,13 +108,29 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数学公式"><span class="toc-number">1.</span> <span class="toc-text">数学公式</span></a></li></ol>
+			
 		
 		</div>
 		
-		<p>主题设置在<a href="https://github.com/wuchong/jacman/wiki" target="_blank" rel="external">Jacman wiki</a>上有详细介绍，下面只摘取我常用的记录在下。</p>
-<h1 id="数学公式">数学公式</h1><p>主题支持LaTex数学公式。只需要在文章文件开头的front-matter中，加上一行mathjax:true,即可在文中写LaTex公式。</p>
-<p>$$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$<br>$$\widehat{y_i} = f_y(z_i)=b_4z_i^4+b_3z_i^3+b_2z_i^2+b_1z_i+b_0$$</p>
+		<p><strong>把整个教程在看一遍，尝试总结点东西</strong></p>
+<ol>
+<li>Clisp程序的基本结构是列表，任何东西都放在<code>()</code>之内。</li>
+<li>Clisp尝试对一切求值，使用<code>quote</code>或者其缩写<code>&#39;</code>防止被求值。</li>
+<li>序列包括列表和向量。<strong>列表</strong>包括树、队列、栈、集合；<strong>向量</strong>包括一维向量和字符串。<strong>数组</strong>包括多维数组和一维向量。默认，列表和数组都是链表结构。通过指定<code>:element-type</code>可以将数组转化为紧凑的连续存储结构。</li>
+<li>善用递归。但不要只用递归。递归可以很清晰的解决问题，且执行效率与循环差不多。但有些问题，还是用循环来的直接。</li>
+<li><code>let,defparamter,defconstant,setf</code>,定义变量，给变量赋值</li>
+<li><code>#&#39;</code> 获取函数的指针</li>
+<li><code>cons</code>构造列表，任何列表包括<code>car</code>和<code>cdr</code>两部分。单元素列表的<code>cdr</code>是<code>nil</code>。列表在<code>nil</code>的基础上构造。所有不是列表的东西，都是原子<code>atom</code>。 列表的最后一个元素为<code>nil</code>，而点状列表的最后一个元素为一个值。</li>
+<li><code>defstruct</code> 定义结构体，<code>make-hash-table</code> 生成hash表。</li>
+<li>代码区块：<code>progn,block(return-from,return),tagbody(go)</code></li>
+<li>条件：<code>if</code>,<code>when,unless</code>,<code>cond</code></li>
+<li>局部函数：<code>labels</code>，与<code>let</code>类似，定义一系列局部函数。</li>
+<li>符号，不仅仅是一个符号，每个符号都可以有名称、主包、<em>与符号关联的变量</em>的值、<em>与符号关联的函数</em>的值、以及属性列表。</li>
+<li>反引号，防止列表被求值，并且能够使用<code>,</code>和<code>,@</code>重新开启求值。这是比引号的强大的地方。</li>
+<li>宏，<code>defmacro</code>，很牛逼，多理解。</li>
+<li>类，<code>defclass,defmethod</code>，访问器，继承，方法的特化。也是很牛逼的存在。</li>
+</ol>
+<p><strong>列表和宏是Lisp的关键所在。</strong><br><strong>改天重点看下 第十五章：推论</strong></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -113,7 +138,7 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Hexo/">Hexo</a>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
 </div>
 
 
@@ -123,7 +148,7 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2015/10/07/theme-setup/" data-title="Jacman 主题设置 | Self-discipline" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2016/03/23/learnClisp-end/" data-title="Lisp自学笔记&lt;11 总结&gt; | Self-discipline" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,19 +161,11 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/10/08/LaTex-equations/" title="LaTex equations">
-  <strong>上一篇：</strong><br/>
-  <span>
-  LaTex equations</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/10/05/blogup/"  title="Markdown 语法简介">
+<a href="/2016/03/23/learnClisp10/"  title="Lisp自学笔记&lt;10 结构、速度及其他&gt;">
  <strong>下一篇：</strong><br/> 
- <span>Markdown 语法简介
+ <span>Lisp自学笔记&lt;10 结构、速度及其他&gt;
 </span>
 </a>
 </div>
@@ -163,7 +180,7 @@ $$\widehat{x_i} = f_x(z_i)=a_4z_i^4+a_3z_i^3+a_2z_i^2+a_1z_i+a_0$$$$\widehat{y_i
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数学公式"><span class="toc-number">1.</span> <span class="toc-text">数学公式</span></a></li></ol>
+ 
  
   </div>
 
@@ -446,35 +463,6 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
-    }
-  });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
-</script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
 
 
 <!-- MathJax End -->
