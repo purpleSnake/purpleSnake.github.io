@@ -1,0 +1,493 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Lisp自学笔记&lt;10 结构、速度及其他&gt; | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="第十二章 结构12.1 Shared Structure共享列表，其实就是两个列表具有共有部分。
+&amp;gt; (setf part (list &apos;b &apos;c))
+&amp;gt; (setf whole (cons &apos;a part))
+part和whole就是共享列表tailp 检测第一个列表是否为第二个列表的一部分。
+12.2 Modification修改。共享列表会导致，修改其中一个导致另一个也被修改。尽">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lisp自学笔记<10 结构、速度及其他>">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/learnClisp10/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="第十二章 结构12.1 Shared Structure共享列表，其实就是两个列表具有共有部分。
+&amp;gt; (setf part (list &apos;b &apos;c))
+&amp;gt; (setf whole (cons &apos;a part))
+part和whole就是共享列表tailp 检测第一个列表是否为第二个列表的一部分。
+12.2 Modification修改。共享列表会导致，修改其中一个导致另一个也被修改。尽">
+<meta property="og:updated_time" content="2016-03-23T11:54:30.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lisp自学笔记<10 结构、速度及其他>">
+<meta name="twitter:description" content="第十二章 结构12.1 Shared Structure共享列表，其实就是两个列表具有共有部分。
+&amp;gt; (setf part (list &apos;b &apos;c))
+&amp;gt; (setf whole (cons &apos;a part))
+part和whole就是共享列表tailp 检测第一个列表是否为第二个列表的一部分。
+12.2 Modification修改。共享列表会导致，修改其中一个导致另一个也被修改。尽">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/23/learnClisp10/" title="Lisp自学笔记&lt;10 结构、速度及其他&gt;" itemprop="url">Lisp自学笔记&lt;10 结构、速度及其他&gt;</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-23T07:21:06.000Z" itemprop="datePublished"> 发表于 2016-03-23</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第十二章_结构"><span class="toc-number">1.</span> <span class="toc-text">第十二章 结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#12-1_Shared_Structure"><span class="toc-number">1.1.</span> <span class="toc-text">12.1 Shared Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-2_Modification"><span class="toc-number">1.2.</span> <span class="toc-text">12.2 Modification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-3_Example:Queues"><span class="toc-number">1.3.</span> <span class="toc-text">12.3 Example:Queues</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-4_Destructive_Functions"><span class="toc-number">1.4.</span> <span class="toc-text">12.4 Destructive Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-5_Example:binary_search_trees"><span class="toc-number">1.5.</span> <span class="toc-text">12.5 Example:binary search trees</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-6_Example:doubly-linked_Lists"><span class="toc-number">1.6.</span> <span class="toc-text">12.6 Example:doubly-linked Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-7_Circular_Structure"><span class="toc-number">1.7.</span> <span class="toc-text">12.7 Circular Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-8_Constant_Structure"><span class="toc-number">1.8.</span> <span class="toc-text">12.8  Constant Structure</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十三章_速度"><span class="toc-number">2.</span> <span class="toc-text">第十三章 速度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#13-1_The_Bottleneck_Rule"><span class="toc-number">2.1.</span> <span class="toc-text">13.1 The Bottleneck Rule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-2_Compilation"><span class="toc-number">2.2.</span> <span class="toc-text">13.2 Compilation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-3_Type_Declarations"><span class="toc-number">2.3.</span> <span class="toc-text">13.3 Type Declarations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-4_Garbage_Avoidance"><span class="toc-number">2.4.</span> <span class="toc-text">13.4 Garbage Avoidance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-5_Example:Pools"><span class="toc-number">2.5.</span> <span class="toc-text">13.5 Example:Pools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-6_Fast_operators"><span class="toc-number">2.6.</span> <span class="toc-text">13.6 Fast operators</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-7_Two-Phase_Development"><span class="toc-number">2.7.</span> <span class="toc-text">13.7 Two-Phase Development</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十四章_进阶议题"><span class="toc-number">3.</span> <span class="toc-text">第十四章 进阶议题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十五章_例子：推论"><span class="toc-number">4.</span> <span class="toc-text">第十五章 例子：推论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十六章_例子：生成HTML"><span class="toc-number">5.</span> <span class="toc-text">第十六章 例子：生成HTML</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十七章_例子：对象"><span class="toc-number">6.</span> <span class="toc-text">第十七章 例子：对象</span></a></li></ol>
+		
+		</div>
+		
+		<h1 id="第十二章_结构">第十二章 结构</h1><h2 id="12-1_Shared_Structure">12.1 Shared Structure</h2><p>共享列表，其实就是两个列表具有共有部分。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">setf</span> part <span class="list">(<span class="keyword">list</span> <span class="quoted">'b</span> <span class="quoted">'c</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">setf</span> whole <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> part)</span>)</span>
+</code></pre><p>part和whole就是共享列表<br><strong>tailp</strong> 检测第一个列表是否为第二个列表的一部分。</p>
+<h2 id="12-2_Modification">12.2 Modification</h2><p>修改。<br>共享列表会导致，修改其中一个导致另一个也被修改。<br><strong>尽量防止共享结构</strong>，因为会引起非预期的结果。</p>
+<h2 id="12-3_Example:Queues">12.3 Example:Queues</h2><h2 id="12-4_Destructive_Functions">12.4 Destructive Functions</h2><p>修改传入参数的函数。<br>能够提高效率，但是要谨慎使用。</p>
+<h2 id="12-5_Example:binary_search_trees">12.5 Example:binary search trees</h2><h2 id="12-6_Example:doubly-linked_Lists">12.6 Example:doubly-linked Lists</h2><h2 id="12-7_Circular_Structure">12.7 Circular Structure</h2><p>环装结构</p>
+<h2 id="12-8_Constant_Structure">12.8  Constant Structure</h2><p><strong>注意破坏性函数，不要随意修改函数的返回值</strong></p>
+<h1 id="第十三章_速度">第十三章 速度</h1><p>Lisp实际上是两种语言：能写出快速执行的程序，能快速写出的程序。 一旦程序的结构固定下来，就可以优化执行速度。<br>越强大的语言，离机器底层就越远，语言的实现方法差别也就越大。因此，优化的方法也不尽相同。<br>本章的目的也只是建议而不是规定。</p>
+<h2 id="13-1_The_Bottleneck_Rule">13.1 The Bottleneck Rule</h2><p>瓶颈规则。<br>关于优化的三点规则：</p>
+<ol>
+<li>关注瓶颈 。<strong>大部分运行时间都被少部分代码占用。</strong>优化该部分代码能加速运行速度，而优化其他代码则是在浪费时间。</li>
+<li>不应开始的太早 。<strong>过早的优化是一切问题的源头。</strong>因为在早期无法看到瓶颈在哪。</li>
+<li>始于算法 。优化要从高端入手。在考虑各种低层次的编码技巧(low-level coding tricks)之前，先确保使用了最为高效的算法。</li>
+</ol>
+<h2 id="13-2_Compilation">13.2 Compilation</h2><p><strong>lisp即使编译型语言，又是解释型语言</strong><br>五个控制编译方式的参数：</p>
+<ul>
+<li>speed  代码的运行速度</li>
+<li>compilation-speed  程序被编译的速度</li>
+<li>safety 对代码进行错误检查的数量</li>
+<li>space 代码的大小和内存需求量</li>
+<li>debug 为了调试而保留的信息量</li>
+</ul>
+<p>每个参数在声明中被分配从0(最不重要)到3(最重要)的权值。</p>
+<p>尾递归：能够提高递归调用的速度。尾递归是指：一个调用返回时调用者没有残余的计算。出色的编译器能将尾递归编译成一个跳转，而不是函数调用。因此也能将尾递归编译为一个循环。</p>
+<p>另一个没有开销的函数调用时内联函数(inline)。内联函数的调用在编译时会被内联函数体代替。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">declaim</span> <span class="list">(<span class="keyword">inline</span> single?)</span>)</span>
+&gt; <span class="list">(<span class="keyword">defun</span> single? <span class="list">(<span class="keyword">lst</span>)</span> <span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">consp</span> lst)</span> <span class="list">(<span class="keyword">null</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>
+</code></pre><h2 id="13-3_Type_Declarations">13.3 Type Declarations</h2><p>Lisp是显式类型语言，跟C语言之类的强类型语言不一样。<br>可以通过指定类型声明提供运行速度。<br>类型声明的对运行速度十分重要–<strong>特别是对数组和数来说</strong>。</p>
+<p>声明全部变量类型：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">declaim</span> <span class="list">(<span class="keyword">type</span> fixnum <span class="variable">*count*</span>)</span>)</span>
+</code></pre><p>声明局部变量类型：放在代码体之前。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">declare</span> <span class="list">(<span class="keyword">fixnum</span> a x y)</span>)</span>
+</code></pre><p>声明数组：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">declare</span> <span class="list">(<span class="keyword">type</span> <span class="list">(<span class="keyword">vector</span> fixnum <span class="number">20</span>)</span> v)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">setf</span> y <span class="list">(<span class="keyword">make-array</span> <span class="number">3</span> <span class="keyword">:element-type</span> <span class="quoted">'double-float</span>)</span>)</span>
+</code></pre><h2 id="13-4_Garbage_Avoidance">13.4 Garbage Avoidance</h2><h2 id="13-5_Example:Pools">13.5 Example:Pools</h2><h2 id="13-6_Fast_operators">13.6 Fast operators</h2><h2 id="13-7_Two-Phase_Development">13.7 Two-Phase Development</h2><p>混合编程</p>
+<h1 id="第十四章_进阶议题">第十四章 进阶议题</h1><p>Clisp像一座冰山，大部分的功能对于那些永远不需要他们的多数用户是不需要关注的。</p>
+<h1 id="第十五章_例子：推论">第十五章 例子：推论</h1><h1 id="第十六章_例子：生成HTML">第十六章 例子：生成HTML</h1><h1 id="第十七章_例子：对象">第十七章 例子：对象</h1><p><strong>要在 Lisp 撰写出性能极差的程序相当简单；而在 C 这几乎是不可能的。</strong><br>Lisp可以实现面向对象编程，不是通过技巧实现的。而是，Lisp本来就是一个面向对象的语言，甚至说，是更通用的语言。我们需要做的，只不过是把本来就存在的抽象，再重新包装一下。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/03/23/learnClisp10/" data-title="Lisp自学笔记&lt;10 结构、速度及其他&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/23/learnClisp9/"  title="Lisp自学笔记&lt;9 对象系统&gt;">
+ <strong>下一篇：</strong><br/> 
+ <span>Lisp自学笔记&lt;9 对象系统&gt;
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第十二章_结构"><span class="toc-number">1.</span> <span class="toc-text">第十二章 结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#12-1_Shared_Structure"><span class="toc-number">1.1.</span> <span class="toc-text">12.1 Shared Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-2_Modification"><span class="toc-number">1.2.</span> <span class="toc-text">12.2 Modification</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-3_Example:Queues"><span class="toc-number">1.3.</span> <span class="toc-text">12.3 Example:Queues</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-4_Destructive_Functions"><span class="toc-number">1.4.</span> <span class="toc-text">12.4 Destructive Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-5_Example:binary_search_trees"><span class="toc-number">1.5.</span> <span class="toc-text">12.5 Example:binary search trees</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-6_Example:doubly-linked_Lists"><span class="toc-number">1.6.</span> <span class="toc-text">12.6 Example:doubly-linked Lists</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-7_Circular_Structure"><span class="toc-number">1.7.</span> <span class="toc-text">12.7 Circular Structure</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-8_Constant_Structure"><span class="toc-number">1.8.</span> <span class="toc-text">12.8  Constant Structure</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十三章_速度"><span class="toc-number">2.</span> <span class="toc-text">第十三章 速度</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#13-1_The_Bottleneck_Rule"><span class="toc-number">2.1.</span> <span class="toc-text">13.1 The Bottleneck Rule</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-2_Compilation"><span class="toc-number">2.2.</span> <span class="toc-text">13.2 Compilation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-3_Type_Declarations"><span class="toc-number">2.3.</span> <span class="toc-text">13.3 Type Declarations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-4_Garbage_Avoidance"><span class="toc-number">2.4.</span> <span class="toc-text">13.4 Garbage Avoidance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-5_Example:Pools"><span class="toc-number">2.5.</span> <span class="toc-text">13.5 Example:Pools</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-6_Fast_operators"><span class="toc-number">2.6.</span> <span class="toc-text">13.6 Fast operators</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-7_Two-Phase_Development"><span class="toc-number">2.7.</span> <span class="toc-text">13.7 Two-Phase Development</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十四章_进阶议题"><span class="toc-number">3.</span> <span class="toc-text">第十四章 进阶议题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十五章_例子：推论"><span class="toc-number">4.</span> <span class="toc-text">第十五章 例子：推论</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十六章_例子：生成HTML"><span class="toc-number">5.</span> <span class="toc-text">第十六章 例子：生成HTML</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第十七章_例子：对象"><span class="toc-number">6.</span> <span class="toc-text">第十七章 例子：对象</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>10</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
