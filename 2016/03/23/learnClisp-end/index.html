@@ -27,7 +27,7 @@ Clisp程序的基本结构是列表，任何东西都放在()之内。
 Clisp尝试对一切求值，使用quote或者其缩写&amp;#39;防止被求值。
 序列包括列表和向量。列表包括树、队列、栈、集合；向量包括一维向量和字符串。数组包括多维数组和一维向量。默认，列表和数组都是链表结构。通过指定:element-type可以将数组转化为紧凑的连续存储结构。
 善用递归。但不要只用递归。">
-<meta property="og:updated_time" content="2016-03-23T14:36:09.279Z">
+<meta property="og:updated_time" content="2016-03-23T14:37:55.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<11 总结>">
 <meta name="twitter:description" content="把整个教程在看一遍，尝试总结点东西
@@ -126,7 +126,7 @@ Clisp尝试对一切求值，使用quote或者其缩写&amp;#39;防止被求值�
 <li>条件：<code>if</code>,<code>when,unless</code>,<code>cond</code></li>
 <li>局部函数：<code>labels</code>，与<code>let</code>类似，定义一系列局部函数。</li>
 <li>符号，不仅仅是一个符号，每个符号都可以有名称、主包、<em>与符号关联的变量</em>的值、<em>与符号关联的函数</em>的值、以及属性列表。</li>
-<li>反引号，防止列表被求值，并且能够使用<code>,</code>和<code>,@</code>重新开启求值。这是比引号的强大的地方。</li>
+<li>反引号，防止列表被求值，并且能够使用<code>,</code>和<code>,@</code>重新开启求值。这是比引号强大的地方。</li>
 <li>宏，<code>defmacro</code>，很牛逼，多理解。</li>
 <li>类，<code>defclass,defmethod</code>，访问器，继承，方法的特化。也是很牛逼的存在。</li>
 </ol>
