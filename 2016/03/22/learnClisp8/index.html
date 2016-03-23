@@ -27,7 +27,7 @@
 &amp;gt; (eval &apos;(+ 1 2 3))
 6
 调用eval是跨越代码和列表的一种方法，但不是一个好方法：效率低下、无法引用词法语境。函数coerce和comp">
-<meta property="og:updated_time" content="2016-03-22T14:40:34.189Z">
+<meta property="og:updated_time" content="2016-03-23T01:17:24.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<8 宏>">
 <meta name="twitter:description" content="终于来到了令人激动的宏
@@ -156,7 +156,7 @@ T
                 (,gstop ,stop))
             ((&gt; ,var ,gstop))
             ,@body)</span>)</span>)</span>
-</code></pre><p><em>有个不理解的地方，这个&amp;body是什么鬼啊</em></p>
+</code></pre><p><em>有个不理解的地方，这个&amp;body是什么鬼啊。看使用情况是类似&amp;rest。这里还出现了一个新的东西<code>(1+ 2)</code>，这个1+好像是定义的函数，但也只有1+好用，2+会报错。</em></p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defmacro</span> in <span class="list">(<span class="keyword">obj</span> <span class="keyword">&amp;rest</span> choices)</span>
     <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">insym</span> <span class="list">(<span class="keyword">gensym</span>)</span>)</span>)</span>
         <span class="quoted">`(let ((,insym ,obj))
@@ -194,6 +194,14 @@ T
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/03/23/learnClisp9/" title="Lisp自学笔记&lt;9 对象系统&gt;">
+  <strong>上一篇：</strong><br/>
+  <span>
+  Lisp自学笔记&lt;9 对象系统&gt;</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/03/22/learnClisp7/"  title="Lisp自学笔记&lt;7 符号和数字&gt;">
@@ -230,7 +238,7 @@ T
 		<ul>
 		
 		  
-			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>8</sup></a></li>
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>9</sup></a></li>
 		  
 		
 		  

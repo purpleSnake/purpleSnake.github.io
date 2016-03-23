@@ -1,0 +1,538 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Lisp自学笔记&lt;9 对象系统&gt; | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="Lisp的面向对象编程，跟Lisp的其他部分一样牛逼
+第十一章 Common Lisp 对象系统Common Lisp 对象系统，或称CLOS，是一组用来处理面向对象编程的操作集。通常将这些操作视为一个群组。技术上来说，它们与其他部分的Common Lisp没有什么不同：defmethod 和 defun 一样，都是整合在语言中一部分。
+11.1 Object-oriented Programmi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lisp自学笔记<9 对象系统>">
+<meta property="og:url" content="http://yoursite.com/2016/03/23/learnClisp9/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="Lisp的面向对象编程，跟Lisp的其他部分一样牛逼
+第十一章 Common Lisp 对象系统Common Lisp 对象系统，或称CLOS，是一组用来处理面向对象编程的操作集。通常将这些操作视为一个群组。技术上来说，它们与其他部分的Common Lisp没有什么不同：defmethod 和 defun 一样，都是整合在语言中一部分。
+11.1 Object-oriented Programmi">
+<meta property="og:updated_time" content="2016-03-23T07:19:26.009Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lisp自学笔记<9 对象系统>">
+<meta name="twitter:description" content="Lisp的面向对象编程，跟Lisp的其他部分一样牛逼
+第十一章 Common Lisp 对象系统Common Lisp 对象系统，或称CLOS，是一组用来处理面向对象编程的操作集。通常将这些操作视为一个群组。技术上来说，它们与其他部分的Common Lisp没有什么不同：defmethod 和 defun 一样，都是整合在语言中一部分。
+11.1 Object-oriented Programmi">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/23/learnClisp9/" title="Lisp自学笔记&lt;9 对象系统&gt;" itemprop="url">Lisp自学笔记&lt;9 对象系统&gt;</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-23T01:17:42.000Z" itemprop="datePublished"> 发表于 2016-03-23</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第十一章_Common_Lisp_对象系统"><span class="toc-number">1.</span> <span class="toc-text">第十一章 Common Lisp 对象系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-1_Object-oriented_Programming"><span class="toc-number">1.1.</span> <span class="toc-text">11.1 Object-oriented Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-2_Class_and_Instances"><span class="toc-number">1.2.</span> <span class="toc-text">11.2 Class and Instances</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-3_Slot_properties"><span class="toc-number">1.3.</span> <span class="toc-text">11.3 Slot properties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-4_Superclasses"><span class="toc-number">1.4.</span> <span class="toc-text">11.4 Superclasses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-5_Precedence"><span class="toc-number">1.5.</span> <span class="toc-text">11.5 Precedence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-6_Generic_Functions"><span class="toc-number">1.6.</span> <span class="toc-text">11.6 Generic Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-7_Auxiliary_Methods"><span class="toc-number">1.7.</span> <span class="toc-text">11.7 Auxiliary Methods</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-8_Method_Combination"><span class="toc-number">1.8.</span> <span class="toc-text">11.8 Method Combination</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-9_Encapsulation"><span class="toc-number">1.9.</span> <span class="toc-text">11.9 Encapsulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-10_Two_Models"><span class="toc-number">1.10.</span> <span class="toc-text">11.10 Two Models</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p><strong>Lisp的面向对象编程，跟Lisp的其他部分一样牛逼</strong></p>
+<h1 id="第十一章_Common_Lisp_对象系统">第十一章 Common Lisp 对象系统</h1><p>Common Lisp 对象系统，或称CLOS，是一组用来处理面向对象编程的操作集。通常将这些操作视为一个群组。技术上来说，它们与其他部分的Common Lisp没有什么不同：defmethod 和 defun 一样，都是整合在语言中一部分。</p>
+<h2 id="11-1_Object-oriented_Programming">11.1 Object-oriented Programming</h2><p>面向对象编程。<br><strong>defclass</strong> 定义类型，与定义结构体类似，定义类型的<strong>槽(slot)</strong> <em>(即，字段)</em>。实参接收继承的父类。<br><strong>defmethod</strong> 定义类型方法，参数需要类型来特化。调用时会自动判断参数的类型，调用对应的方法。<br><strong>make-instance</strong> 生成类的实例<br><strong>slot-value</strong> 获取类的<strong>槽</strong> <em>(字段)</em></p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defclass</span> rectangle <span class="list">()</span> <span class="list">(<span class="keyword">height</span> width)</span>)</span>
+&gt; <span class="list">(<span class="keyword">defclass</span> circle <span class="list">()</span> <span class="list">(<span class="keyword">radius</span>)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defmethod</span> area <span class="list">(<span class="list">(<span class="keyword">x</span> rectangle)</span>)</span>
+    <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">slot-value</span> x <span class="quoted">'height</span>)</span> <span class="list">(<span class="keyword">slot-vlaue</span> x <span class="quoted">'width</span>)</span>)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defmethod</span> area <span class="list">(<span class="list">(<span class="keyword">x</span> circle)</span>)</span>
+    <span class="list">(<span class="keyword">*</span> pi <span class="list">(<span class="keyword">expt</span> <span class="list">(<span class="keyword">slot-value</span> x <span class="quoted">'radius</span>)</span> <span class="number">2</span>)</span>)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">r</span> <span class="list">(<span class="keyword">make-instance</span> <span class="quoted">'rectangle</span>)</span>)</span>)</span>
+    <span class="list">(<span class="keyword">setf</span> <span class="list">(<span class="keyword">slot-value</span> r <span class="quoted">'height</span>)</span> <span class="number">2</span> 
+            <span class="list">(<span class="keyword">slot-value</span> r <span class="quoted">'width</span>)</span> <span class="number">3</span>)</span>
+    <span class="list">(<span class="keyword">area</span> r)</span>)</span>
+<span class="number">6</span>
+</code></pre><p>类的继承,包括槽和方法。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defclass</span> colored <span class="list">()</span>
+    <span class="list">(<span class="keyword">color</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">defclass</span> colored-circle <span class="list">(<span class="keyword">circle</span> colored)</span> <span class="comment">;继承了circle 和 colored</span>
+    <span class="list">()</span>)</span>
+</code></pre><h2 id="11-2_Class_and_Instances">11.2 Class and Instances</h2><h2 id="11-3_Slot_properties">11.3 Slot properties</h2><p>传递给<code>defclass</code>第三个参数必须是一个槽定义的列表。最简单的槽定义时一个表示其名称的符号。在一般情况下，一个槽定义可以是一个列表，第一个是槽的名称，伴随一个或者多个属性。属性像关键字那样指定。<br><strong>:accessor</strong> 访问器，隐式的定义一个可以引用到槽的函数，不需要调用slot-value函数就能访问槽。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defclass</span> circle <span class="list">()</span>
+    <span class="list">(<span class="list">(<span class="keyword">radius</span> <span class="keyword">:accessor</span> cicle-radius)</span>
+     <span class="list">(<span class="keyword">center</span> <span class="keyword">:accessor</span> circle-center)</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">setf</span> c <span class="list">(<span class="keyword">make-instance</span> <span class="quoted">'circle</span>)</span>)</span>
+&gt; <span class="list">(<span class="keyword">setf</span> <span class="list">(<span class="keyword">circle-radius</span> c)</span> <span class="number">1</span>)</span>
+</code></pre><p>通过指定<code>:writer or :reader</code> 可以设置访问器的权限。<br>其他属性：<br><strong>:initform</strong> 缺省值<br><strong>:initarg</strong> 初始化函数</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defclass</span> circle <span class="list">()</span>
+    <span class="list">(<span class="list">(<span class="keyword">radius</span> <span class="keyword">:accessor</span> circle-radius
+             <span class="keyword">:initarg</span> <span class="keyword">:radius</span>
+             <span class="keyword">:initform</span> <span class="number">1</span>)</span>
+     <span class="list">(<span class="keyword">center</span> <span class="keyword">:accessor</span> circle-center
+              <span class="keyword">:initarg</span> <span class="keyword">:center</span>
+              <span class="keyword">:initform</span> <span class="list">(<span class="keyword">cons</span> <span class="number">0</span> <span class="number">0</span>)</span>)</span>)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">setf</span> c <span class="list">(<span class="keyword">make-instance</span> <span class="quoted">'circle</span> <span class="keyword">:radius</span> <span class="number">3</span>)</span>)</span>
+</code></pre><p><strong>:allocation :class</strong> 所有实例共享槽值。<br><strong>:allocation :instance</strong> 实例自有的槽值，缺省设置，无需特别声明。</p>
+<h2 id="11-4_Superclasses">11.4 Superclasses</h2><h2 id="11-5_Precedence">11.5 Precedence</h2><p>基类优先级。<br><strong>多重继承的中基类的优先级问题，不需要考虑。尽量从设计类的时候就避免这种情况。</strong></p>
+<h2 id="11-6_Generic_Functions">11.6 Generic Functions</h2><p>定义类型的方法时，需要使用类型对参数进行特化。例如之前定义的方法：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defmethod</span> area <span class="list">(<span class="list">(<span class="keyword">x</span> circle)</span>)</span>
+    <span class="list">(<span class="keyword">*</span> pi <span class="list">(<span class="keyword">expt</span> <span class="list">(<span class="keyword">slot-value</span> x <span class="quoted">'radius</span>)</span> <span class="number">2</span>)</span>)</span>)</span>
+</code></pre><p>类型circle 对参数 x进行了特化。<br>而，没有特化的参数的方法叫做通用方法。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defmethod</span> area <span class="list">(<span class="keyword">x</span>)</span>
+    <span class="list">(<span class="keyword">*</span> pi <span class="list">(<span class="keyword">expt</span> <span class="list">(<span class="keyword">slot-value</span> x <span class="quoted">'radius</span>)</span> <span class="number">2</span>)</span>)</span>)</span>
+</code></pre><p>通用方法与<code>defun</code>定义的函数类似，而不同的地方是通用方法可以通过参数特化增加新的方法。<em>(类似函数重载)</em></p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defmethod</span> area <span class="list">(<span class="list">(<span class="keyword">x</span> rectangle)</span>)</span>
+    <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">slot-value</span> x <span class="quoted">'height</span>)</span> <span class="list">(<span class="keyword">slot-vlaue</span> x <span class="quoted">'width</span>)</span>)</span>)</span>
+</code></pre><p>甚至可以用单一的对象来特化参数，用<code>eql</code>来特化：</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defmethod</span> area <span class="list">(<span class="list">(<span class="keyword">x</span> （eql <span class="quoted">'powder</span>)</span>)</span>
+    <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">slot-value</span> x <span class="quoted">'height</span>)</span> <span class="list">(<span class="keyword">slot-vlaue</span> x <span class="quoted">'width</span>)</span>)</span>)</span>
+</code></pre><p>函数优先级由高到低：单一对象特化方法，类型特化方法，通用方法。</p>
+<p>方法可以有复杂的参数列表，但所有组成通用函数方法的参数列表必须一致。当两个方法的参数列表特化相同时，后者覆盖前者。</p>
+<h2 id="11-7_Auxiliary_Methods">11.7 Auxiliary Methods</h2><p>方法可以通过如<code>:before,:after</code> 以及 <code>:around</code> 等辅助方法来增强。<code>:before</code> 与 <code>:after</code>方法允许我们将新的行为捆绑在主方法的周围。如果<code>:around</code>方法存在的话，会调用的是<code>:around</code>方法而不是主方法。<code>:around</code>方法自己可能会调用主方法。</p>
+<p>这称为标准方法组合机制 (standard method combination)。在标准方法组合机制里，调用一个通用函数会：</p>
+<ol>
+<li>如果有的话,调用最具体的<code>:around</code>方法。</li>
+<li>否则，依序调用，</li>
+</ol>
+<ul>
+<li>所有的<code>:before</code>方法，从最具体到最不具体。</li>
+<li>最具体的主方法</li>
+<li>所有的<code>:after</code>方法，从最不具体到最具体</li>
+</ul>
+<p>返回值为<code>:around</code>方法的返回值（情况 1）或是最具体的主方法的返回值（情况 2）。</p>
+<pre><code>&gt; <span class="list">(<span class="keyword">defclass</span> speaker <span class="list">()</span> <span class="list">()</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defmethod</span> speak <span class="list">(<span class="list">(<span class="keyword">s</span> speaker)</span> string)</span>
+    <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A"</span> string)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defclass</span> intellectual <span class="list">(<span class="keyword">speaker</span>)</span> <span class="list">()</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defmethod</span> speak <span class="keyword">:before</span> <span class="list">(<span class="list">(<span class="keyword">i</span> intellectual)</span> string)</span>
+      <span class="list">(<span class="keyword">princ</span> <span class="string">"Perhaps "</span>)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defmethod</span> speak <span class="keyword">:after</span> <span class="list">(<span class="list">(<span class="keyword">i</span> intellectual)</span> string)</span>
+      <span class="list">(<span class="keyword">princ</span> <span class="string">" in some sense"</span>)</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defclass</span> courtier <span class="list">(<span class="keyword">speaker</span>)</span> <span class="list">()</span>)</span>
+
+&gt; <span class="list">(<span class="keyword">defmethod</span> speak <span class="keyword">:around</span> <span class="list">(<span class="list">(<span class="keyword">c</span> courtier)</span> string)</span>
+      <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"Does the King believe that ~A?"</span> string)</span>
+      <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">eql</span> <span class="list">(<span class="keyword">read</span>)</span> <span class="quoted">'yes</span>)</span>
+      <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">next-method-p</span>)</span> <span class="list">(<span class="keyword">call-next-method</span>)</span>)</span>
+      <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"Indeed, it is a preposterous idea. ~%"</span>)</span>)</span>
+  <span class="quoted">'bow</span>)</span>
+</code></pre><p><code>next-method-p</code>检测是否有下一个方法可调用<br><code>next-method-call</code> 调用下个方法。<br>之前说到，这两个宏从环境中捕获变量，但不知道如何做到的。例子中，捕获了一个函数<code>speak</code>,和一个参数<code>string</code>,但不知道如何捕获的。并且，调用主函数时候，会先调用<code>:before</code>函数。</p>
+<h2 id="11-8_Method_Combination">11.8 Method Combination</h2><p>将方法组织到一起，调用通用方法的时候会将所有的主方法调用一遍，而不是只调用最具体的主方法。<br><em>不想看了，以后有心情了在具体学习。</em></p>
+<h2 id="11-9_Encapsulation">11.9 Encapsulation</h2><p>封装。</p>
+<h2 id="11-10_Two_Models">11.10 Two Models</h2><p><em>不知所云，我跳跳跳过</em></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Clisp/">Clisp</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/03/23/learnClisp9/" data-title="Lisp自学笔记&lt;9 对象系统&gt; | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/22/learnClisp8/"  title="Lisp自学笔记&lt;8 宏&gt;">
+ <strong>下一篇：</strong><br/> 
+ <span>Lisp自学笔记&lt;8 宏&gt;
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#第十一章_Common_Lisp_对象系统"><span class="toc-number">1.</span> <span class="toc-text">第十一章 Common Lisp 对象系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#11-1_Object-oriented_Programming"><span class="toc-number">1.1.</span> <span class="toc-text">11.1 Object-oriented Programming</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-2_Class_and_Instances"><span class="toc-number">1.2.</span> <span class="toc-text">11.2 Class and Instances</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-3_Slot_properties"><span class="toc-number">1.3.</span> <span class="toc-text">11.3 Slot properties</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-4_Superclasses"><span class="toc-number">1.4.</span> <span class="toc-text">11.4 Superclasses</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-5_Precedence"><span class="toc-number">1.5.</span> <span class="toc-text">11.5 Precedence</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-6_Generic_Functions"><span class="toc-number">1.6.</span> <span class="toc-text">11.6 Generic Functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-7_Auxiliary_Methods"><span class="toc-number">1.7.</span> <span class="toc-text">11.7 Auxiliary Methods</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-8_Method_Combination"><span class="toc-number">1.8.</span> <span class="toc-text">11.8 Method Combination</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-9_Encapsulation"><span class="toc-number">1.9.</span> <span class="toc-text">11.9 Encapsulation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-10_Two_Models"><span class="toc-number">1.10.</span> <span class="toc-text">11.10 Two Models</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>9</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
