@@ -23,7 +23,7 @@
 第四章 特殊数据结构列表是Lisp中最多功能的数据结构。本章将介绍其他数据结构：数组(包含向量和字符串)，结构和哈希表。虽然它们不像列表那么灵活，但存取速度更快，并使用更少的空间。Clisp还有另一种数据结构：实例(instance)。将在11章介绍。
 4.1 Array跟C语言中的类似，但不是使用[]定义或取值，而是使用函数。make-array 定义数组。
 &amp;gt;">
-<meta property="og:updated_time" content="2016-03-22T06:06:03.575Z">
+<meta property="og:updated_time" content="2016-04-05T08:29:16.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<3 特殊数据结构>">
 <meta name="twitter:description" content="blabla ahead
@@ -108,32 +108,32 @@
 		
 		<p><strong>blabla ahead</strong></p>
 <h1 id="第四章_特殊数据结构">第四章 特殊数据结构</h1><p>列表是Lisp中最多功能的数据结构。本章将介绍其他数据结构：数组(包含向量和字符串)，结构和哈希表。虽然它们不像列表那么灵活，但存取速度更快，并使用更少的空间。<br>Clisp还有另一种数据结构：实例(instance)。将在11章介绍。</p>
-<h2 id="4-1_Array">4.1 Array</h2><p>跟C语言中的类似，但不是使用<code>[]</code>定义或取值，而是使用函数。<br><strong>make-array</strong> 定义数组。</p>
+<h2 id="4-1_Array">4.1 Array</h2><p>跟C语言中的类似，但不是使用<code>[]</code>定义或取值，而是使用函数。<br><code>make-array</code> 定义数组。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">setf</span> arr <span class="list">(<span class="keyword">make-array</span> <span class="quoted">'(<span class="number">2</span> <span class="number">3</span>)</span> <span class="keyword">:initial-element</span> <span class="literal">nil</span>)</span>)</span>
 
 &gt; <span class="list">(<span class="keyword">make-array</span> <span class="number">4</span> <span class="keyword">:initial-element</span> <span class="number">4</span>)</span>
 </code></pre><p>Clisp中数组可以达到七个维度，每个维度至少可以容纳1023个元素。 <code>:inital-value</code> 实参是选择性的，提供数组的初值，如果未选择，初值未定义。</p>
-<p><strong>aref</strong> 取出数组内的元素值，与C语言一致是零索引的。</p>
+<p><code>aref</code> 取出数组内的元素值，与C语言一致是零索引的。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">aref</span> arr <span class="number">0</span> <span class="number">0</span>)</span>
 NIL
 &gt; <span class="list">(<span class="keyword">setf</span> <span class="list">(<span class="keyword">aref</span> arr <span class="number">0</span> <span class="number">0</span>)</span> <span class="quoted">'b</span>)</span>
 B
-</code></pre><p><strong>#na</strong> 语法，定义一个常量数组。</p>
+</code></pre><p><code>#na</code> 语法，定义一个常量数组。</p>
 <pre><code>&gt; #2a<span class="list">(<span class="list">(<span class="keyword">b</span> <span class="literal">nil</span> <span class="literal">nil</span>)</span> <span class="list">(<span class="keyword">nil</span> <span class="literal">nil</span> <span class="literal">nil</span>)</span>)</span>
 </code></pre><p>一维数组又称为向量，可以通过调用<code>vector</code>来一步构造即填满向量，向量的元素可以是任意类型。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">setf</span> vec <span class="list">(<span class="keyword">vector</span> <span class="string">"a"</span> <span class="quoted">'b</span> <span class="number">3</span>)</span>)</span>
 #<span class="list">(<span class="string">"a"</span> <span class="quoted">'b</span> <span class="number">3</span>)</span>
 &gt; <span class="list">(<span class="keyword">svref</span> vec <span class="number">0</span>)</span>
 <span class="string">"A"</span>
-</code></pre><p><strong>svref</strong> 来更快速的存取向量，</p>
-<h2 id="4-2_Example:Binary_Search">4.2 Example:Binary Search</h2><h2 id="4-3_Strings_and_Charaters">4.3 Strings and Charaters</h2><p>字符串是字符组成的向量，由双引号包括。<br>字符使用<code>#\x</code>表示。<br><strong>char-code</strong> 返回与字符相关的数字<br><strong>code-char</strong> 返回与数字相关的字符<br><strong>字符比较函数</strong>：<code>char&lt;,char&lt;=,char=,char&gt;=,char&gt;,char/=</code></p>
+</code></pre><p><code>svref</code> 来更快速的存取向量，</p>
+<h2 id="4-2_Example:Binary_Search">4.2 Example:Binary Search</h2><h2 id="4-3_Strings_and_Charaters">4.3 Strings and Charaters</h2><p>字符串是字符组成的向量，由双引号包括。<br>字符使用<code>#\x</code>表示。<br><code>char-code</code> 返回与字符相关的数字<br><code>code-char</code> 返回与数字相关的字符<br><strong>字符比较函数</strong>：<code>char&lt;,char&lt;=,char=,char&gt;=,char&gt;,char/=</code></p>
 <pre><code>&gt;<span class="list">(<span class="keyword">sort</span> <span class="string">"elbow"</span> <span class="quoted">#'char&lt;</span>)</span>
 <span class="string">"below"</span>
 </code></pre><p>字符串可以使用<code>aref</code>来取值，<code>setf</code>来赋值。针对字符串，可以使用速度更可的<code>char</code>函数来取值。</p>
 <pre><code>&gt;(<span class="keyword">char</span> <span class="string">"elbow"</span> <span class="number">1</span>)
 <span class="preprocessor">#\l</span>
-</code></pre><p><strong>equal</strong> 比较字符是否相等<br><strong>string-equal</strong> 忽略大小写，比较字符是否相等。</p>
-<h2 id="4-4_Sequences">4.4 Sequences</h2><p>序列，包含列表和向量(因此也包括字符串)。<br>有些用在列表的函数，实际上是序列的函数，包括<code>remove,length,subseq,reverse,sort,every,some</code>。<br>之前介绍个四种取出序列元素的的函数：给列表使用的<code>nth</code>,给向量使用的<code>aref,svref</code>,以及给字符串使用的<code>char</code>。<br>Clisp也提供通用的<strong>elt</strong>，对任何序列都有效。</p>
+</code></pre><p><code>equal</code> 比较字符是否相等<br><code>string-equal</code> 忽略大小写，比较字符是否相等。</p>
+<h2 id="4-4_Sequences">4.4 Sequences</h2><p>序列，包含列表和向量(因此也包括字符串)。<br>有些用在列表的函数，实际上是序列的函数，包括<code>remove,length,subseq,reverse,sort,every,some</code>。<br>之前介绍个四种取出序列元素的的函数：给列表使用的<code>nth</code>,给向量使用的<code>aref,svref</code>,以及给字符串使用的<code>char</code>。<br>Clisp也提供通用的<code>elt</code>，对任何序列都有效。</p>
 <p><strong>标准关键字参数</strong></p>
 <table>
 <thead>
@@ -171,21 +171,22 @@ B
 </tr>
 </tbody>
 </table>
-<p><strong>一些常用的函数</strong><br><strong>position</strong> 返回序列中一个元素的位置，接收上面所有的关键字参数。</p>
+<p><strong>一些常用的函数</strong><br><code>position</code> 返回序列中一个元素的位置，接收上面所有的关键字参数。</p>
 <pre><code>&gt; (<span class="attribute">position</span> #\<span class="tag">a</span> <span class="string">"fantasia"</span>)
 <span class="number">1</span>
-</code></pre><p><strong>position-if</strong> 接收除了:test之外的所有关键字参数。找到满足谓词的第一个元素的位置。</p>
+</code></pre><p><code>position-if</code> 接收除了:test之外的所有关键字参数。找到满足谓词的第一个元素的位置。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">position-if</span> <span class="quoted">#'oddp</span> <span class="quoted">'(<span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span>)</span>)</span>
 <span class="number">1</span>    
-</code></pre><p><strong>subseq</strong> 提取部分序列</p>
-<p><strong>member，memeber-if</strong><br><strong>find,find-if</strong><br><strong>remove,remove-if</strong><br><strong>reduce</strong> 用来把序列压缩为一个值。</p>
+</code></pre><p><code>subseq</code> 提取部分序列</p>
+<p><code>member，memeber-if</code><br><code>find,find-if</code><br><code>remove,remove-if</code><br><code>reduce</code> 用来把序列压缩为一个值。</p>
 <pre><code>&gt; (reduce #<span class="string">'fn '</span>(<span class="tag">a</span> <span class="tag">b</span> c d))
 </code></pre><p>类似于</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">fn</span> <span class="list">(<span class="keyword">fn</span> <span class="list">(<span class="keyword">fn</span> <span class="quoted">'a</span> <span class="quoted">'b</span>)</span> <span class="quoted">'c</span>)</span> <span class="quoted">'d</span>)</span>
-</code></pre><h2 id="4-5_Example:Parsing_Dates">4.5 Example:Parsing Dates</h2><h2 id="4-6_Structures">4.6 Structures</h2><p>结构体可以看做豪华版的向量。<br><strong>defstruct</strong> 定义结构体。<br>    (defstruct point x y)</p>
-<p>这里定义了一个<code>point</code>结构，具有两个字段x和y。同时隐式的定义了<code>make-point,point-p,copy-point,point-x,point-y</code>函数。<br><strong>之前说过，Lisp程序可以写出Lisp程序，这是目前所见的最明显的例子之一。当你调用<code>defstruct</code>时，它自动生成了其他几个函数的定义。有了宏以后，你将可以自己来办到同样的事情（如果有需要的话，你甚至可以自己写出<code>defstruct</code>).</strong><br><em>(感觉没什么意思啊，我要的是能在程序运行时候，自己构造程序的程序。而不是开发一门新的编程语言)</em></p>
+</code></pre><h2 id="4-5_Example:Parsing_Dates">4.5 Example:Parsing Dates</h2><h2 id="4-6_Structures">4.6 Structures</h2><p>结构体可以看做豪华版的向量。<br><code>defstruct</code> 定义结构体。</p>
+<pre><code><span class="list">(<span class="keyword"><span class="built_in">defstruct</span></span> point x y)</span>
+</code></pre><p>这里定义了一个<code>point</code>结构，具有两个字段x和y。同时隐式的定义了<code>make-point,point-p,copy-point,point-x,point-y</code>函数。<br><strong>之前说过，Lisp程序可以写出Lisp程序，这是目前所见的最明显的例子之一。当你调用<code>defstruct</code>时，它自动生成了其他几个函数的定义。有了宏以后，你将可以自己来办到同样的事情（如果有需要的话，你甚至可以自己写出<code>defstruct</code>).</strong><br><em>(感觉没什么意思啊，我要的是能在程序运行时候，自己构造程序的程序。而不是开发一门新的编程语言)</em></p>
 <p>每个point类型，首先是point，然后是类型structure，再接着是类型atom，最后是t类型。</p>
-<h2 id="4-7_Example:Binary_Search_Tree">4.7 Example:Binary Search Tree</h2><h2 id="4-8_Hash_Tables">4.8 Hash Tables</h2><p><strong>make-hash-table</strong> 构造hash table<br>hash table 与关联列表类似，是一种表达对对应关系的方式。<br><strong>gethash</strong> 接收一个键值与hash table，返回两个值，第一个值是与键值相关的数值，第二个值说明表中是否含有与此键值相关的数据。</p>
+<h2 id="4-7_Example:Binary_Search_Tree">4.7 Example:Binary Search Tree</h2><h2 id="4-8_Hash_Tables">4.8 Hash Tables</h2><p><code>make-hash-table</code> 构造hash table<br>hash table 与关联列表类似，是一种表达对对应关系的方式。<br><code>gethash</code> 接收一个键值与hash table，返回两个值，第一个值是与键值相关的数值，第二个值说明表中是否含有与此键值相关的数据。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">setf</span> ht <span class="list">(<span class="keyword">make-hash-table</span>)</span>)</span>
 #&lt;Hash-Table BF0A96&gt;
 &gt; <span class="list">(<span class="keyword">gethash</span> <span class="quoted">'color</span> ht)</span>
@@ -196,9 +197,9 @@ RED
 &gt; <span class="list">(<span class="keyword">gethash</span> <span class="quoted">'color</span> ht)</span>
 RED
 T
-</code></pre><p><strong>push</strong> 可以用于向hash表添加一个词条</p>
+</code></pre><p><code>push</code> 可以用于向hash表添加一个词条</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">push</span> <span class="quoted">'green</span> <span class="list">(<span class="keyword">gethash</span> <span class="quoted">'color2</span> ht)</span>)</span>
-</code></pre><p><strong>remhash</strong> 移除一个对象<br><strong>maphash</strong> 接收两个实参，一个两个参数的函数以及哈希表。该函数会被每个键值对调用。</p>
+</code></pre><p><code>remhash</code> 移除一个对象<br><code>maphash</code> 接收两个实参，一个两个参数的函数以及哈希表。该函数会被每个键值对调用。</p>
   
 	</div>
 		<footer class="article-footer clearfix">

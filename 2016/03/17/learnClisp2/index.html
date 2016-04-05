@@ -21,7 +21,7 @@
 <meta property="og:description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
 第三章 Lists列表是Lisp中基本数据结构之一。 灰常灰常的重要。Lisp程序开发通常意味着开发Lisp语言本身。
 3.1 构造(conses)我不认识这单词，衰Lisp中的表，类似于C语言里的单链表。基本操作有car，cdr，con">
-<meta property="og:updated_time" content="2016-03-23T14:01:24.040Z">
+<meta property="og:updated_time" content="2016-04-05T08:22:50.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<2 列表>">
 <meta name="twitter:description" content="something written ahead以为能用两天就能撸完Lisp呢，看来我太小瞧它了。因为，我发现每一章都好长好长。好吧，慢慢来。心急吃不了Lisp。
@@ -105,7 +105,7 @@
 		
 		<p><strong>something written ahead</strong><br>以为能用两天就能撸完Lisp呢，看来我太小瞧它了。<br>因为，我发现每一章都好长好长。<br>好吧，慢慢来。心急吃不了Lisp。</p>
 <h1 id="第三章_Lists">第三章 Lists</h1><p>列表是Lisp中基本数据结构之一。 <em>灰常灰常的重要。</em><br>Lisp程序开发通常意味着开发Lisp语言本身。</p>
-<h2 id="3-1_构造(conses)">3.1 构造(conses)</h2><p><em>我不认识这单词，衰</em><br>Lisp中的表，类似于C语言里的单链表。<br>基本操作有<strong>car，cdr，cons</strong>。<strong>car</strong>指向列表的第一个元素，<strong>cdr</strong>指向列表的第二个元素，代表第一个元素之后的所有元素。<strong>cons</strong>则包括<strong>car</strong>和<strong>cdr</strong>。<br>只有一个元素的表，<strong>cdr</strong>操作返回<code>nil</code>.<br>列表可以包含任何对象，意包括列表。<em>(思是：列表元素是void类型指针。笑^_^)</em></p>
+<h2 id="3-1_构造(conses)">3.1 构造(conses)</h2><p><em>我不认识这单词，衰</em><br>Lisp中的表，类似于C语言里的单链表。<br>基本操作有<strong>car，cdr，cons</strong>。<strong>car</strong>指向列表的第一个元素，<strong>cdr</strong>指向列表的第二个元素，代表第一个元素之后的所有元素。<strong>cons</strong>则包括<strong>car</strong>和<strong>cdr</strong>。<br>只有一个元素的表，<strong>cdr</strong>操作返回<code>nil</code>.<br>列表可以包含任何对象，包括列表。<em>(意思是：列表元素是void类型指针。笑^_^)</em></p>
 <p><strong>consp</strong> 检测一个对象是否为<code>cons</code>对象。所以，可以这样定义<code>listp</code></p>
 <pre><code>&gt; （defun our-listp (x)
         （<span class="literal">or</span> (<span class="literal">null</span> x) (consp x))）
@@ -123,12 +123,12 @@ T
 &gt; <span class="list">(<span class="keyword">eql</span> x y)</span>
 T 
 </code></pre><h2 id="3-3_Why_Lisp_Has_No_Pointers">3.3 Why Lisp Has No Pointers</h2><p>Beacuse everything is pointer implicitly and you should not pay attention to it.</p>
-<h2 id="3-4_Building_Lists">3.4 Building Lists</h2><p><strong>copy-list</strong> 复制列表。 可以按照如下定义：</p>
+<h2 id="3-4_Building_Lists">3.4 Building Lists</h2><p><code>copy-list</code> 复制列表。 可以按照如下定义：</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-copy-list <span class="list">(<span class="keyword">lst</span>)</span>
     <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">atom</span> lst)</span>
         lst
         <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">car</span> lst)</span> <span class="list">(<span class="keyword">our-copy-list</span> <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>)</span>
-</code></pre><p><strong>append</strong> 将任意数据的实参串接</p>
+</code></pre><p><code>append</code> 将任意数据的实参串接</p>
 <h2 id="3-4_Example:_Compression">3.4 Example: Compression</h2><p>游码编码(run-length encoding)</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defun</span> n-elts <span class="list">(<span class="keyword">elt</span> n)</span>
     <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&gt;</span> n <span class="number">1</span>)</span>
@@ -148,22 +148,22 @@ T
 &gt; <span class="list">(<span class="keyword">compress</span> <span class="quoted">'(<span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span>)</span>)</span>
 <span class="list">(<span class="list">(<span class="number">3</span> <span class="number">1</span>)</span> <span class="number">0</span> <span class="number">1</span> <span class="list">(<span class="number">4</span> <span class="number">0</span>)</span> <span class="number">1</span>)</span>
 </code></pre><p>知道原理，编程还是很easy的。<br>作者装逼说：这种写法不是一个有经验的LIsp程序员的写法。它的效率很差，它没有尽可能的压缩，而且它只对原子组成的列表有效。在几个章节内，我们会学到解决这个问题的技巧。</p>
-<h2 id="3-6_Access">3.6 Access</h2><p>取列表指定元素的函数，使用<code>car</code>和<code>cdr</code>定义。<em>真不敢想象，一堆car，cdr堆一起的感觉</em><br><strong>nth</strong> 获取指定位置的元素。<br><strong>nthcdr</strong> 获取第n个cdr</p>
+<h2 id="3-6_Access">3.6 Access</h2><p>取列表指定元素的函数，使用<code>car</code>和<code>cdr</code>定义。<em>真不敢想象，一堆car，cdr堆一起的感觉</em><br><code>nth</code> 获取指定位置的元素。<br><code>nthcdr</code> 获取第n个<code>cdr</code></p>
 <pre><code>&gt; <span class="list">(<span class="keyword">nth</span> <span class="number">1</span> <span class="quoted">'(a b c d)</span>)</span>
 b
 &gt; <span class="list">(<span class="keyword">nthcdr</span> <span class="number">2</span> <span class="quoted">'(a b c d)</span>)</span>
 <span class="list">(<span class="keyword">c</span> d)</span>
-</code></pre><p><strong>zerop</strong> 参数为0时，返回真<br><strong>last</strong> 返回最后一个Cons对象，注意：不是最后一个元素。要获取最后一个元素需要取last的car<br>Clisp定义了函数<code>first</code>到<code>tenth</code>可以取得相应的元素。此外，还定义了像<code>caddr</code>这样的函数，它是<code>cdr</code>的<code>cdr</code>的<code>car</code>的缩写。所有这样形式的函数<code>cxr</code>，最多四个a或者d，在Clisp里都被定义好了。<em>但这函数不好读啊。</em></p>
-<h2 id="3-7_Mapping_Functions">3.7 Mapping Functions</h2><p>Clisp提供数个函数，使用函数实参依次对列表实参中的元素求值。<br><strong>mapcar</strong> 接受一个函数以及一个或者多个列表，并把函数应用于每个列表的元素。</p>
+</code></pre><p><code>zerop</code> 参数为0时，返回真<br><code>last</code> 返回最后一个Cons对象，注意：不是最后一个元素。要获取最后一个元素需要取last的car<br>Clisp定义了函数<code>first</code>到<code>tenth</code>可以取得相应的元素。此外，还定义了像<code>caddr</code>这样的函数，它是<code>cdr</code>的<code>cdr</code>的<code>car</code>的缩写。所有这样形式的函数<code>cxr</code>，最多四个a或者d，在Clisp里都被定义好了。<em>但这函数不好读啊。</em></p>
+<h2 id="3-7_Mapping_Functions">3.7 Mapping Functions</h2><p>Clisp提供数个函数，使用函数实参依次对列表实参中的元素求值。<br><code>mapcar</code> 接受一个函数以及一个或者多个列表，并把函数应用于每个列表的元素。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">mapcar</span> #<span class="quoted">'(lambda (x) (+ x <span class="number">10</span>))</span> <span class="quoted">'(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span>
 <span class="list">(<span class="number">11</span> <span class="number">12</span> <span class="number">13</span>)</span>
 &gt; <span class="list">(<span class="keyword">mapcar</span> <span class="quoted">#'list</span> <span class="quoted">'(a b c)</span> <span class="quoted">'( <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span>
 <span class="list">(<span class="list">(<span class="keyword">A</span> <span class="number">1</span>)</span> <span class="list">(<span class="keyword">B</span> <span class="number">2</span>)</span> <span class="list">(<span class="keyword">C</span> <span class="number">3</span>)</span>)</span>
-</code></pre><p><strong>maplist</strong> 将列表渐进的下一个cdr传入函数</p>
+</code></pre><p><code>maplist</code> 将列表渐进的下一个cdr传入函数</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">maplist</span> #<span class="quoted">'(lambda (x) x)</span> <span class="quoted">'(a b c)</span>)</span>
 <span class="list">(<span class="list">(<span class="keyword">A</span> B C)</span> <span class="list">(<span class="keyword">B</span> C)</span> <span class="list">(<span class="keyword">C</span>)</span>)</span>
-</code></pre><p><strong>mapc,mapcan</strong> 将在之后讨论。</p>
-<h2 id="3-8_Trees">3.8 Trees</h2><p>Cons对象可以想象成二叉树，<code>car</code>代表左子树 <code>cdr</code>代表右子树。<br>CLisp内置了几个操作树的函数。<br><strong>copy-tree</strong> 接收一个树，并返回一个副本。它可以这么定义</p>
+</code></pre><p><code>mapc,mapcan</code> 将在之后讨论。</p>
+<h2 id="3-8_Trees">3.8 Trees</h2><p>Cons对象可以想象成二叉树，<code>car</code>代表左子树 <code>cdr</code>代表右子树。<br>CLisp内置了几个操作树的函数。<br><code>copy-tree</code> 接收一个树，并返回一个副本。它可以这么定义</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defun</span> our-copy-tree <span class="list">(<span class="keyword">tr</span>)</span>
     <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">atom</span> tr)</span>
         tr
@@ -193,7 +193,7 @@ b
 </code></pre><p>一般来说，<code>member</code>使用<code>eql</code>来比较对象。<br>不过你可以使用一种叫做<strong>关键字参数</strong>的东西来重写缺省的比较方法。<strong>关键字参数</strong>前面用冒号表示<br><code>member</code>的一个关键词参数为<code>:test</code>参数。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">member</span> <span class="quoted">'(a)</span> <span class="quoted">'((a) (z))</span> <span class="keyword">:test</span> <span class="quoted">#'equal</span>)</span>
 <span class="list">(<span class="list">(<span class="keyword">A</span>)</span> <span class="list">(<span class="keyword">Z</span>)</span>)</span>
-</code></pre><p><strong>member-if</strong> 接收一个判断式和集合，返回满足判断式的元素</p>
+</code></pre><p><code>member-if</code> 接收一个判断式和集合，返回满足判断式的元素</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">member-if</span> <span class="quoted">#'oddp</span> <span class="quoted">'(<span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span>
 <span class="list">(<span class="number">3</span> <span class="number">4</span>)</span>
 </code></pre><p>一个限制性的版本<code>member-if</code>是这样写的：</p>
@@ -202,17 +202,17 @@ b
         <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">funcall</span> fn <span class="list">(<span class="keyword">car</span> lst)</span>)</span>
             lst
             <span class="list">(<span class="keyword">our-member-if</span> fn <span class="list">(<span class="keyword">cdr</span> lst)</span>)</span>)</span>)</span>)</span>
-</code></pre><p><strong>adjoin</strong> 像是条件式的<code>cons</code>，它接收一个对象和一个列表，如果对象还不是列表的成员，才构造对象至列表。<br>集合论中的<strong>并集(union)，交集(intersection)，补集(set-difference)</strong></p>
+</code></pre><p><code>adjoin</code> 像是条件式的<code>cons</code>，它接收一个对象和一个列表，如果对象还不是列表的成员，才构造对象至列表。<br>集合论中的<strong>并集(union)，交集(intersection)，补集(set-difference)</strong></p>
 <pre><code>&gt; (intersection <span class="string">'(a b c) '</span>(<span class="tag">b</span> <span class="tag">b</span> c))
 (<span class="tag">b</span> c)
-</code></pre><h2 id="3-11_Sequences">3.11 Sequences</h2><p>另一种考虑列表的方式是想象成一系列有特定顺序的对象。Clisp中<em>序列(sequences)</em>包括了列表和向量(vectors)。<br><strong>length</strong> 返回序列中元素的数目。<br><strong>subseq</strong> 接收两个必须的参数：一个序列，一个起始元素位置，第三个可选参数结束位置</p>
+</code></pre><h2 id="3-11_Sequences">3.11 Sequences</h2><p>另一种考虑列表的方式是想象成一系列有特定顺序的对象。Clisp中<em>序列(sequences)</em>包括了列表和向量(vectors)。<br><code>length</code> 返回序列中元素的数目。<br><code>subseq</code> 接收两个必须的参数：一个序列，一个起始元素位置，第三个可选参数结束位置</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">subseq</span> <span class="quoted">'(a b c d)</span> <span class="number">1</span> <span class="number">3</span>)</span>
 <span class="list">(<span class="keyword">B</span> C)</span>
-</code></pre><p><strong>reverse</strong> 倒序该序列<br><strong>sort</strong> 排序该序列，接收一个序列和一个比较参数的函数</p>
+</code></pre><p><code>reverse</code> 倒序该序列<br><code>sort</code> 排序该序列，接收一个序列和一个比较参数的函数</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">sort</span> <span class="quoted">'(<span class="number">0</span> <span class="number">2</span> <span class="number">3</span> <span class="number">1</span> <span class="number">8</span>)</span> <span class="quoted">#'&gt;</span>)</span>
 <span class="list">(<span class="number">8</span> <span class="number">3</span> <span class="number">2</span> <span class="number">1</span> <span class="number">0</span>)</span>
-</code></pre><p>sort是破坏性的，允许修改传入的序列。如果不想原序列被修改，传入一个副本。<br><strong>every,some</strong> 接收一个判断式以及一个或者多个序列。every是对每一个，some是对一部分。</p>
-<h2 id="3-12_Stacks">3.12 Stacks</h2><p>用Cons对象来表示列表，可以用来实现堆栈。Clisp提供了两个宏来实现堆栈操作。<br><strong>push，pop</strong><br>这两个函数都是由<code>setf</code>定义的。<br><strong>pushnew</strong> 是push的变种，只入栈栈内没有的元素。</p>
+</code></pre><p>sort是破坏性的，允许修改传入的序列。如果不想原序列被修改，传入一个副本。<br><code>every,some</code> 接收一个判断式以及一个或者多个序列。every是对每一个，some是对一部分。</p>
+<h2 id="3-12_Stacks">3.12 Stacks</h2><p>用Cons对象来表示列表，可以用来实现堆栈。Clisp提供了两个宏来实现堆栈操作。<br><code>push，pop</code><br>这两个函数都是由<code>setf</code>定义的。<br><code>pushnew</code> 是<code>push</code>的变种，只入栈栈内没有的元素。</p>
 <h2 id="3-13_Dotted_Lists">3.13 Dotted Lists</h2><p>点状列表，通常不是用来表示列表，而是一个有两个部分的数据结构。<br><em>(不知道用途，先放这)</em><br>使用<code>cons</code>构造常规列表时，必须在<code>nil</code>的基础上构造。不然，将会构造出点状列表。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">cons</span> <span class="quoted">'a</span> <span class="quoted">'b</span>)</span>
 <span class="list">(<span class="keyword">a</span> . b)</span>
