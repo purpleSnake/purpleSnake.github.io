@@ -21,7 +21,7 @@
 <meta property="og:description" content="Go on
 第五章 控制流2.2节介绍过Lisp求值规则，即尝试对一切求值。本章的操作符都有一个特点：违反求值规则。这些操作符让你决定在何时求值。如果普通函数调用时Lisp的树叶的话，那么这些操作符就是连接树叶的树枝。(貌似要学到什么牛逼的东西呢)
 5.1 BlocksClisp有三个构造区块的基本操作符：progn,block,tagbody。progn 主体中的表达式依次求值，返回最后一个表达">
-<meta property="og:updated_time" content="2016-03-22T06:06:28.914Z">
+<meta property="og:updated_time" content="2016-04-05T08:38:34.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<4 控制流>">
 <meta name="twitter:description" content="Go on
@@ -105,11 +105,11 @@
 		
 		<p><strong>Go on</strong></p>
 <h1 id="第五章_控制流">第五章 控制流</h1><p>2.2节介绍过Lisp求值规则，即尝试对一切求值。本章的操作符都有一个特点：违反求值规则。这些操作符让你决定在何时求值。如果普通函数调用时Lisp的树叶的话，那么这些操作符就是连接树叶的树枝。<br><em>(貌似要学到什么牛逼的东西呢)</em></p>
-<h2 id="5-1_Blocks">5.1 Blocks</h2><p>Clisp有三个构造区块的基本操作符：<code>progn,block,tagbody</code>。<br><strong>progn</strong> 主体中的表达式依次求值，返回最后一个表达式的值。<br>由于只有返回最后一个表达式的值，意味着<code>progn</code>（或任何区块）涵盖了副作用。</p>
+<h2 id="5-1_Blocks">5.1 Blocks</h2><p>Clisp有三个构造区块的基本操作符：<code>progn,block,tagbody</code>。<br><code>progn</code> 主体中的表达式依次求值，返回最后一个表达式的值。<br>由于只有返回最后一个表达式的值，意味着<code>progn</code>（或任何区块）涵盖了副作用。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">progn</span> 
     <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"a"</span>)</span>
     <span class="list">(<span class="keyword">+</span> <span class="number">11</span> <span class="number">12</span>)</span>)</span>
-</code></pre><p><strong>block</strong> 像是带有名字及紧急出口的<code>progn</code>.第一个实参为区块的名称。在主体中的任何地方可以停止求值，并通过<code>return-from</code>来立即返回数值。</p>
+</code></pre><p><code>block</code> 像是带有名字及紧急出口的<code>progn</code>.第一个实参为区块的名称。在主体中的任何地方可以停止求值，并通过<code>return-from</code>来立即返回数值。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">block</span> head
     <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"here wo go."</span>)</span>
     <span class="list">(<span class="keyword">return-from</span> head <span class="quoted">'idea</span>)</span>
@@ -146,7 +146,7 @@
         <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"aha"</span>)</span>
         <span class="list">(<span class="keyword">+</span> that <span class="number">1</span>)</span>)</span>)</span>
 </code></pre><p><code>unless</code> 与<code>when</code>相反，只有测试表达式为假时，才对代码主体求值。</p>
-<p><code>cond</code> 接收多个条件判断，条件判断之后跟随与之相关的代码。执行时依次进行判断，直到遇到判断位置，与之关联的表达式被求值，并返回。 如果没有为真的，则返回<code>nil</code>.<br><strong>返回<code>nil</code>，是一种很差的编程风格，不推荐使用</strong></p>
+<p><code>cond</code> 接收多个条件判断，条件判断之后跟随与之相关的代码。执行时依次进行判断，直到遇到判断为真，与之关联的表达式被求值，并返回。 如果没有为真的，则返回<code>nil</code>.<br><strong>返回<code>nil</code>，是一种很差的编程风格，不推荐使用</strong></p>
 <p><code>case</code>表达式，直接看例子，跟C类似。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defun</span> month-days <span class="list">(<span class="keyword">mon</span>)</span>
     <span class="list">(<span class="keyword">case</span> mon
@@ -166,17 +166,17 @@
     <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"(~A ~A) "</span> x y)</span>)</span>
 <span class="list">(<span class="number">1</span> <span class="number">1</span>)</span> <span class="list">(<span class="number">2</span> <span class="number">2</span>)</span> <span class="list">(<span class="number">3</span> <span class="number">3</span>)</span> <span class="list">(<span class="number">4</span> <span class="number">4</span>)</span> <span class="list">(<span class="number">5</span> <span class="number">5</span>)</span>
 <span class="literal">nil</span>
-</code></pre><p><strong>dolist</strong> </p>
+</code></pre><p><code>dolist</code></p>
 <pre><code>&gt; <span class="list">(<span class="keyword">dolist</span> <span class="list">(<span class="keyword">x</span> <span class="quoted">'(a b c d)</span> <span class="quoted">'done</span>)</span>
     <span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"~A "</span> x)</span>)</span>
 A B C D
 DONE
-</code></pre><p><strong>dotimes</strong> 从0开始到给定的整数</p>
+</code></pre><p><code>dotimes</code> 从0开始到给定的整数</p>
 <pre><code>&gt; (dotimes (x <span class="number">5</span> x)
     (format t <span class="string">"~A "</span> x))
 <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> 
 <span class="number">5</span>
-</code></pre><p><strong>mapc</strong> 和<code>mapcar</code>类似，但不会<code>cons</code>一个新的列表作为返回值。</p>
+</code></pre><p><code>mapc</code> 和<code>mapcar</code>类似，但不会<code>cons</code>一个新的列表作为返回值。</p>
 <h2 id="5-5_Multiple_Values">5.5 Multiple Values</h2><p>通常函数只有一个返回值，想有多个返回值的话，需要将返回值打包到一起。<br>Lisp能直接返回多值。这里面有个关键函数：<code>values</code>.能一个不少的返回作为数值所传入的实参。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">values</span> <span class="quoted">'a</span> <span class="literal">nil</span> <span class="list">(<span class="keyword">+</span> <span class="number">2</span> <span class="number">4</span>)</span>)</span>
 A
@@ -185,7 +185,7 @@ NIL
 </code></pre><p>然而，如果只有一个变量接收返回值的话，其余返回值会被丢弃。<br>要接收多值，使用<code>multiple-value-bind</code>:</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">multiple-value-bind</span> <span class="list">(<span class="keyword">x</span> y z)</span> <span class="list">(<span class="keyword">values</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span> <span class="list">(<span class="keyword">list</span> x y z)</span>)</span>
 <span class="list">(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>
-</code></pre><p>同样，如果变量大于返回值，多余返回值会被丢弃；如果变量小于返回值，多余的变量赋值为<code>nil</code>。<br><code>multiple-value-call</code> 将多值作为实参传递给函数</p>
+</code></pre><p>同样，如果变量少于返回值，多余返回值会被丢弃；如果变量多于返回值，多余的变量赋值为<code>nil</code>。<br><code>multiple-value-call</code> 将多值作为实参传递给函数</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">multiple-value-call</span> <span class="quoted">#'+</span> <span class="list">(<span class="keyword">values</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span>
 <span class="number">6</span>
 </code></pre><h2 id="5-6_Aborts">5.6 Aborts</h2><p><code>return</code> 在任何时候离开一个<code>block</code>。<br>另外一种终止方式是：<code>catch &#39;tag</code> 与之对应的是<code>throw &#39;tag</code>.<br><code>throw</code>之后的表达式不被求值，并导致<code>catch</code>表达式直接返回。<br>如果要执行<code>throw</code>之后的表达式，需要使用<code>wnwind-protect</code>。<code>unwind-protect</code>接收任何数量的实参，并返回第一个实参的值。<br>如果<code>throw</code>的标签无法被<code>catch</code>匹配，那么会抛出一个错误。</p>

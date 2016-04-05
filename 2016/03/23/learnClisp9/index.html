@@ -21,7 +21,7 @@
 <meta property="og:description" content="Lisp的面向对象编程，跟Lisp的其他部分一样牛逼
 第十一章 Common Lisp 对象系统Common Lisp 对象系统，或称CLOS，是一组用来处理面向对象编程的操作集。通常将这些操作视为一个群组。技术上来说，它们与其他部分的Common Lisp没有什么不同：defmethod 和 defun 一样，都是整合在语言中一部分。
 11.1 Object-oriented Programmi">
-<meta property="og:updated_time" content="2016-03-23T07:19:26.009Z">
+<meta property="og:updated_time" content="2016-04-05T13:26:44.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<9 对象系统>">
 <meta name="twitter:description" content="Lisp的面向对象编程，跟Lisp的其他部分一样牛逼
@@ -105,7 +105,7 @@
 		
 		<p><strong>Lisp的面向对象编程，跟Lisp的其他部分一样牛逼</strong></p>
 <h1 id="第十一章_Common_Lisp_对象系统">第十一章 Common Lisp 对象系统</h1><p>Common Lisp 对象系统，或称CLOS，是一组用来处理面向对象编程的操作集。通常将这些操作视为一个群组。技术上来说，它们与其他部分的Common Lisp没有什么不同：defmethod 和 defun 一样，都是整合在语言中一部分。</p>
-<h2 id="11-1_Object-oriented_Programming">11.1 Object-oriented Programming</h2><p>面向对象编程。<br><strong>defclass</strong> 定义类型，与定义结构体类似，定义类型的<strong>槽(slot)</strong> <em>(即，字段)</em>。实参接收继承的父类。<br><strong>defmethod</strong> 定义类型方法，参数需要类型来特化。调用时会自动判断参数的类型，调用对应的方法。<br><strong>make-instance</strong> 生成类的实例<br><strong>slot-value</strong> 获取类的<strong>槽</strong> <em>(字段)</em></p>
+<h2 id="11-1_Object-oriented_Programming">11.1 Object-oriented Programming</h2><p>面向对象编程。<br><code>defclass</code> 定义类型，与定义结构体类似，定义类型的<strong>槽(slot)</strong> <em>(即，字段)</em>。实参接收继承的父类。<br><code>defmethod</code> 定义类型方法，参数需要类型来特化。调用时会自动判断参数的类型，调用对应的方法。<br><code>make-instance</code> 生成类的实例<br><code>slot-value</code> 获取类的<strong>槽</strong> <em>(字段)</em></p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defclass</span> rectangle <span class="list">()</span> <span class="list">(<span class="keyword">height</span> width)</span>)</span>
 &gt; <span class="list">(<span class="keyword">defclass</span> circle <span class="list">()</span> <span class="list">(<span class="keyword">radius</span>)</span>)</span>
 

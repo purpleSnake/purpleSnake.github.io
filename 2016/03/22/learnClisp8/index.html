@@ -27,7 +27,7 @@
 &amp;gt; (eval &apos;(+ 1 2 3))
 6
 调用eval是跨越代码和列表的一种方法，但不是一个好方法：效率低下、无法引用词法语境。函数coerce和comp">
-<meta property="og:updated_time" content="2016-03-23T14:26:57.168Z">
+<meta property="og:updated_time" content="2016-04-05T09:00:38.688Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<8 宏>">
 <meta name="twitter:description" content="终于来到了令人激动的宏
@@ -118,10 +118,10 @@
 <pre><code>&gt; <span class="list">(<span class="keyword">eval</span> <span class="quoted">'(+ <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span>
 <span class="number">6</span>
 </code></pre><p>调用<code>eval</code>是跨越代码和列表的一种方法，但不是一个好方法：效率低下、无法引用词法语境。<br>函数<code>coerce</code>和<code>compile</code>也提供了将列表转化为代码的方法。<br>由于它们能够接收列表作为参数，一个程序可以在动态执行时(on the fly)构造新函数，但这种方式的代价是昂贵的。<br>在编译期做这件事是没问题的，当程序执行时，几乎不用成本。而编译期做到这种事情使用的是宏。</p>
-<h2 id="10-2_Macros">10.2 Macros</h2><p><em>(感觉不是很牛逼嘛)</em><br><strong>defmacro</strong> 定义宏。会在求值或编译前展开。</p>
+<h2 id="10-2_Macros">10.2 Macros</h2><p><em>(感觉不是很牛逼嘛)</em><br><code>defmacro</code> 定义宏。会在求值或编译前展开。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">defmacro</span> <span class="literal">nil</span>! <span class="list">(<span class="keyword">x</span>)</span>
     <span class="list">(<span class="keyword">list</span> <span class="quoted">'setf</span> x <span class="literal">nil</span>)</span>)</span>
-</code></pre><p><strong>macroexpand-1</strong> 接收一个宏，返回它的展开式。</p>
+</code></pre><p><code>macroexpand-1</code> 接收一个宏，返回它的展开式。</p>
 <pre><code>&gt; <span class="list">(<span class="keyword">macroexpand-1</span> <span class="literal">nil</span>!)</span>
 SETF X NIL
 T

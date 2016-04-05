@@ -21,7 +21,7 @@
 <meta property="og:description" content="来，我们看看这牛逼的Lisp有怎么牛逼的IO
 第七章 输入和输出read 包含一个完整的解析器(parser)。format 输出，它自己几乎就是一门语言。Clisp有两种流(streams):字符流和二进制流。本章介绍字符流。
 7.1 Streams理解为连接文件、字符串、网络等到read,format的通路，字符在其中流动。make-pathname 路径名包含留个部分：host,device">
-<meta property="og:updated_time" content="2016-03-22T06:07:18.497Z">
+<meta property="og:updated_time" content="2016-04-05T08:46:27.302Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<6 输入和输出>">
 <meta name="twitter:description" content="来，我们看看这牛逼的Lisp有怎么牛逼的IO
@@ -117,8 +117,8 @@
                         <span class="keyword">:if-exists</span> <span class="keyword">:supersede</span>)</span>
     <span class="list">(<span class="keyword">format</span> str <span class="string">"something~A"</span>)</span>)</span>
 </code></pre><h2 id="7-2_Input">7.2 Input</h2><p><code>read-line</code> 读取字符<br><code>read</code> 比较牛逼，能自动解析读到的东西。比如读取一个Lisp对象。<br><code>read-from-string</code> 从一个字符串读取第一个字符。<br>所有的输入函数由基本函数<code>read-char</code>所定义，它读取一个字符。CLisp也定义了一个函数<code>peek-char</code>，跟<code>read-char</code>类似，但不会将字符从流中移除。</p>
-<h2 id="7-3_Output">7.3 Output</h2><p>三个简单的输出函数：<br><strong>prin1</strong> 输出的字符串左右有双引号。<br><strong>princ</strong> 输出的字符串左右没有双引号。<br><strong>terpri</strong> </p>
-<p><strong>format</strong> 最牛逼。有大量的格式化指令可用。最常用的为<code>~A ~%</code> 占位符和换行符。<code>~S</code>同样也是占位符，但相当于<code>prin1</code>，输出的字符串带双引号。<br><code>~F</code>用来打印<em>右对齐</em>浮点数。接收五个参数：</p>
+<h2 id="7-3_Output">7.3 Output</h2><p>三个简单的输出函数：<br><code>prin1</code> 输出的字符串左右有双引号。<br><code>princ</code> 输出的字符串左右没有双引号。<br><code>terpri</code> </p>
+<p><code>format</code> 最牛逼。有大量的格式化指令可用。最常用的为<code>~A ~%</code> 占位符和换行符。<code>~S</code>同样也是占位符，但相当于<code>prin1</code>，输出的字符串带双引号。<br><code>~F</code>用来打印<em>右对齐</em>浮点数。接收五个参数：</p>
 <ol>
 <li>要打印出字符的总数。缺省是数字的长度。</li>
 <li>小数之后要印几位数。缺省是全部。</li>

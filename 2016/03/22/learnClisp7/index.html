@@ -29,7 +29,7 @@ Lisp不区分大小写
 &quot;ABC&quot;
 Lisp不区分大小写
 名称可以使用任意字符。但当字符包括空白，或者其他可能被读取器解析的符号，需要使用特殊的">
-<meta property="og:updated_time" content="2016-03-22T07:24:46.005Z">
+<meta property="og:updated_time" content="2016-04-05T08:54:10.009Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lisp自学笔记<7 符号和数字>">
 <meta name="twitter:description" content="应该叫手抄笔记，^.^，接着抄。内容好像不太多
@@ -142,7 +142,7 @@ RED
 &gt; <span class="list">(<span class="keyword">in-package</span> my-application)</span>
 </code></pre><p><code>:use</code> 引用其他包，不需要使用包修饰符<br><code>:nicknames</code> 本包名称的昵称。可以使用<code>app:win</code>来引用该包的内容<br><code>:export</code> 导出的符号</p>
 <p><code>in-package</code> 之后的内容包含在该包内，直到使用<code>in-package</code>引入别的包。</p>
-<h2 id="8-6_Keywords">8.6 Keywords</h2><p>关键字属于一个keyword包，可以在任何地方引用它，使用<code>:x</code>而不是<code>keyword:x</code>。<br><em>(按这个意思理解，就是所有的包 都 引用了 keyword包， 而所有的关键字都包含在keyword包中。)</em></p>
+<h2 id="8-6_Keywords">8.6 Keywords</h2><p>关键字属于一个keyword包，可以在任何地方引用它，使用<code>:x</code>而不是<code>keyword:x</code>。<br><em>(按这个意思理解，就是所有的包 都 引用了 keyword包， 而所有的关键字都包含在keyword包中。ps:不能这么理解，这么理解的话命名重复了怎么办？)</em></p>
 <h2 id="8-7_symbols_and_Variables">8.7 symbols and Variables</h2><p>Lisp有一件让你困惑的事情，符号和变量在两个不同的层面上关联。<br>当符号是<em>特别变量</em>(即，全局变量)时，变量的值在符号的value栏，可以使用<code>symbol-value</code>获得该值。符号和变量之间有直接联系。<br>当符号是<em>词法变量</em>(即，局部变量)时，符号只是占位符，编译器会将其转为一个寄存器或者内存的引用地址。在最后编译出来的代码中，我们无法追踪这个符号。符号和词法变量之间没有联系：一旦有值，符号就消失了。<br><em>(可以理解，符号也只是一个内存地址，局部变量为了提高效率跳过符号，直接使用地址。)</em></p>
 <h1 id="第九章_数字">第九章 数字</h1><p>处理数字是Lisp的强项之一。</p>
 <h2 id="9-1_Types">9.1 Types</h2><p>Lisp提供四种不同类型的数字：整数、浮点数、比值和复数。 复数<code>a+bi</code>写成<code>#c(a b)</code>。<br>谓词<code>integerp,floatp,ratiop,complexp</code>，针对相应的数字返回真。</p>
@@ -155,9 +155,9 @@ RED
 </blockquote>
 </li>
 </ol>
-<h2 id="9-2_conversion_and_extraction">9.2 conversion and extraction</h2><p><strong>trunctate</strong> 返回任何实数的整数部分，第二个返回值为小数部分(<code>rem</code>同样)。<br><strong>float</strong> 将任何数转化为实数<br><strong>floor</strong> 返回小于等于参数的最大整数， 第二个返回值为小数部分(<code>mod</code>同样)。<br><strong>ceiling</strong> 返回大于等于参数的最小整数， 第二个返回值为小数部分。<br><strong>round</strong> 四舍五入，第二个返回值为小数部分。<br><strong>signum</strong> 返回-1 0 1<br><strong>abs</strong> 返回绝对值<br><strong>random</strong> 接收一个整数或浮点数n，返回0到n之间的随机数，类型与n相同。</p>
-<p><strong>numerator</strong> 返回分子<br><strong>denominator</strong> 返回分母<br><strong>realpart、imgpart</strong> 返回实部和虚部</p>
-<h2 id="9-3_Comparsion">9.3 Comparsion</h2><h2 id="9-4_Arithematic">9.4 Arithematic</h2><p><strong>incf,decf</strong> 递增或递减 <code>(incf x n)</code>，n可以缺省，默认为1</p>
+<h2 id="9-2_conversion_and_extraction">9.2 conversion and extraction</h2><p><code>trunctate</code> 返回任何实数的整数部分，第二个返回值为小数部分(<code>rem</code>同样)。<br><code>float</code> 将任何数转化为实数<br><code>floor</code> 返回小于等于参数的最大整数， 第二个返回值为小数部分(<code>mod</code>同样)。<br><code>ceiling</code> 返回大于等于参数的最小整数， 第二个返回值为小数部分。<br><code>round</code> 四舍五入，第二个返回值为小数部分。<br><code>signum</code> 返回-1 0 1<br><code>abs</code> 返回绝对值<br><code>random</code> 接收一个整数或浮点数n，返回0到n之间的随机数，类型与n相同。</p>
+<p><code>numerator</code> 返回分子<br><code>denominator</code> 返回分母<br><code>realpart、imgpart</code> 返回实部和虚部</p>
+<h2 id="9-3_Comparsion">9.3 Comparsion</h2><h2 id="9-4_Arithematic">9.4 Arithematic</h2><p><code>incf,decf</code> 递增或递减 <code>(incf x n)</code>，n可以缺省，默认为1</p>
 <h2 id="9-5_Exponentiation">9.5 Exponentiation</h2><p>指数。<br>$x^n$  <code>(expt x n)</code><br>$\log_n x$ <code>(log x n)</code><br>$e^x$ <code>(exp x)</code><br>$\sqrt{x}$ <code>(sqrt x)</code></p>
 <h2 id="9-6_Trigometric_Functions">9.6 Trigometric Functions</h2><p>$\pi$ <code>pi</code><br><code>sin,cos,tan,asin,acos,atan,sinh,cosh,tanh,asinh,acosh,atanh</code></p>
 <h2 id="9-7_Representations">9.7 Representations</h2><h2 id="9-8_example:ray-tracking">9.8 example:ray-tracking</h2>  
