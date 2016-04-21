@@ -1,0 +1,536 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>matplotlib reference | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="继续进行工具学习，这次是画图。matplotlib感觉内容有点多啊，实用为主，快速入门
+Pyplotpyplot是一系列命令式的函数，使得matplotlib以类似Matlab plot的形式工作。每个函数会对图片产生一定的作用。一个简单的例子：
+import matplotlib as plt
+plt.plot([1,2,3,4])
+plt.ylabel(&apos;some numbers&apos;)
+plt.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="matplotlib reference">
+<meta property="og:url" content="http://yoursite.com/2016/04/20/matplotlib-reference/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="继续进行工具学习，这次是画图。matplotlib感觉内容有点多啊，实用为主，快速入门
+Pyplotpyplot是一系列命令式的函数，使得matplotlib以类似Matlab plot的形式工作。每个函数会对图片产生一定的作用。一个简单的例子：
+import matplotlib as plt
+plt.plot([1,2,3,4])
+plt.ylabel(&apos;some numbers&apos;)
+plt.">
+<meta property="og:updated_time" content="2016-04-21T02:41:33.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="matplotlib reference">
+<meta name="twitter:description" content="继续进行工具学习，这次是画图。matplotlib感觉内容有点多啊，实用为主，快速入门
+Pyplotpyplot是一系列命令式的函数，使得matplotlib以类似Matlab plot的形式工作。每个函数会对图片产生一定的作用。一个简单的例子：
+import matplotlib as plt
+plt.plot([1,2,3,4])
+plt.ylabel(&apos;some numbers&apos;)
+plt.">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/20/matplotlib-reference/" title="matplotlib reference" itemprop="url">matplotlib reference</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-20T13:26:07.000Z" itemprop="datePublished"> 发表于 2016-04-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pyplot"><span class="toc-number">1.</span> <span class="toc-text">Pyplot</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#working_with_text"><span class="toc-number">1.1.</span> <span class="toc-text">working with text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nonlinear_axis"><span class="toc-number">1.2.</span> <span class="toc-text">nonlinear axis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Customing_plots_with_style_sheets"><span class="toc-number">2.</span> <span class="toc-text">Customing plots with style sheets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image"><span class="toc-number">3.</span> <span class="toc-text">Image</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Legend"><span class="toc-number">4.</span> <span class="toc-text">Legend</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Text"><span class="toc-number">5.</span> <span class="toc-text">Text</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#text_box"><span class="toc-number">5.1.</span> <span class="toc-text">text box</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#text_arrow"><span class="toc-number">5.2.</span> <span class="toc-text">text arrow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Plots"><span class="toc-number">6.</span> <span class="toc-text">Plots</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mplot3d"><span class="toc-number">7.</span> <span class="toc-text">mplot3d</span></a></li></ol>
+		
+		</div>
+		
+		<p>继续进行工具学习，这次是画图。<br>matplotlib<br><strong>感觉内容有点多啊，实用为主，快速入门</strong></p>
+<h1 id="Pyplot">Pyplot</h1><p>pyplot是一系列命令式的函数，使得matplotlib以类似Matlab plot的形式工作。每个函数会对图片产生一定的作用。<br>一个简单的例子：</p>
+<pre><code>import matplotlib as plt
+plt.<span class="function"><span class="title">plot</span><span class="params">([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])</span></span>
+plt.<span class="function"><span class="title">ylabel</span><span class="params">(<span class="string">'some numbers'</span>)</span></span>
+plt.<span class="function"><span class="title">show</span><span class="params">()</span></span>
+</code></pre><p><strong>和matlab很类似，不用学了</strong></p>
+<pre><code>def <span class="function"><span class="title">f</span><span class="params">(t)</span></span>:
+    return np.<span class="function"><span class="title">exp</span><span class="params">(-t)</span></span>*np.<span class="function"><span class="title">cos</span><span class="params">(<span class="number">2</span>*np.pi*t)</span></span>
+
+t1 = np.<span class="function"><span class="title">arange</span><span class="params">(<span class="number">0.0</span>,<span class="number">5.0</span>,<span class="number">0.1</span>)</span></span>
+t2 = np.<span class="function"><span class="title">arange</span><span class="params">(<span class="number">0.0</span>,<span class="number">5.0</span>, <span class="number">0.02</span>)</span></span>
+
+plt.<span class="function"><span class="title">figure</span><span class="params">(<span class="number">1</span>)</span></span>
+plt.<span class="function"><span class="title">subplot</span><span class="params">(<span class="number">211</span>)</span></span>
+plt.<span class="function"><span class="title">plot</span><span class="params">(t1,f(t1)</span></span>,<span class="string">'bo'</span>, t2,<span class="function"><span class="title">f</span><span class="params">(t2)</span></span>,<span class="string">'k'</span>)
+
+plt.<span class="function"><span class="title">subplot</span><span class="params">(<span class="number">212</span>)</span></span>
+plt.<span class="function"><span class="title">plot</span><span class="params">(t2,np.cos(<span class="number">2</span>*np.pi*t2)</span></span>,<span class="string">'r--'</span>)
+plt.<span class="function"><span class="title">show</span><span class="params">()</span></span>
+</code></pre><h2 id="working_with_text">working with text</h2><pre><code>plt.<span class="function"><span class="title">xlabel</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">ylabel</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">title</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">text</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">axis</span><span class="params">([<span class="number">0</span>,<span class="number">10</span>,<span class="number">0</span>,<span class="number">10</span>])</span></span>
+plt.<span class="function"><span class="title">grid</span><span class="params">()</span></span>
+</code></pre><h2 id="nonlinear_axis">nonlinear axis</h2><pre><code>plt.<span class="function"><span class="title">yscale</span><span class="params">(<span class="string">'log'</span>)</span></span>
+plt.<span class="function"><span class="title">yscale</span><span class="params">(<span class="string">'symlog'</span>)</span></span>
+plt.<span class="function"><span class="title">yscale</span><span class="params">(<span class="string">'logit'</span>)</span></span>
+</code></pre><h1 id="Customing_plots_with_style_sheets">Customing plots with style sheets</h1><p>切换显示风格</p>
+<pre><code>plt<span class="class">.style</span><span class="class">.use</span>(<span class="string">'ggplot'</span>)
+</code></pre><h1 id="Image">Image</h1><pre><code>import matplotlib as plt
+imprt matplotlib<span class="class">.image</span> as mping
+import numpy as np
+
+<span class="tag">img</span> = mping.<span class="function"><span class="title">imread</span><span class="params">(<span class="string">'path'</span>)</span></span>
+imgplot = plt.<span class="function"><span class="title">imshow</span><span class="params">(img)</span></span>
+
+plt.<span class="function"><span class="title">colorbar</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">hist</span><span class="params">(img.ravel()</span></span>, bins=<span class="number">256</span>, range=(<span class="number">0.0</span>,<span class="number">1.0</span>),fc=<span class="string">'k'</span>,ec=<span class="string">'k'</span>)  #直方图
+</code></pre><h1 id="Legend">Legend</h1><pre><code>line1 = plt.<span class="function"><span class="title">plot</span><span class="params">()</span></span>
+line2 = plt.<span class="function"><span class="title">plot</span><span class="params">()</span></span>
+plt.<span class="function"><span class="title">legend</span><span class="params">([line1, line2], [<span class="string">'line1'</span>, <span class="string">'line2'</span>])</span></span>
+</code></pre><h1 id="Text">Text</h1><h2 id="text_box">text box</h2><p>很灵活。但是比较麻烦，不如matlab figure界面直接操作来的直接。<br>使用<code>text()</code>函数，接收<code>bbox</code>关键字参数，则可在文字周围画一个边框。</p>
+<pre><code>bbox_props = dict{boxstyle=<span class="string">"rarrow,pad=0.3"</span>, fc=<span class="string">"cyan"</span>, ec=<span class="string">"b"</span>, lw=<span class="number">2</span>}
+t = ax.text(<span class="number">0</span>,<span class="number">0</span>,<span class="string">"Direction"</span>, ha=<span class="string">"center"</span>,va=<span class="string">"center"</span>, rotation=<span class="number">45</span>, size=<span class="number">15</span>, bbox=bbox_props)
+bb = t.get_bbox_path()  <span class="preprocessor">#获取与文字相关联的对象</span>
+bb.set_boxstyle(<span class="string">"rarrow"</span>,pad=<span class="number">0.6</span>)
+</code></pre><p>bbox style:<code>circle,darrow(double arrow),larrow(left arrow),</code><br><code>rarrow(right arrow),round(圆角矩形),round4,roundtooth(波浪线矩形),</code><br><code>sawtooth(锯齿矩形),square</code>.</p>
+<h2 id="text_arrow">text arrow</h2><p>画一个连接两个点的箭头，附带说明文字。</p>
+<pre><code>ax.annotate(<span class="string">"annotate"</span>, 
+            xy=(x1,y1), xycoords=<span class="string">'data'</span>, <span class="preprocessor">#箭头所在的点，对应的坐标系</span>
+            xytext=(x2,y2),textcoords=<span class="string">'offset points'</span> <span class="preprocessor">#文字所在的位置，坐标表示偏移量</span>
+            arrowprops = dict{arrowstyle=<span class="string">"-&gt;"</span>, connectionstyle=<span class="string">"arc3"</span>}  <span class="preprocessor">#箭头属性</span>
+            )
+</code></pre><h1 id="Plots">Plots</h1><ol>
+<li>plot()</li>
+<li>subplot()</li>
+<li>hist() #直方图</li>
+<li>path</li>
+<li>steamplot()</li>
+<li>bar()</li>
+<li>pie()</li>
+<li>table()</li>
+<li>scatter()</li>
+<li>fill()</li>
+<li>semilogx(),semilogy, loglog()</li>
+<li>polar()</li>
+</ol>
+<h1 id="mplot3d">mplot3d</h1><p>需要单独的库，</p>
+<pre><code>from mpl_toolkits<span class="class">.mplot3d</span> import Axes3D
+import matplotlib<span class="class">.pyplot</span> as plt
+
+fig= plt.<span class="function"><span class="title">figure</span><span class="params">()</span></span>
+ax = fig.<span class="function"><span class="title">add_subplot</span><span class="params">(<span class="number">111</span>, projection=<span class="string">'3d'</span>)</span></span> #说明为<span class="number">3</span>d
+</code></pre><p>其他调用与2D调用类似。<br><code>plot_surface()</code><br><code>contour(x,y,z)</code> 不同方向的投影</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/04/20/matplotlib-reference/" data-title="matplotlib reference | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/20/Numpy-reference/"  title="Numpy reference">
+ <strong>下一篇：</strong><br/> 
+ <span>Numpy reference
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pyplot"><span class="toc-number">1.</span> <span class="toc-text">Pyplot</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#working_with_text"><span class="toc-number">1.1.</span> <span class="toc-text">working with text</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nonlinear_axis"><span class="toc-number">1.2.</span> <span class="toc-text">nonlinear axis</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Customing_plots_with_style_sheets"><span class="toc-number">2.</span> <span class="toc-text">Customing plots with style sheets</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Image"><span class="toc-number">3.</span> <span class="toc-text">Image</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Legend"><span class="toc-number">4.</span> <span class="toc-text">Legend</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Text"><span class="toc-number">5.</span> <span class="toc-text">Text</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#text_box"><span class="toc-number">5.1.</span> <span class="toc-text">text box</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#text_arrow"><span class="toc-number">5.2.</span> <span class="toc-text">text arrow</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Plots"><span class="toc-number">6.</span> <span class="toc-text">Plots</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mplot3d"><span class="toc-number">7.</span> <span class="toc-text">mplot3d</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
