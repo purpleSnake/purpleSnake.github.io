@@ -1,0 +1,470 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Python regular expression | Self-discipline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="Benjamin">
+    
+
+    
+    <meta name="description" content="最近学习机器学习算法用到了字符串处理，顺便学一学正则表达式。记录一下自己认为重要的知识点。参考教程另一篇参考文章，主要分析re的效率问题
+1. regular expression正则表达式是一种处理字符串(匹配、提取)的强大工具，拥有独立的语法及处理引擎，在所有语言中具有相同的形式。正则表达式的处理效率不如内置的str方法，但功能十分强大。处理流程是：首先构造正则表达式，然后构建正则表达式对象，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python regular expression">
+<meta property="og:url" content="http://yoursite.com/2016/05/05/python-regular/index.html">
+<meta property="og:site_name" content="Self-discipline">
+<meta property="og:description" content="最近学习机器学习算法用到了字符串处理，顺便学一学正则表达式。记录一下自己认为重要的知识点。参考教程另一篇参考文章，主要分析re的效率问题
+1. regular expression正则表达式是一种处理字符串(匹配、提取)的强大工具，拥有独立的语法及处理引擎，在所有语言中具有相同的形式。正则表达式的处理效率不如内置的str方法，但功能十分强大。处理流程是：首先构造正则表达式，然后构建正则表达式对象，">
+<meta property="og:updated_time" content="2016-05-05T02:08:58.647Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python regular expression">
+<meta name="twitter:description" content="最近学习机器学习算法用到了字符串处理，顺便学一学正则表达式。记录一下自己认为重要的知识点。参考教程另一篇参考文章，主要分析re的效率问题
+1. regular expression正则表达式是一种处理字符串(匹配、提取)的强大工具，拥有独立的语法及处理引擎，在所有语言中具有相同的形式。正则表达式的处理效率不如内置的str方法，但功能十分强大。处理流程是：首先构造正则表达式，然后构建正则表达式对象，">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Self-discipline" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Self-discipline" title="Self-discipline"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Self-discipline">Self-discipline</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:yoursite.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/05/05/python-regular/" title="Python regular expression" itemprop="url">Python regular expression</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="Benjamin" target="_blank" itemprop="author">Benjamin</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-05T00:25:11.000Z" itemprop="datePublished"> 发表于 2016-05-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-_regular_expression"><span class="toc-number">1.</span> <span class="toc-text">1. regular expression</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1_正则表达式组成"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 正则表达式组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2_贪婪模式，非贪婪模式"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 贪婪模式，非贪婪模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3_反斜杠干扰"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 反斜杠干扰</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-_re模块"><span class="toc-number">2.</span> <span class="toc-text">2. re模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见的几个小李子"><span class="toc-number">3.</span> <span class="toc-text">常见的几个小李子</span></a></li></ol>
+		
+		</div>
+		
+		<p><em>最近学习机器学习算法用到了字符串处理，顺便学一学正则表达式。记录一下自己认为重要的知识点。</em><br><em><a href="http://www.cnblogs.com/huxi/archive/2010/07/04/1771073.html" target="_blank" rel="external">参考教程</a></em><br><em><a href="http://my.oschina.net/o0Kira0o/blog/138516" target="_blank" rel="external">另一篇参考文章，主要分析re的效率问题</a></em></p>
+<h1 id="1-_regular_expression">1. regular expression</h1><p>正则表达式是一种处理字符串(匹配、提取)的强大工具，拥有独立的语法及处理引擎，在所有语言中具有相同的形式。正则表达式的处理效率不如内置的str方法，但功能十分强大。<br>处理流程是：首先构造正则表达式，然后构建正则表达式对象，最后使用该对象处理要匹配的文本，产生结果。<br>需要学习的过程是如何构造正则表达式。</p>
+<h2 id="1-1_正则表达式组成">1.1 正则表达式组成</h2><p><strong>字符</strong><br><code>一般字符</code>: 匹配自身，<code>abc</code> 匹配 <code>abc</code><br><code>.</code> : 匹配除换行符<code>\n</code>之外的所有字符，在dotall模式下，匹配所有字符。<br><code>[...]</code> ： 字符集，对应位置可以是字符集中的任意字符，字符集可以逐个列出，也可以给出范围。如<code>[abc]</code>或者<code>[a-c]</code>。如果第一个字符是<code>^</code>，表示不是后面字符的其他字符。字符集内所有特殊字符都失去其特殊含义，变成普通字符。<strong>与下面的转义符相比，字符集会引起额外的开销，在一篇文章上看到，个人不确定。</strong><br><code>\</code> ： 转移符，改变后一个字符的含义。如果要匹配<code>*</code>，可以使用<code>\*</code>或者<code>[*]</code></p>
+<p><strong>预定义字符集</strong> <em>(可以写在字符集中)</em><br><code>\d</code> : 数字<code>[0-9]</code><br><code>\D</code> : 非数字<code>[^\d]</code><br><code>\s</code> : 空白符<code>[&lt;空格&gt;\t\r\n\f\v]</code><br><code>\S</code> : 非空白符<code>[^\s]</code><br><code>\w</code> : 单词字符<code>[A-Za-z0-9_]</code><br><code>\W</code> : 非单词字符<code>[^\w]</code></p>
+<p><strong>数量词</strong> <em>(可以用在字符或者(…)之后)</em> <strong>python中好像量词的效率不高，不如直接列出来(未测试)</strong><br><code>*</code> : 匹配前一个字符0或者无限次<br><code>+</code> : 匹配前一个字符1或者无限次<br><code>?</code> : 匹配前一个字符0或者1次<br><code>{m}</code> : 匹配前一个字符m次<br><code>{m,n}</code> : 匹配前一个字符m至n次。m或者n可以省略<br><code>*?,+?,??,{m,n}?</code> :  非贪婪模式，第一次匹配就结束</p>
+<p><strong>边界匹配</strong> <em>(不消耗待匹配字符串中的字符)</em><br><code>^</code> : 匹配字符串开头，在多行模式中匹配每行的开头<br><code>$</code> : 匹配字符串结尾，在多行模式中匹配每行的结尾<br><code>\A</code> : 仅匹配字符串开头<br><code>\Z</code> : 仅匹配字符串结尾<br><code>\b</code> : 匹配<code>\w</code>和<code>\W</code>之间。<em>毛意思？</em><br><code>\B</code> : <code>[^\b]</code></p>
+<p><strong>逻辑、分组</strong><br><code>|</code> : 匹配左右表达式的任意一个。左侧表达式具有较高优先级。<br><code>(...)</code> : 被包括起来的表达式将作为分组，分组作为一个整体，可以接收数量词。例如 <code>(abc){2}</code> 匹配<code>abcabc</code><br><code>(?P&lt;name&gt;...)</code> : 分组命名<br><code>\&lt;number&gt;</code> : 引用编号为number的分组匹配字符串<br><code>(?P=name)</code> :  引用别名为name的分组匹配字符串</p>
+<p><strong>特殊构造</strong> <em>(预测(断言)匹配，即只有之前(之后)匹配(不)成功，才能匹配该字符)</em><br><code>(?=...)</code> : 之后字符串内容需要匹配，表达式才匹配成功  例如 <code>a(?=\d)</code>匹配<code>a1</code>,而无法匹配<code>ab</code><br><code>(?!...)</code> : 之后字符串内容需要不匹配，表达式才匹配成功<br><code>(?&lt;=...)</code> : 之前字符串内容需要匹配，表达式才匹配成功 例如 <code>(?&lt;=\d)a</code>匹配<code>1a</code>,而无法匹配<code>cab</code><br><code>(?&lt;!...)</code> : 之前字符串内容需要不匹配，表达式才匹配成功</p>
+<h2 id="1-2_贪婪模式，非贪婪模式">1.2 贪婪模式，非贪婪模式</h2><p>贪婪模式即尽可能匹配最长字符串<br>非贪婪模式即匹配最短字符串<br>例如：使用<code>ab*</code>匹配<code>abbbc</code>，将得到<code>abbb</code>，而使用非贪婪模式的<code>ab*?</code>匹配，则得到<code>a</code></p>
+<h2 id="1-3_反斜杠干扰">1.3 反斜杠干扰</h2><p>使用python的原生字符串能很好的解决这个问题。在字符串前加<code>r</code>。其他的语言也有相应解决方案。</p>
+<h1 id="2-_re模块">2. re模块</h1><p>通过例子来说明如何使用</p>
+<pre><code><span class="keyword">import</span> re
+
+patter = re.compile(<span class="string">r'hello'</span>) <span class="comment">#构造匹配对象</span>
+
+match = patter.match(<span class="string">'hello world'</span>) <span class="comment">#进行匹配，返回匹配结果</span>
+</code></pre><p><code>re.compile(strPatter[,flag])</code> :匹配对象工厂方法，flag为匹配模式，一般不需要。<br><code>re.match()</code> ：返回一次匹配结果，拥有众多的参数来定义匹配行为。</p>
+<p><strong>匹配对象的方法</strong><br><code>match(string[,pos[,endpos]])</code> 返回一个match对象<br><code>search(string[,pos[,endpos]])</code> 与match类似，但会尝试<br><code>split(string[,maxsplit])</code> 将字符串分割后，返回列表。<strong>这应该是最重要的功能了</strong><br><code>findall(sting[,pos[,endpos]])</code> 以列表的形式返回所有的匹配字符<br><code>finditer(string[,pos[,endpos]])</code> 以迭代器的形式返回匹配结果<br><code>sub(repl,string[,count])</code> 替换匹配成功的子串，然后返回修改后的字符串</p>
+<h1 id="常见的几个小李子">常见的几个小李子</h1><ol>
+<li>匹配电话号码<code>800-123-4234&#39;</code>^\d{3}-\d{3}-\d{4}$`</li>
+<li>邮箱    <code>email:joe_doe@deitel.com</code>  r`^email:\w+@\w+.com+$</li>
+</ol>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/python/">python</a>
+</div>
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://yoursite.com/2016/05/05/python-regular/" data-title="Python regular expression | Self-discipline" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/20/matplotlib-reference/"  title="matplotlib reference">
+ <strong>下一篇：</strong><br/> 
+ <span>matplotlib reference
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-_regular_expression"><span class="toc-number">1.</span> <span class="toc-text">1. regular expression</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1_正则表达式组成"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 正则表达式组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2_贪婪模式，非贪婪模式"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 贪婪模式，非贪婪模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3_反斜杠干扰"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 反斜杠干扰</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-_re模块"><span class="toc-number">2.</span> <span class="toc-text">2. re模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见的几个小李子"><span class="toc-number">3.</span> <span class="toc-text">常见的几个小李子</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/Clisp/" title="Clisp">Clisp<sup>11</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>2</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/LaTex/" title="LaTex">LaTex<sup>1</sup></a></li>
+		  
+		
+		  
+		
+		  
+			<li><a href="/categories/machine-learning/" title="machine learning">machine learning<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/python/" title="python">python<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+  <div class="weiboshow">
+  <p class="asidetitle">新浪微博</p>
+    <iframe width="100%" height="119" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=119&fansRow=2&ptype=1&speed=0&skin=9&isTitle=1&noborder=1&isWeibo=0&isFans=0&uid=null&verifier=&dpc=1"></iframe>
+</div>
+
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<div class="social-font" class="clearfix">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="Benjamin">Benjamin</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fe6d1f421bbc9962127a50488f9ed37d1' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
